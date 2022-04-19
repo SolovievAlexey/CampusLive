@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ru.campus.live.R
-import ru.campus.live.core.di.component.DaggerFeedComponent
-import ru.campus.live.core.di.component.FeedComponent
+import ru.campus.live.core.di.component.DaggerRibbonComponent
+import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.ui.BaseFragment
 import ru.campus.live.core.presentation.ui.MyOnClick
@@ -25,8 +25,8 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
 
-    private val component: FeedComponent by lazy {
-        DaggerFeedComponent.builder()
+    private val component: RibbonComponent by lazy {
+        DaggerRibbonComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
     }

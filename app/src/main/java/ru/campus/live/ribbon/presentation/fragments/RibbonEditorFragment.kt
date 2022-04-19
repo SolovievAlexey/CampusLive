@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.campus.live.R
 import ru.campus.live.core.data.model.ErrorObject
-import ru.campus.live.core.di.component.DaggerFeedComponent
-import ru.campus.live.core.di.component.FeedComponent
+import ru.campus.live.core.di.component.DaggerRibbonComponent
+import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.ui.BaseFragment
 import ru.campus.live.core.presentation.ui.Keyboard
@@ -31,8 +31,8 @@ import ru.campus.live.ribbon.data.model.RibbonModel
 
 class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
 
-    private val component: FeedComponent by lazy {
-        DaggerFeedComponent.builder()
+    private val component: RibbonComponent by lazy {
+        DaggerRibbonComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
     }

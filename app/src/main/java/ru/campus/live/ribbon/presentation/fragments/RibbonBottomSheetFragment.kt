@@ -12,8 +12,8 @@ import androidx.navigation.navGraphViewModels
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.campus.live.R
 import ru.campus.live.core.data.model.VoteModel
-import ru.campus.live.core.di.component.DaggerFeedComponent
-import ru.campus.live.core.di.component.FeedComponent
+import ru.campus.live.core.di.component.DaggerRibbonComponent
+import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.databinding.FragmentFeedBottomSheetBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
@@ -21,8 +21,8 @@ import ru.campus.live.ribbon.presentation.viewmodel.RibbonViewModel
 
 class RibbonBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
-    private val component: FeedComponent by lazy {
-        DaggerFeedComponent.builder()
+    private val component: RibbonComponent by lazy {
+        DaggerRibbonComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
     }
