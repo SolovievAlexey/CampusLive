@@ -9,7 +9,9 @@ import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.core.di.deps.AppDeps
 import ru.campus.live.core.di.module.AppModule
 import ru.campus.live.ribbon.data.db.AppDatabase
+import javax.inject.Singleton
 
+@Singleton
 @Component(modules = [AppModule::class])
 interface AppComponent : AppDeps {
 

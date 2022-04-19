@@ -14,10 +14,12 @@ import ru.campus.live.core.data.source.HostDataSource
 import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.ribbon.data.db.AppDatabase
+import javax.inject.Singleton
 
 @Module(includes = [AppBindModule::class])
 class AppModule {
 
+    @Singleton
     @Provides
     fun provideAPIService(hostDataSource: HostDataSource): APIService {
         val retrofit: Retrofit = Retrofit.Builder()
@@ -27,6 +29,7 @@ class AppModule {
         return retrofit.create(APIService::class.java)
     }
 
+    @Singleton
     @Provides
     fun provideAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(
@@ -36,15 +39,24 @@ class AppModule {
         ).build()
     }
 
+    @Singleton
     @Provides
     fun provideDispatchersImpl(): Dispatchers {
         return Dispatchers()
     }
+
+    @Singleton
+    @Provides
+    fun provideUserDataSource(context: Context): UserDataSource {
+        return UserDataSource(context = context)
+    }
+
 }
 
 @Module
 interface AppBindModule {
 
+    @Singleton
     @Binds
     fun bindUserDataSource(userDataSource: UserDataSource): IUserDataSource
 

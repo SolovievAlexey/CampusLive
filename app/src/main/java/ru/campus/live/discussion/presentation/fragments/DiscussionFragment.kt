@@ -17,7 +17,7 @@ import ru.campus.live.core.di.component.DaggerDiscussionComponent
 import ru.campus.live.core.di.component.DiscussionComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.BaseFragment
-import ru.campus.live.core.presentation.ui.BounceEdgeEffectFactory
+import ru.campus.live.core.presentation.BounceEdgeEffectFactory
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentDiscussionBinding
 import ru.campus.live.discussion.data.model.DiscussionModel
