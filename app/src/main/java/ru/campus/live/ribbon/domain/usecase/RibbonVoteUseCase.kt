@@ -5,7 +5,7 @@ import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.domain.ItemVoteEditUseCase
 import ru.campus.live.ribbon.data.model.RibbonModel
 
-class FeedVoteUseCase {
+class RibbonVoteUseCase {
 
     fun execute(model: ArrayList<RibbonModel>, voteModel: VoteModel): ArrayList<RibbonModel> {
         val index = model.indexOfFirst { it.id == voteModel.id }

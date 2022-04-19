@@ -12,7 +12,7 @@ import ru.campus.live.ribbon.data.model.PublicationPostObject
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import ru.campus.live.ribbon.data.repository.IRibbonRepository
-import ru.campus.live.ribbon.domain.usecase.FeedVoteUseCase
+import ru.campus.live.ribbon.domain.usecase.RibbonVoteUseCase
 import javax.inject.Inject
 
 class RibbonInteractor @Inject constructor(
@@ -54,7 +54,7 @@ class RibbonInteractor @Inject constructor(
     }
 
     fun vote(model: ArrayList<RibbonModel>, params: VoteModel): ArrayList<RibbonModel> {
-        return FeedVoteUseCase().execute(model, params)
+        return RibbonVoteUseCase().execute(model, params)
     }
 
     fun sendVoteOnServer(params: VoteModel) {
