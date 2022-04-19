@@ -74,7 +74,6 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private val list = Observer<ArrayList<RibbonModel>> { newModel ->
-        Log.d("MyLog", "Размер объекта = "+newModel.size)
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
