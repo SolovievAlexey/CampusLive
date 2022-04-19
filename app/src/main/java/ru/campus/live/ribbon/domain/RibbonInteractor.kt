@@ -8,7 +8,7 @@ import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
-import ru.campus.live.ribbon.data.model.PublicationPostObject
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import ru.campus.live.ribbon.data.repository.IRibbonRepository
@@ -61,7 +61,7 @@ class RibbonInteractor @Inject constructor(
         repository.vote(params)
     }
 
-    fun post(params: PublicationPostObject): ResponseObject<RibbonModel> {
+    fun post(params: RibbonPostModel): ResponseObject<RibbonModel> {
         return repository.post(params)
     }
 

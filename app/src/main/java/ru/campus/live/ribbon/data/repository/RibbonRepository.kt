@@ -7,7 +7,7 @@ import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
-import ru.campus.live.ribbon.data.model.PublicationPostObject
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class RibbonRepository @Inject constructor(
             call)
     }
 
-    override fun post(params: PublicationPostObject): ResponseObject<RibbonModel> {
+    override fun post(params: RibbonPostModel): ResponseObject<RibbonModel> {
         val call = apiService.post(
             userDataSource.token(), userDataSource.location().id,
             params.message, params.attachment

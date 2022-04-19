@@ -20,7 +20,7 @@ import ru.campus.live.core.presentation.ui.Keyboard
 import ru.campus.live.core.presentation.ui.MyOnClick
 import ru.campus.live.databinding.FragmentCreatePublicationBinding
 import ru.campus.live.dialog.ErrorDialog
-import ru.campus.live.ribbon.data.model.PublicationPostObject
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonEditorViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
 import ru.campus.live.gallery.data.model.GalleryDataObject
@@ -92,7 +92,7 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
                 binding.progressBar.isVisible = true
                 val message = binding.editText.text.toString()
                 if (message.isEmpty()) return@setOnMenuItemClickListener false
-                val params = PublicationPostObject(message = message, attachment = 0)
+                val params = RibbonPostModel(message = message, attachment = 0)
                 viewModel.post(params)
             }
             return@setOnMenuItemClickListener false

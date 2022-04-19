@@ -1,6 +1,6 @@
 package ru.campus.live.ribbon.data.model
 
-data class PublicationPostObject(
+data class RibbonPostModel(
     val message: String,
     var attachment: Int = 0
 )

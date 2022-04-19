@@ -14,7 +14,7 @@ import ru.campus.live.core.domain.UploadMediaInteractor
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
-import ru.campus.live.ribbon.data.model.PublicationPostObject
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.domain.RibbonEditorInteractor
 import javax.inject.Inject
@@ -38,7 +38,7 @@ class RibbonEditorViewModel @Inject constructor(
         get() = uploadLiveData
 
     @SuppressLint("NullSafeMutableLiveData")
-    fun post(params: PublicationPostObject) {
+    fun post(params: RibbonPostModel) {
         viewModelScope.launch(dispatcher.io) {
             uploadLiveData.value?.let { model -> params.attachment = model[0].id }
             when (val result = interactor.post(params)) {
