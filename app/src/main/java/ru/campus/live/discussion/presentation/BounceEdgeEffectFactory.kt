@@ -1,4 +1,4 @@
-package ru.campus.live.core.presentation
+package ru.campus.live.discussion.presentation
 
 import android.graphics.Canvas
 import android.widget.EdgeEffect
