@@ -23,13 +23,16 @@ class DiscussionViewModel @Inject constructor(
     private var publication: DiscussionModel? = null
 
     private val listLiveData = MutableLiveData<ArrayList<DiscussionModel>>()
-    fun getListLiveData(): LiveData<ArrayList<DiscussionModel>> = listLiveData
+    val list: LiveData<ArrayList<DiscussionModel>>
+        get() = listLiveData
+
     private val titleLiveData = MutableLiveData<String>()
-    fun getTitleLiveData(): LiveData<String> = titleLiveData
-    private val complaintEvent = SingleLiveEvent<DiscussionModel>()
-    fun getComplaintEvent() = complaintEvent
+    val title: LiveData<String>
+        get() = titleLiveData
 
-
+    private val complaintLiveData = SingleLiveEvent<DiscussionModel>()
+    val complaint: LiveData<DiscussionModel>
+        get() = complaintLiveData
 
     init {
         listLiveData.observeForever {
@@ -116,7 +119,7 @@ class DiscussionViewModel @Inject constructor(
     }
 
     fun complaint(item: DiscussionModel) {
-        complaintEvent.value = item
+        complaintLiveData.value = item
         viewModelScope.launch(dispatcher.io) {
             interactor.complaint(item.id)
         }
