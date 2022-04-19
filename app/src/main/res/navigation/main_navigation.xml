@@ -42,14 +42,7 @@
             app:destination="@id/createPublicationFragment" />
         <action
             android:id="@+id/action_feedFragment_to_discussionFragment"
-            app:destination="@id/discussionFragment" >
-
-            <argument
-                android:name="publication"
-                app:argType="ru.campus.live.ribbon.data.model.RibbonModel"
-                android:defaultValue="null" />
-        </action>
-
+            app:destination="@id/discussionFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPublicationFragment"

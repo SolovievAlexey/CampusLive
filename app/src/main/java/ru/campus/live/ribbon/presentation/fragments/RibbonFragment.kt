@@ -1,6 +1,7 @@
 package ru.campus.live.ribbon.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
@@ -35,9 +36,22 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         component.viewModelsFactory()
     }
 
-    private val adapter by lazy { RibbonAdapter(myOnClick) }
-    private var linearLayoutManager: LinearLayoutManager? = null
+    private val myOnClick = object : MyOnClick<RibbonModel> {
+        override fun item(view: View, item: RibbonModel) {
+            if (view.id == R.id.fab) {
+                findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
+            } else {
+                RibbonBottomSheetFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("publication_object", item)
+                    }
+                }.show(requireActivity().supportFragmentManager, "RibbonBottomSheetDialog")
+            }
+        }
+    }
 
+    private val adapter = RibbonAdapter(myOnClick)
+    private var linearLayoutManager: LinearLayoutManager? = null
     override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +74,7 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private val list = Observer<ArrayList<RibbonModel>> { newModel ->
+        Log.d("MyLog", "Размер объекта = "+newModel.size)
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
@@ -96,20 +111,6 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
 
         })
         snack.show()
-    }
-
-    private val myOnClick = object : MyOnClick<RibbonModel> {
-        override fun item(view: View, item: RibbonModel) {
-            if (view.id == R.id.fab) {
-                findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
-            } else {
-                RibbonBottomSheetFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("publication_object", item)
-                    }
-                }.show(requireActivity().supportFragmentManager, "RibbonBottomSheetDialog")
-            }
-        }
     }
 
     private fun RecyclerView.scrollEvent() {

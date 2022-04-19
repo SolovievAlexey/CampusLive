@@ -39,9 +39,11 @@ class RibbonViewModel @Inject constructor(
             if (!refresh) list.value?.let { model.addAll(it) }
             val offset = interactor.getOffset(model)
             val result = interactor.get(offset = offset)
-            val response = interactor.map(result)
-            withContext(dispatchers.main) {
-                listLiveData.value = response
+            model.addAll(interactor.map(result))
+            if(model.size != 0) {
+                withContext(dispatchers.main) {
+                    listLiveData.value = model
+                }
             }
         }
     }

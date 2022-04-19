@@ -1,5 +1,6 @@
 package ru.campus.live.ribbon.domain
 
+import android.util.Log
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.model.ResponseObject
@@ -29,7 +30,7 @@ class RibbonInteractor @Inject constructor(
             is ResponseObject.Failure -> {
                 val model = ArrayList<RibbonModel>()
                 if (offset == 0 && result.error.code == 404)
-                    model.add(1, getErrorItem(result.error))
+                    model.add(0, getErrorItem(result.error))
                 return model
             }
         }
