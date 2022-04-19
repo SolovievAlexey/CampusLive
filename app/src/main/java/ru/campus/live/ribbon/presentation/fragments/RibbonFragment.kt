@@ -36,14 +36,11 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
             if (view.id == R.id.fab) {
                 findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
             } else {
-                val bottomSheetDialog = RibbonBottomSheetFragment()
-                val bundle = Bundle()
-                bundle.putParcelable("publication_object", item)
-                bottomSheetDialog.arguments = bundle
-                bottomSheetDialog.show(
-                    requireActivity().supportFragmentManager,
-                    "FeedBottomSheetDialog"
-                )
+                RibbonBottomSheetFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("publication_object", item)
+                    }
+                }.show(requireActivity().supportFragmentManager, "RibbonBottomSheetDialog")
             }
         }
     }
