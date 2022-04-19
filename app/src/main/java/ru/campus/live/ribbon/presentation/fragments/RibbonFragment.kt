@@ -31,26 +31,13 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
             .build()
     }
 
-    private val myOnClick = object : MyOnClick<RibbonModel> {
-        override fun item(view: View, item: RibbonModel) {
-            if (view.id == R.id.fab) {
-                findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
-            } else {
-                RibbonBottomSheetFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("publication_object", item)
-                    }
-                }.show(requireActivity().supportFragmentManager, "RibbonBottomSheetDialog")
-            }
-        }
-    }
-
     private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) {
         component.viewModelsFactory()
     }
 
-    private val adapter = RibbonAdapter(myOnClick)
+    private val adapter by lazy { RibbonAdapter(myOnClick) }
     private var linearLayoutManager: LinearLayoutManager? = null
+
     override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -109,6 +96,20 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
 
         })
         snack.show()
+    }
+
+    private val myOnClick = object : MyOnClick<RibbonModel> {
+        override fun item(view: View, item: RibbonModel) {
+            if (view.id == R.id.fab) {
+                findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
+            } else {
+                RibbonBottomSheetFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("publication_object", item)
+                    }
+                }.show(requireActivity().supportFragmentManager, "RibbonBottomSheetDialog")
+            }
+        }
     }
 
     private fun RecyclerView.scrollEvent() {
