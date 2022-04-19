@@ -17,10 +17,10 @@ import ru.campus.live.core.di.component.DaggerDiscussionComponent
 import ru.campus.live.core.di.component.DiscussionComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.BaseFragment
-import ru.campus.live.core.presentation.BounceEdgeEffectFactory
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentDiscussionBinding
 import ru.campus.live.discussion.data.model.DiscussionModel
+import ru.campus.live.discussion.presentation.BounceEdgeEffectFactory
 import ru.campus.live.discussion.presentation.adapter.DiscussionAdapter
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionViewModel
 import ru.campus.live.ribbon.data.model.RibbonModel
@@ -43,20 +43,16 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     private val myOnClick = object : MyOnClick<DiscussionModel> {
         override fun item(view: View, item: DiscussionModel) {
             if (item.hidden == 0) {
-                val bottomSheetDialog = DiscussionBottomSheetFragment()
-                val bundle = Bundle()
-                bundle.putParcelable("item", item)
-                bottomSheetDialog.arguments = bundle
-                bottomSheetDialog.show(
-                    (requireActivity().supportFragmentManager),
-                    "BottomSheetDialog"
-                )
+                DiscussionBottomSheetFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("item", item)
+                    }
+                }.show( (requireActivity().supportFragmentManager), "BottomSheetDialog")
             }
         }
     }
 
     private val adapter = DiscussionAdapter(myOnClick)
-
     override fun getViewBinding() = FragmentDiscussionBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -147,7 +143,6 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         })
         snack.show()
     }
-
 
     private fun onReplyEvent(item: DiscussionModel) {
         val parent = if (item.parent == 0) item.id else item.parent
