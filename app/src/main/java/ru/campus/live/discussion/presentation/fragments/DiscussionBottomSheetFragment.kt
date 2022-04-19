@@ -15,13 +15,13 @@ import ru.campus.live.core.di.component.DiscussionComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.ui.BaseBottomSheetDialogFragment
 import ru.campus.live.databinding.FragmentDiscussionBottomSheetBinding
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionViewModel
 
 class DiscussionBottomSheetFragment :
     BaseBottomSheetDialogFragment<FragmentDiscussionBottomSheetBinding>(), View.OnClickListener {
 
-    private var item: DiscussionObject? = null
+    private var item: DiscussionModel? = null
     private val component: DiscussionComponent by lazy {
         DaggerDiscussionComponent.builder()
             .deps(AppDepsProvider.deps)

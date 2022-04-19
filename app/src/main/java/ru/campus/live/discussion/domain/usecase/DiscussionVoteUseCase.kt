@@ -3,14 +3,14 @@ package ru.campus.live.discussion.domain.usecase
 import ru.campus.live.core.data.model.ItemVoteDataModel
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.domain.ItemVoteEditUseCase
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 
 class DiscussionVoteUseCase {
 
     fun execute(
-        model: ArrayList<DiscussionObject>,
+        model: ArrayList<DiscussionModel>,
         voteModel: VoteModel
-    ): ArrayList<DiscussionObject> {
+    ): ArrayList<DiscussionModel> {
         val index = model.indexOfFirst { it.id == voteModel.id }
         val rating = model[index].rating
 

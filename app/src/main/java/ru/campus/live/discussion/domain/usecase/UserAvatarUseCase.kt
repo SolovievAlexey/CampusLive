@@ -1,21 +1,21 @@
 package ru.campus.live.discussion.domain.usecase
 
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 
 class UserAvatarUseCase() {
 
-    fun execute(model: ArrayList<DiscussionObject>, uid: Int): Int {
+    fun execute(model: ArrayList<DiscussionModel>, uid: Int): Int {
         val icon = search(model, uid)
         if (icon == 0) return generate(model)
         return icon
     }
 
-    private fun search(model: ArrayList<DiscussionObject>?, uid: Int): Int {
+    private fun search(model: ArrayList<DiscussionModel>?, uid: Int): Int {
         model?.forEach { item -> if (item.author == uid) return item.icon_id }
         return 0
     }
 
-    private fun generate(model: ArrayList<DiscussionObject>?): Int {
+    private fun generate(model: ArrayList<DiscussionModel>?): Int {
         try {
             val icon = generateArrayListIcon()
             model?.forEach { item ->

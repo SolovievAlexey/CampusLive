@@ -4,7 +4,7 @@ import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.discussion.data.model.CommentCreateObject
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.repository.IDiscussionRepository
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
@@ -16,7 +16,7 @@ class CreateCommentInteractor @Inject constructor(
     private val userDataSource: IUserDataSource,
 ) {
 
-    fun post(params: CommentCreateObject): ResponseObject<DiscussionObject> {
+    fun post(params: CommentCreateObject): ResponseObject<DiscussionModel> {
         params.icon = userDataSource.getUserAvatarIcon()
         return repository.post(params = params)
     }

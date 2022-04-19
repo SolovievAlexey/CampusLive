@@ -19,7 +19,7 @@ import ru.campus.live.core.presentation.ui.BaseFragment
 import ru.campus.live.core.presentation.ui.BounceEdgeEffectFactory
 import ru.campus.live.core.presentation.ui.MyOnClick
 import ru.campus.live.databinding.FragmentDiscussionBinding
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.presentation.adapter.DiscussionAdapter
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionViewModel
 import ru.campus.live.ribbon.data.model.RibbonModel
@@ -39,8 +39,8 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         component.viewModelsFactory()
     }
 
-    private val myOnClick = object : MyOnClick<DiscussionObject> {
-        override fun item(view: View, item: DiscussionObject) {
+    private val myOnClick = object : MyOnClick<DiscussionModel> {
+        override fun item(view: View, item: DiscussionModel) {
             if (item.hidden == 0) {
                 val bottomSheetDialog = DiscussionBottomSheetFragment()
                 val bundle = Bundle()
@@ -62,11 +62,11 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         super.onCreate(savedInstanceState)
         arguments?.let { publicationObject = it.getParcelable("publication")!! }
         parentFragment?.setFragmentResultListener("discussionObject") { _, bundle ->
-            val params: DiscussionObject? = bundle.getParcelable("object")
+            val params: DiscussionModel? = bundle.getParcelable("object")
             if (params != null) viewModel.insert(params)
         }
         parentFragment?.setFragmentResultListener("reply") { _, bundle ->
-            val params: DiscussionObject? = bundle.getParcelable("object")
+            val params: DiscussionModel? = bundle.getParcelable("object")
             if (params != null) onReplyEvent(params)
         }
         viewModel.set(publicationObject!!)
@@ -153,7 +153,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         }
     }
 
-    private fun onReplyEvent(item: DiscussionObject) {
+    private fun onReplyEvent(item: DiscussionModel) {
         val parent = if (item.parent == 0) item.id else item.parent
         val bundle = Bundle()
         bundle.putInt("publication", publicationObject!!.id)

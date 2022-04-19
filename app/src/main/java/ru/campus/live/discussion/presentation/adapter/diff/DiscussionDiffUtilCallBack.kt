@@ -1,11 +1,11 @@
 package ru.campus.live.discussion.presentation.adapter.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 
 class DiscussionDiffUtilCallBack(
-    private val oldData: ArrayList<DiscussionObject>,
-    private val newData: ArrayList<DiscussionObject>
+    private val oldData: ArrayList<DiscussionModel>,
+    private val newData: ArrayList<DiscussionModel>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

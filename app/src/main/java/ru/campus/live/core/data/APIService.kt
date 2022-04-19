@@ -5,7 +5,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 import ru.campus.live.core.data.model.UploadResultModel
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.location.data.model.LocationModel
 import ru.campus.live.start.data.model.LoginModel
@@ -64,7 +64,7 @@ interface APIService {
     fun discussion(
         @Query("token") token: String,
         @Query("publication_id") publicationId: Int
-    ): Call<ArrayList<DiscussionObject>>
+    ): Call<ArrayList<DiscussionModel>>
 
     @FormUrlEncoded
     @POST("api/2.0/comment.post")
@@ -76,7 +76,7 @@ interface APIService {
         @Field("parent") parent: Int,
         @Field("answered") answered: Int,
         @Field("publication_id") publicationId: Int,
-    ): Call<DiscussionObject>
+    ): Call<DiscussionModel>
 
     @GET("api/2.0/comment.vote")
     fun voteComment(

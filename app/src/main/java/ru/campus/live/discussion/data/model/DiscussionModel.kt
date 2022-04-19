@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import ru.campus.live.core.data.model.AttachmentModel
 
 @Parcelize
-data class DiscussionObject(
+data class DiscussionModel(
     var type: DiscussionViewType = DiscussionViewType.UNKNOWN,
     val id: Int = 0,
     val hidden: Int = 0,

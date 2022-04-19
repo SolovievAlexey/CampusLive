@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import ru.campus.live.R
 import ru.campus.live.core.data.source.HostDataSource
 import ru.campus.live.databinding.ItemPublicationBinding
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 
 class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
@@ -18,7 +18,7 @@ class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBi
     private val context = itemBinding.root.context
     private val host = HostDataSource(context).domain()
 
-    fun bind(model: DiscussionObject) {
+    fun bind(model: DiscussionModel) {
         itemBinding.message.text = model.message
         itemBinding.date.text = model.relativeTime
         itemBinding.comment.isInvisible = true
@@ -27,7 +27,7 @@ class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBi
         renderRatingView(model)
     }
 
-    private fun renderMediaView(model: DiscussionObject) {
+    private fun renderMediaView(model: DiscussionModel) {
         if (model.attachment != null) {
             itemBinding.media.isVisible = true
             val params: ViewGroup.LayoutParams = itemBinding.media.layoutParams
@@ -40,7 +40,7 @@ class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBi
         }
     }
 
-    private fun renderVoteView(model: DiscussionObject) {
+    private fun renderVoteView(model: DiscussionModel) {
         when (model.vote) {
             0 -> {
                 itemBinding.likeStatus.isVisible = false
@@ -57,7 +57,7 @@ class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBi
     }
 
     @SuppressLint("SetTextI18n")
-    private fun renderRatingView(model: DiscussionObject) {
+    private fun renderRatingView(model: DiscussionModel) {
         when {
             model.rating == 0 -> {
                 itemBinding.rating.isVisible = false

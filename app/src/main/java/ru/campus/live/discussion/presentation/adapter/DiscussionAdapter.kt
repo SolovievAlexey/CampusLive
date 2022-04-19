@@ -8,14 +8,14 @@ import ru.campus.live.core.presentation.ui.MyOnClick
 import ru.campus.live.databinding.*
 import ru.campus.live.discussion.presentation.adapter.diff.DiscussionDiffUtilCallBack
 import ru.campus.live.discussion.presentation.adapter.holder.*
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.model.DiscussionViewType
 
 class DiscussionAdapter(
-    private val myOnClick: MyOnClick<DiscussionObject>
+    private val myOnClick: MyOnClick<DiscussionModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val model = ArrayList<DiscussionObject>()
+    private val model = ArrayList<DiscussionModel>()
 
     override fun getItemViewType(position: Int): Int {
         return model[position].type.ordinal
@@ -93,7 +93,7 @@ class DiscussionAdapter(
         return model.size
     }
 
-    fun setData(newModel: ArrayList<DiscussionObject>) {
+    fun setData(newModel: ArrayList<DiscussionModel>) {
         val result =
             DiffUtil.calculateDiff(DiscussionDiffUtilCallBack(model, newModel))
         model.clear()

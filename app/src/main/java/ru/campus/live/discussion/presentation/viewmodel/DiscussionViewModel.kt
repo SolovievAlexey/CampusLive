@@ -10,7 +10,7 @@ import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.domain.DiscussionInteractor
 import ru.campus.live.ribbon.data.model.RibbonModel
 import javax.inject.Inject
@@ -20,13 +20,16 @@ class DiscussionViewModel @Inject constructor(
     private val interactor: DiscussionInteractor,
 ) : ViewModel() {
 
-    private var publication: DiscussionObject? = null
-    private val listLiveData = MutableLiveData<ArrayList<DiscussionObject>>()
-    fun getListLiveData(): LiveData<ArrayList<DiscussionObject>> = listLiveData
+    private var publication: DiscussionModel? = null
+
+    private val listLiveData = MutableLiveData<ArrayList<DiscussionModel>>()
+    fun getListLiveData(): LiveData<ArrayList<DiscussionModel>> = listLiveData
     private val titleLiveData = MutableLiveData<String>()
     fun getTitleLiveData(): LiveData<String> = titleLiveData
-    private val complaintEvent = SingleLiveEvent<DiscussionObject>()
+    private val complaintEvent = SingleLiveEvent<DiscussionModel>()
     fun getComplaintEvent() = complaintEvent
+
+
 
     init {
         listLiveData.observeForever {
@@ -81,7 +84,7 @@ class DiscussionViewModel @Inject constructor(
         }
     }
 
-    fun insert(item: DiscussionObject) {
+    fun insert(item: DiscussionModel) {
         viewModelScope.launch(dispatcher.io) {
             val result = interactor.insert(item, listLiveData.value!!)
             val list = interactor.preparation(result)
@@ -112,7 +115,7 @@ class DiscussionViewModel @Inject constructor(
         }
     }
 
-    fun complaint(item: DiscussionObject) {
+    fun complaint(item: DiscussionModel) {
         complaintEvent.value = item
         viewModelScope.launch(dispatcher.io) {
             interactor.complaint(item.id)

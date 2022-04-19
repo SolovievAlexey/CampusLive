@@ -11,7 +11,7 @@ import ru.campus.live.core.data.model.ErrorObject
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
 import ru.campus.live.discussion.data.model.CommentCreateObject
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.domain.CreateCommentInteractor
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
@@ -21,7 +21,7 @@ class DiscussionCreateViewModel @Inject constructor(
     private val interactor: CreateCommentInteractor
 ) : ViewModel() {
 
-    private val successLiveData = SingleLiveEvent<DiscussionObject?>()
+    private val successLiveData = SingleLiveEvent<DiscussionModel?>()
     private val failureLiveData = SingleLiveEvent<ErrorObject>()
     private val uploadLiveData = MutableLiveData<ArrayList<UploadMediaObject>>()
     fun onSuccessEvent() = successLiveData

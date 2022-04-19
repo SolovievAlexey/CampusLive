@@ -7,7 +7,7 @@ import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.discussion.data.model.CommentCreateObject
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import javax.inject.Inject
 
 class DiscussionRepository @Inject constructor(
@@ -16,13 +16,13 @@ class DiscussionRepository @Inject constructor(
     private val user: UserDataSource
 ) : IDiscussionRepository {
 
-    override fun get(publication: Int): ResponseObject<ArrayList<DiscussionObject>> {
+    override fun get(publication: Int): ResponseObject<ArrayList<DiscussionModel>> {
         val call = apiService.discussion(token = user.token(), publicationId = publication)
-        return CloudDataSource<ArrayList<DiscussionObject>>(errorDataSource = errorDataSource)
+        return CloudDataSource<ArrayList<DiscussionModel>>(errorDataSource = errorDataSource)
             .execute(call)
     }
 
-    override fun post(params: CommentCreateObject): ResponseObject<DiscussionObject> {
+    override fun post(params: CommentCreateObject): ResponseObject<DiscussionModel> {
         val call = apiService.commentCreate(
             token = user.token(),
             icon = params.icon,
@@ -32,7 +32,7 @@ class DiscussionRepository @Inject constructor(
             answered = params.answered,
             publicationId = params.publication
         )
-        return CloudDataSource<DiscussionObject>(errorDataSource = errorDataSource).execute(call)
+        return CloudDataSource<DiscussionModel>(errorDataSource = errorDataSource).execute(call)
     }
 
     override fun vote(id: Int, vote: Int) {

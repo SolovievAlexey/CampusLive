@@ -7,7 +7,7 @@ import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.source.ResourceManager
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.data.repository.IDiscussionRepository
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
@@ -24,20 +24,20 @@ class DiscussionInteractor @Inject constructor(
     private val resourceManager: ResourceManager,
 ) {
 
-    fun get(publication: Int): ResponseObject<ArrayList<DiscussionObject>> {
+    fun get(publication: Int): ResponseObject<ArrayList<DiscussionModel>> {
         return repository.get(publication)
     }
 
     fun header(
-        item: DiscussionObject,
-        model: ArrayList<DiscussionObject>,
-    ): ArrayList<DiscussionObject> {
+        item: DiscussionModel,
+        model: ArrayList<DiscussionModel>,
+    ): ArrayList<DiscussionModel> {
         model.add(0, item)
         return model
     }
 
-    fun preparation(model: ArrayList<DiscussionObject>): ArrayList<DiscussionObject> {
-        val response = ArrayList<DiscussionObject>()
+    fun preparation(model: ArrayList<DiscussionModel>): ArrayList<DiscussionModel> {
+        val response = ArrayList<DiscussionModel>()
         model.forEach { item ->
             if (item.type == DiscussionViewType.UNKNOWN ||
                 item.type == DiscussionViewType.PARENT || item.type == DiscussionViewType.CHILD
@@ -58,13 +58,13 @@ class DiscussionInteractor @Inject constructor(
         return preparationDataViewHolder(response)
     }
 
-    fun error(): ArrayList<DiscussionObject> {
-        val model = ArrayList<DiscussionObject>()
-        model.add(DiscussionObject(DiscussionViewType.DISCUSSION_NONE))
+    fun error(): ArrayList<DiscussionModel> {
+        val model = ArrayList<DiscussionModel>()
+        model.add(DiscussionModel(DiscussionViewType.DISCUSSION_NONE))
         return model
     }
 
-    fun count(model: ArrayList<DiscussionObject>): Int {
+    fun count(model: ArrayList<DiscussionModel>): Int {
         var count = 0
         model.forEach { item ->
             if (item.type == DiscussionViewType.PARENT
@@ -79,9 +79,9 @@ class DiscussionInteractor @Inject constructor(
     }
 
     fun insert(
-        item: DiscussionObject,
-        model: ArrayList<DiscussionObject>,
-    ): ArrayList<DiscussionObject> {
+        item: DiscussionModel,
+        model: ArrayList<DiscussionModel>,
+    ): ArrayList<DiscussionModel> {
         model.add(item)
         return model
     }
@@ -91,9 +91,9 @@ class DiscussionInteractor @Inject constructor(
     }
 
     fun renderVoteView(
-        model: ArrayList<DiscussionObject>,
+        model: ArrayList<DiscussionModel>,
         voteModel: VoteModel,
-    ): ArrayList<DiscussionObject> {
+    ): ArrayList<DiscussionModel> {
         return DiscussionVoteUseCase().execute(model, voteModel)
     }
 
@@ -101,26 +101,26 @@ class DiscussionInteractor @Inject constructor(
         repository.complaint(id)
     }
 
-    fun refreshUserAvatar(model: ArrayList<DiscussionObject>) {
+    fun refreshUserAvatar(model: ArrayList<DiscussionModel>) {
         userDataSource.saveUserAvatarIcon(UserAvatarUseCase().execute(model, userDataSource.uid()))
     }
 
-    fun shimmer(): ArrayList<DiscussionObject> {
-        val model = ArrayList<DiscussionObject>()
-        model.add(DiscussionObject(DiscussionViewType.PARENT_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.PARENT_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.PARENT_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
-        model.add(DiscussionObject(DiscussionViewType.CHILD_SHIMMER))
+    fun shimmer(): ArrayList<DiscussionModel> {
+        val model = ArrayList<DiscussionModel>()
+        model.add(DiscussionModel(DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(DiscussionViewType.CHILD_SHIMMER))
         return model
     }
 
-    fun map(publication: RibbonModel): DiscussionObject {
-        return DiscussionObject(
+    fun map(publication: RibbonModel): DiscussionModel {
+        return DiscussionModel(
             type = DiscussionViewType.PUBLICATION,
             id = publication.id,
             hidden = 1,
@@ -136,7 +136,7 @@ class DiscussionInteractor @Inject constructor(
         )
     }
 
-    private fun preparationDataViewHolder(model: ArrayList<DiscussionObject>): ArrayList<DiscussionObject> {
+    private fun preparationDataViewHolder(model: ArrayList<DiscussionModel>): ArrayList<DiscussionModel> {
         model.forEachIndexed { index, item ->
             if (item.type == DiscussionViewType.PARENT || item.type == DiscussionViewType.CHILD) {
                 var pathUserIcon = hostDataSource.domain() + "media/icon/" + item.icon_id + ".png"

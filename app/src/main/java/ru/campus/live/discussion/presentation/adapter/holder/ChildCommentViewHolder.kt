@@ -10,17 +10,17 @@ import ru.campus.live.R
 import ru.campus.live.core.data.source.HostDataSource
 import ru.campus.live.core.presentation.ui.MyOnClick
 import ru.campus.live.databinding.ItemChildCommentBinding
-import ru.campus.live.discussion.data.model.DiscussionObject
+import ru.campus.live.discussion.data.model.DiscussionModel
 
 class ChildCommentViewHolder(
     private val itemBinding: ItemChildCommentBinding,
-    private val myOnClick: MyOnClick<DiscussionObject>
+    private val myOnClick: MyOnClick<DiscussionModel>
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
     private val context = itemBinding.root.context
     private val host = HostDataSource(context).domain()
 
-    fun bind(model: DiscussionObject) {
+    fun bind(model: DiscussionModel) {
         val color = if (model.hidden == 0) "#000000".toColorInt() else "#999999".toColorInt()
         itemBinding.message.setTextColor(color)
         itemBinding.message.text = model.message
@@ -34,7 +34,7 @@ class ChildCommentViewHolder(
         }
     }
 
-    private fun renderMediaView(model: DiscussionObject) {
+    private fun renderMediaView(model: DiscussionModel) {
         if (model.attachment == null) {
             itemBinding.photo.isVisible = false
         } else {
@@ -49,7 +49,7 @@ class ChildCommentViewHolder(
         }
     }
 
-    private fun renderVoteView(model: DiscussionObject) {
+    private fun renderVoteView(model: DiscussionModel) {
         when (model.vote) {
             0 -> {
                 itemBinding.likeStatus.isVisible = false
@@ -66,7 +66,7 @@ class ChildCommentViewHolder(
     }
 
     @SuppressLint("SetTextI18n")
-    private fun renderRatingView(model: DiscussionObject) {
+    private fun renderRatingView(model: DiscussionModel) {
         when {
             model.rating == 0 -> {
                 itemBinding.rating.isVisible = false
