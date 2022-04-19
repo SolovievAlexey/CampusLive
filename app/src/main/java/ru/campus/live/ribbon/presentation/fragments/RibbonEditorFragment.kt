@@ -50,7 +50,6 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
     private val uploadMediaAdapter = UploadMediaAdapter(deleteCallBack)
     override fun getViewBinding() = FragmentCreatePublicationBinding.inflate(layoutInflater)
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentFragment?.setFragmentResultListener("mediaRequest") { _, bundle ->
