@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.databinding.ItemGalleryBinding
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.MyOnClick
 
 class GalleryViewHolder(
     private val itemBinding: ItemGalleryBinding,

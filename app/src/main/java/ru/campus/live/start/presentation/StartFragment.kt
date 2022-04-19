@@ -12,7 +12,7 @@ import ru.campus.live.core.data.model.ErrorObject
 import ru.campus.live.core.di.component.DaggerStartComponent
 import ru.campus.live.core.di.component.StartComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
-import ru.campus.live.core.presentation.ui.BaseFragment
+import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.databinding.FragmentStartBinding
 import ru.campus.live.dialog.ErrorDialog
 import ru.campus.live.start.data.model.LoginModel

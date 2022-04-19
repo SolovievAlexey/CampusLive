@@ -14,8 +14,8 @@ import ru.campus.live.R
 import ru.campus.live.core.di.component.DaggerRibbonComponent
 import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
-import ru.campus.live.core.presentation.ui.BaseFragment
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.BaseFragment
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentFeedBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.presentation.adapter.RibbonAdapter

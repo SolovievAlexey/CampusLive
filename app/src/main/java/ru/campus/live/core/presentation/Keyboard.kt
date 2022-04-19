@@ -1,4 +1,4 @@
-package ru.campus.live.core.presentation.ui
+package ru.campus.live.core.presentation
 
 import android.app.Activity
 import android.view.View

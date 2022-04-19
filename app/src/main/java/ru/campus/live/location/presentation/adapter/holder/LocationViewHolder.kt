@@ -1,7 +1,7 @@
 package ru.campus.live.location.presentation.adapter.holder
 
 import androidx.recyclerview.widget.RecyclerView
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.ItemLocationBinding
 import ru.campus.live.location.data.model.LocationModel
 

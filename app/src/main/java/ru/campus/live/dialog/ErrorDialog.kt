@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
 import ru.campus.live.core.data.model.ErrorObject
-import ru.campus.live.core.presentation.ui.BaseDialogFragment
+import ru.campus.live.core.presentation.BaseDialogFragment
 import ru.campus.live.databinding.FragmentCustomDialogBinding
 
 class ErrorDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {

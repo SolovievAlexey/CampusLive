@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.*
 import ru.campus.live.discussion.presentation.adapter.diff.DiscussionDiffUtilCallBack
 import ru.campus.live.discussion.presentation.adapter.holder.*

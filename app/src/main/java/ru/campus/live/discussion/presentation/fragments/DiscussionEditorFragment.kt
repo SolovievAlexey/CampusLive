@@ -13,9 +13,9 @@ import ru.campus.live.R
 import ru.campus.live.core.di.component.DaggerDiscussionComponent
 import ru.campus.live.core.di.component.DiscussionComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
-import ru.campus.live.core.presentation.ui.BaseFragment
-import ru.campus.live.core.presentation.ui.Keyboard
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.BaseFragment
+import ru.campus.live.core.presentation.Keyboard
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreateCommentBinding
 import ru.campus.live.dialog.ErrorDialog
 import ru.campus.live.discussion.data.model.CommentCreateObject

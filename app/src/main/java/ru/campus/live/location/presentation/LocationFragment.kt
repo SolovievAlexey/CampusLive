@@ -12,8 +12,8 @@ import ru.campus.live.R
 import ru.campus.live.core.di.component.DaggerLocationComponent
 import ru.campus.live.core.di.component.LocationComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
-import ru.campus.live.core.presentation.ui.BaseFragment
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.BaseFragment
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentLocationBinding
 import ru.campus.live.location.data.model.LocationModel
 import ru.campus.live.location.presentation.adapter.LocationAdapter

@@ -15,9 +15,9 @@ import ru.campus.live.core.data.model.ErrorObject
 import ru.campus.live.core.di.component.DaggerRibbonComponent
 import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
-import ru.campus.live.core.presentation.ui.BaseFragment
-import ru.campus.live.core.presentation.ui.Keyboard
-import ru.campus.live.core.presentation.ui.MyOnClick
+import ru.campus.live.core.presentation.BaseFragment
+import ru.campus.live.core.presentation.Keyboard
+import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreatePublicationBinding
 import ru.campus.live.dialog.ErrorDialog
 import ru.campus.live.ribbon.data.model.RibbonPostModel
