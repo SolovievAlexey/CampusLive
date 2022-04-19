@@ -15,7 +15,7 @@ import ru.campus.live.ribbon.presentation.adapter.holders.FeedPublicationViewHol
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 
-class FeedAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
+class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val model = ArrayList<RibbonModel>()
