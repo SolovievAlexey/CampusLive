@@ -162,11 +162,10 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     }
 
     private fun isProgressBarVisible(visible: Boolean) {
+        binding.progressBar.isVisible = visible
         if (visible) {
-            binding.progressBar.isVisible = true
             binding.toolbar.menu.clear()
         } else {
-            binding.progressBar.isVisible = false
             if (!binding.toolbar.menu.hasVisibleItems())
                 binding.toolbar.inflateMenu(R.menu.discussion_menu)
         }
