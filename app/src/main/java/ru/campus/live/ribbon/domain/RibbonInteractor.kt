@@ -49,7 +49,7 @@ class RibbonInteractor @Inject constructor(
         return model
     }
 
-    fun complaintSendOnServer(item: RibbonModel) {
+    fun sendComplaintOnServer(item: RibbonModel) {
         repository.complaint(item.id)
     }
 

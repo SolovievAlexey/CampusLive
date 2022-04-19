@@ -62,7 +62,7 @@ class RibbonViewModel @Inject constructor(
 
     fun sendComplaintOnServer(item: RibbonModel) {
         viewModelScope.launch(dispatchers.io) {
-            async { interactor.complaintSendOnServer(item) }
+            async { interactor.sendComplaintOnServer(item) }
             val result = interactor.complaint(listLiveData.value!!, id = item.id)
             withContext(dispatchers.main) {
                 listLiveData.value = result
