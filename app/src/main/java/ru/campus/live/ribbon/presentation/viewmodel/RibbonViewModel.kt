@@ -27,9 +27,9 @@ class RibbonViewModel @Inject constructor(
     val startDiscussion: LiveData<RibbonModel>
         get() = startDiscussionEvent
 
-    private val complaintEvent = SingleLiveEvent<RibbonModel>()
-    val complaint: LiveData<RibbonModel>
-        get() = complaintEvent
+    private val complaintLiveData = SingleLiveEvent<RibbonModel>()
+    val complaintEvent: LiveData<RibbonModel>
+        get() = complaintLiveData
 
     init { get() }
 
@@ -57,7 +57,7 @@ class RibbonViewModel @Inject constructor(
     }
 
     fun complaint(item: RibbonModel) {
-        complaintEvent.value = item
+        complaintLiveData.value = item
     }
 
     fun sendComplaintOnServer(item: RibbonModel) {

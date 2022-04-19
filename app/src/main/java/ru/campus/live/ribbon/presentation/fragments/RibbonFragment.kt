@@ -64,7 +64,7 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         binding.recyclerView.scrollEvent()
         viewModel.list.observe(viewLifecycleOwner, list)
         viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussion)
-        viewModel.complaint.observe(viewLifecycleOwner, complaint)
+        viewModel.complaintEvent.observe(viewLifecycleOwner, complaint)
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.get(refresh = true)
