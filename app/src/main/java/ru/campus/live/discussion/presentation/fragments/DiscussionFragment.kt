@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.setFragmentResultListener
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,14 +76,14 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolBar()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
-        initToolBar()
-        liveDataObserve()
-        onEventTitle()
-        onComplaintEvent()
-        onScrollEvent()
+        binding.recyclerView.scrollEvent()
+        viewModel.list.observe(viewLifecycleOwner, listLiveData)
+        viewModel.title.observe(viewLifecycleOwner, titleLiveData)
+        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent)
     }
 
     private fun initToolBar() {
@@ -113,45 +114,40 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         }
     }
 
-    private fun liveDataObserve() {
-        viewModel.getListLiveData().observe(viewLifecycleOwner) { model ->
-            if (model.size > 1) isProgressBarVisible(false)
-            adapter.setData(model)
-        }
+    private val listLiveData = Observer<ArrayList<DiscussionModel>> { model ->
+        if (model.size > 1) isProgressBarVisible(false)
+        adapter.setData(model)
     }
 
-    private fun onEventTitle() {
-        viewModel.getTitleLiveData().observe(viewLifecycleOwner) { title ->
-            binding.toolbar.title = title
-        }
+    private val titleLiveData = Observer<String> { title ->
+        binding.toolbar.title = title
     }
 
-    private fun onComplaintEvent() {
-        viewModel.getComplaintEvent().observe(viewLifecycleOwner) {
-            val isCancel = AtomicBoolean(false)
-            val snack = Snackbar.make(
-                binding.root, getString(R.string.complaint_response),
-                Snackbar.LENGTH_LONG
-            )
-            val snackView = snack.view
-            val tv =
-                snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
-            tv.setTextColor("#f44336".toColorInt())
-            snack.setAction(R.string.close) { isCancel.set(true) }
-            snack.addCallback(object : Snackbar.Callback() {
-                override fun onDismissed(snackbar: Snackbar, event: Int) {
-                    if (!isCancel.get()) {
-                        binding.fab.show()
-                    }
+    private val complaintEvent = Observer<DiscussionModel> {
+        val isCancel = AtomicBoolean(false)
+        val snack = Snackbar.make(
+            binding.root, getString(R.string.complaint_response),
+            Snackbar.LENGTH_LONG
+        )
+        val snackView = snack.view
+        val tv =
+            snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        tv.setTextColor("#f44336".toColorInt())
+        snack.setAction(R.string.close) { isCancel.set(true) }
+        snack.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(snackbar: Snackbar, event: Int) {
+                if (!isCancel.get()) {
+                    binding.fab.show()
                 }
+            }
 
-                override fun onShown(snackbar: Snackbar) {
-                    binding.fab.hide()
-                }
-            })
-            snack.show()
-        }
+            override fun onShown(snackbar: Snackbar) {
+                binding.fab.hide()
+            }
+        })
+        snack.show()
     }
+
 
     private fun onReplyEvent(item: DiscussionModel) {
         val parent = if (item.parent == 0) item.id else item.parent
@@ -176,8 +172,8 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         }
     }
 
-    private fun onScrollEvent() {
-        binding.recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+    private fun RecyclerView.scrollEvent() {
+        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if (dy < 0 && !binding.fab.isShown) {
                     binding.fab.show()

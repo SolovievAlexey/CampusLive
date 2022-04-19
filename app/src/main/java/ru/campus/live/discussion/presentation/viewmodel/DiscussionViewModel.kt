@@ -31,7 +31,7 @@ class DiscussionViewModel @Inject constructor(
         get() = titleLiveData
 
     private val complaintLiveData = SingleLiveEvent<DiscussionModel>()
-    val complaint: LiveData<DiscussionModel>
+    val complaintEvent: LiveData<DiscussionModel>
         get() = complaintLiveData
 
     init {
