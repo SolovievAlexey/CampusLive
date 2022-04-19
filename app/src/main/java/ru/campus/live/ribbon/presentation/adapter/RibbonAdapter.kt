@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.live.core.presentation.ui.MyOnClick
-import ru.campus.live.databinding.ItemFeedInviteBinding
 import ru.campus.live.databinding.ItemFeedLocationBinding
 import ru.campus.live.databinding.ItemPublicationBinding
-import ru.campus.live.ribbon.presentation.adapter.diff.FeedDiffUtilCallBack
-import ru.campus.live.ribbon.presentation.adapter.holders.FeedInviteViewHolder
-import ru.campus.live.ribbon.presentation.adapter.holders.FeedLocationViewHolder
-import ru.campus.live.ribbon.presentation.adapter.holders.FeedPublicationViewHolder
+import ru.campus.live.databinding.ItemRibbonMessageBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
+import ru.campus.live.ribbon.presentation.adapter.diff.FeedDiffUtilCallBack
+import ru.campus.live.ribbon.presentation.adapter.holders.RibbonErrorViewHolder
+import ru.campus.live.ribbon.presentation.adapter.holders.RibbonLocationViewHolder
+import ru.campus.live.ribbon.presentation.adapter.holders.RibbonViewHolder
 
 class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -32,7 +32,7 @@ class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                FeedLocationViewHolder(itemBinding)
+                RibbonLocationViewHolder(itemBinding)
             }
             RibbonViewType.PUBLICATION -> {
                 val itemBinding =
@@ -40,23 +40,23 @@ class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
-                FeedPublicationViewHolder(itemBinding, myOnClick)
+                RibbonViewHolder(itemBinding, myOnClick)
             }
             else -> {
-                val itemBinding = ItemFeedInviteBinding.inflate(
+                val itemBinding = ItemRibbonMessageBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent, false
                 )
-                FeedInviteViewHolder(itemBinding)
+                RibbonErrorViewHolder(itemBinding)
             }
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (model[position].viewType) {
-            RibbonViewType.HEADING -> (holder as FeedLocationViewHolder).bind(model[position])
-            RibbonViewType.PUBLICATION -> (holder as FeedPublicationViewHolder).bind(model[position])
-            else -> (holder as FeedInviteViewHolder).bind()
+            RibbonViewType.HEADING -> (holder as RibbonLocationViewHolder).bind(model[position])
+            RibbonViewType.PUBLICATION -> (holder as RibbonViewHolder).bind(model[position])
+            else -> (holder as RibbonErrorViewHolder).bind(model[position])
         }
     }
 

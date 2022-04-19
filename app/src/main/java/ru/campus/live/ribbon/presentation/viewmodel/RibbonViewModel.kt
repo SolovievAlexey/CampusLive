@@ -19,6 +19,8 @@ class RibbonViewModel @Inject constructor(
     private val interactor: RibbonInteractor
 ) : ViewModel() {
 
+    private var isLazyDownloadFeed = true
+
     private val listLiveData = MutableLiveData<ArrayList<RibbonModel>>()
     val list: LiveData<ArrayList<RibbonModel>>
         get() = listLiveData
@@ -34,11 +36,13 @@ class RibbonViewModel @Inject constructor(
     init { get() }
 
     fun get(refresh: Boolean = false) {
+        if(!isLazyDownloadFeed && !refresh) return
         viewModelScope.launch(dispatchers.io) {
             val model = ArrayList<RibbonModel>()
             if (!refresh) list.value?.let { model.addAll(it) }
             val offset = interactor.getOffset(model)
-            val result = interactor.get(offset = offset)
+            val result = interactor.get(offset = offset, model = model)
+            isLazyDownloadFeed = interactor.lazyDownloadFeed(result)
             model.addAll(interactor.map(result))
             if(model.size != 0) {
                 withContext(dispatchers.main) {

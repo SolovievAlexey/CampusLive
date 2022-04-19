@@ -1,16 +1,15 @@
 package ru.campus.live.ribbon.domain
 
-import android.util.Log
-import ru.campus.live.core.data.source.DisplayMetrics
-import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.repository.IUploadMediaRepository
+import ru.campus.live.core.data.source.DisplayMetrics
+import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
-import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import ru.campus.live.ribbon.data.repository.IRibbonRepository
 import ru.campus.live.ribbon.domain.usecase.RibbonVoteUseCase
@@ -21,19 +20,25 @@ class RibbonInteractor @Inject constructor(
     private val uploadRepository: IUploadMediaRepository,
     displayMetrics: DisplayMetrics,
     titleUseCase: DiscussionTitleUseCase,
-    userDataSource: IUserDataSource,
+    userDataSource: IUserDataSource
 ) : BaseRibbonInteractor(userDataSource, displayMetrics, titleUseCase) {
 
-    fun get(offset: Int): ArrayList<RibbonModel> {
-        when(val result = repository.get(offset = offset)) {
+    fun get(model: ArrayList<RibbonModel>, offset: Int): ArrayList<RibbonModel> {
+        when (val result = repository.get(offset = offset)) {
             is ResponseObject.Success -> return result.data
             is ResponseObject.Failure -> {
-                val model = ArrayList<RibbonModel>()
-                if (offset == 0 && result.error.code == 404)
-                    model.add(0, getErrorItem(result.error))
+                if (offset == 0) {
+                    val response = ArrayList<RibbonModel>()
+                    response.add(0, getErrorItem(result.error))
+                    return response
+                }
                 return model
             }
         }
+    }
+
+    fun lazyDownloadFeed(model: ArrayList<RibbonModel>): Boolean {
+        return model.size == 25
     }
 
     fun getOffset(model: ArrayList<RibbonModel>): Int {

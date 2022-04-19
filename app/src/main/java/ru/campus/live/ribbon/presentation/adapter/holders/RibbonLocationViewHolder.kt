@@ -4,7 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.campus.live.databinding.ItemFeedLocationBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 
-class FeedLocationViewHolder(
+class RibbonLocationViewHolder(
     private val itemBinding: ItemFeedLocationBinding
 ) :
     RecyclerView.ViewHolder(itemBinding.root) {

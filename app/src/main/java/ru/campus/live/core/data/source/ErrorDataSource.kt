@@ -9,6 +9,7 @@ class ErrorDataSource @Inject constructor(private val resourceManager: ResourceM
     fun get(code: Int = 0): ErrorObject {
         return when (code) {
             0 -> ErrorObject(code, R.drawable.neural, resourceManager.get(R.string.error_network))
+            404 -> ErrorObject(code, R.drawable.error, resourceManager.get(R.string.not_publication))
             else -> ErrorObject(code, R.drawable.error, resourceManager.get(R.string.error_unknown))
         }
     }

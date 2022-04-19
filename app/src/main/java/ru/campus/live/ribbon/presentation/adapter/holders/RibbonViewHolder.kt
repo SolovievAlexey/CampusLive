@@ -12,7 +12,7 @@ import ru.campus.live.core.presentation.ui.MyOnClick
 import ru.campus.live.databinding.ItemPublicationBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 
-class FeedPublicationViewHolder(
+class RibbonViewHolder(
     private val itemBinding: ItemPublicationBinding,
     private val myOnClick: MyOnClick<RibbonModel>
 ) : RecyclerView.ViewHolder(itemBinding.root) {
