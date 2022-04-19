@@ -1,7 +1,6 @@
 package ru.campus.live.ribbon.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
@@ -60,9 +59,9 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.scrollEvent()
-        viewModel.list.observe(viewLifecycleOwner, list)
-        viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussion)
-        viewModel.complaintEvent.observe(viewLifecycleOwner, complaint)
+        viewModel.list.observe(viewLifecycleOwner, listLiveData)
+        viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent)
+        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent)
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.get(refresh = true)
@@ -73,19 +72,19 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         }
     }
 
-    private val list = Observer<ArrayList<RibbonModel>> { newModel ->
+    private val listLiveData = Observer<ArrayList<RibbonModel>> { newModel ->
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
     }
 
-    private val startDiscussion = Observer<RibbonModel> { model ->
+    private val startDiscussionEvent = Observer<RibbonModel> { model ->
         val bundle = Bundle()
         bundle.putParcelable("publication", model)
         findNavController().navigate(R.id.action_feedFragment_to_discussionFragment, bundle)
     }
 
-    private val complaint = Observer<RibbonModel> {
+    private val complaintEvent = Observer<RibbonModel> {
         val isCancel = AtomicBoolean(false)
         val snack = Snackbar.make(
             binding.root, getString(R.string.complaint_response),
