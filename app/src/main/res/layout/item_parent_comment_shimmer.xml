@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/userPhoto"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/bg_user_avatar"/>
+
+        <View
+            android:id="@+id/date"
+            android:layout_width="160dp"
+            android:layout_height="10dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="9dp"
+            android:layout_toEndOf="@id/userPhoto"
+            android:background="@drawable/bg_shimmer"
+            android:layout_marginEnd="16dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toEndOf="@id/userPhoto"
+            android:layout_below="@id/date">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/bg_shimmer"
+                android:layout_marginEnd="16dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/bg_shimmer"
+                android:layout_marginEnd="29dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

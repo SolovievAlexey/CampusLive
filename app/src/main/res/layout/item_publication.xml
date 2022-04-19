@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_publication"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
+
+    <LinearLayout
+        android:id="@+id/likeRoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+12"
+            android:textColor="#2e703c"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/likeStatus"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="1dp"
+            android:contentDescription="@null"
+            android:src="@drawable/like" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/media"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@id/media"
+        android:fontFamily="@font/montserrat"
+        android:text="1 час и 5 минут назад"
+        android:textColor="#53646e"
+        android:textSize="12sp"
+        app:fontFamily="@font/montserrat" />
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/media"
+        android:fontFamily="@font/roboto_regular"
+        android:text="Тут будет располагаться текст сообщения и он может быть достаточно длинным, максимальное колличество символов 300"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        app:fontFamily="@font/roboto_regular" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/message"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toEndOf="@id/media"
+        android:fontFamily="@font/montserrat"
+        android:text="22 комментария"
+        android:textColor="#53646e"
+        android:textSize="12sp"
+        app:fontFamily="@font/montserrat" />
+
+</RelativeLayout>
