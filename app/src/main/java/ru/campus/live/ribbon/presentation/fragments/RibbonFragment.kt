@@ -34,7 +34,6 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) { component.viewModelsFactory() }
     private val adapter = RibbonAdapter(myOnClick())
     private var linearLayoutManager: LinearLayoutManager? = null
-
     override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -113,18 +112,25 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     private fun RecyclerView.scrollEvent() {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val visibleItemCount = linearLayoutManager?.childCount ?: 0
-                val totalItemCount = linearLayoutManager?.itemCount ?: 0
-                val firstVisibleItem = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
-                if (visibleItemCount + firstVisibleItem >= totalItemCount) viewModel.get()
-
-                if (dy < 0 && !binding.fab.isShown) {
-                    binding.fab.show()
-                } else if (dy > 0 && binding.fab.isShown) {
-                    binding.fab.hide()
-                }
+                managerLazyFeed()
+                mangerVisibleFab(dy)
             }
         })
+    }
+
+    private fun managerLazyFeed() {
+        val visibleItemCount = linearLayoutManager?.childCount ?: 0
+        val totalItemCount = linearLayoutManager?.itemCount ?: 0
+        val firstVisibleItem = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
+        if (visibleItemCount + firstVisibleItem >= totalItemCount) viewModel.get()
+    }
+
+    private fun mangerVisibleFab(dy: Int) {
+        if (dy < 0 && !binding.fab.isShown) {
+            binding.fab.show()
+        } else if (dy > 0 && binding.fab.isShown) {
+            binding.fab.hide()
+        }
     }
 
 }
