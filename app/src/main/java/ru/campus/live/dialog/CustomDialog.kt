@@ -16,7 +16,7 @@ class CustomDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let { params = it.getParcelable("params")!! }
-        if (params.code == 401) clearUserToken()
+        if (params.code == 401) refreshToken()
     }
 
 
@@ -29,7 +29,7 @@ class CustomDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
         }
     }
 
-    private fun clearUserToken() {
+    private fun refreshToken() {
         val sPref = context?.getSharedPreferences("AppDB", Context.MODE_PRIVATE)
         with(sPref!!.edit()) {
             putInt("UID", 0)
