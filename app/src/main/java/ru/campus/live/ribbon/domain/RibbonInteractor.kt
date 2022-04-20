@@ -9,7 +9,6 @@ import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataObject
 import ru.campus.live.gallery.data.model.UploadMediaObject
-import ru.campus.live.location.data.model.LocationModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
@@ -48,10 +47,10 @@ class RibbonInteractor @Inject constructor(
     }
 
     fun map(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {
-        return model.preparation().header()
+        return model.preparation().location()
     }
 
-    fun complaint(model: ArrayList<RibbonModel>, id: Int): ArrayList<RibbonModel> {
+    fun remove(model: ArrayList<RibbonModel>, id: Int): ArrayList<RibbonModel> {
         val index = model.indexOfFirst { it.id == id }
         model.removeAt(index)
         return model
@@ -107,16 +106,12 @@ class RibbonInteractor @Inject constructor(
         return model
     }
 
-    private fun ArrayList<RibbonModel>.header(): ArrayList<RibbonModel> {
+    private fun ArrayList<RibbonModel>.location(): ArrayList<RibbonModel> {
         val model = this
-        if (model.size != 0 && model[0].viewType != RibbonViewType.HEADING) {
-            val location = LocationModel(
-                id = userDataSource.location().id,
-                name = userDataSource.location().name,
-                address = userDataSource.location().name,
-                type = userDataSource.location().type
-            )
-            model.add(0, RibbonModel(viewType = RibbonViewType.HEADING, location = location))
+        if (model.size != 0 && model[0].viewType != RibbonViewType.LOCATION) {
+            model.add(0,
+                RibbonModel(viewType = RibbonViewType.LOCATION,
+                    location = userDataSource.location()))
         }
         return model
     }

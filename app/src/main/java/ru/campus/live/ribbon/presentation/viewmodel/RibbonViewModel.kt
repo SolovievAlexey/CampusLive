@@ -44,10 +44,8 @@ class RibbonViewModel @Inject constructor(
             val result = interactor.get(offset = offset, model = model)
             isLazyDownloadFeed = interactor.lazyDownloadFeed(result)
             model.addAll(interactor.map(result))
-            if(model.size != 0) {
-                withContext(dispatchers.main) {
-                    listLiveData.value = model
-                }
+            withContext(dispatchers.main) {
+                listLiveData.value = model
             }
         }
     }
@@ -69,7 +67,7 @@ class RibbonViewModel @Inject constructor(
     fun sendComplaintOnServer(item: RibbonModel) {
         viewModelScope.launch(dispatchers.io) {
             async { interactor.sendComplaintOnServer(item) }
-            val result = interactor.complaint(listLiveData.value!!, id = item.id)
+            val result = interactor.remove(listLiveData.value!!, id = item.id)
             withContext(dispatchers.main) {
                 listLiveData.value = result
             }

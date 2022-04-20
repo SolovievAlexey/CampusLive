@@ -10,7 +10,7 @@ class FeedOffsetUseCaseTest {
     @Test
     fun `counts the number of records with type FeedViewType = PUBLICATION`() {
         val model = ArrayList<RibbonModel>()
-        model.add(RibbonModel(viewType = RibbonViewType.HEADING))
+        model.add(RibbonModel(viewType = RibbonViewType.LOCATION))
         model.add(RibbonModel(viewType = RibbonViewType.PUBLICATION))
         model.add(RibbonModel(viewType = RibbonViewType.PUBLICATION))
 

@@ -26,7 +26,7 @@ class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (RibbonViewType.values()[viewType]) {
-            RibbonViewType.HEADING -> {
+            RibbonViewType.LOCATION -> {
                 val itemBinding =
                     ItemFeedLocationBinding.inflate(
                         LayoutInflater.from(parent.context),
@@ -54,7 +54,7 @@ class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (model[position].viewType) {
-            RibbonViewType.HEADING -> (holder as RibbonLocationViewHolder).bind(model[position])
+            RibbonViewType.LOCATION -> (holder as RibbonLocationViewHolder).bind(model[position])
             RibbonViewType.PUBLICATION -> (holder as RibbonViewHolder).bind(model[position])
             else -> (holder as RibbonErrorViewHolder).bind(model[position])
         }
