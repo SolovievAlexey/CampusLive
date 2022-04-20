@@ -112,13 +112,13 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     private fun RecyclerView.scrollEvent() {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(isLazyRibbon()) viewModel.get()
-                binding.fab.apply { if(isVisible) show() else hide() }
+                if(isRibbonLazy()) viewModel.get()
+                binding.fab.apply { if(isVisibleFab(dy)) show() else hide() }
             }
         })
     }
 
-    private fun isLazyRibbon(): Boolean {
+    private fun isRibbonLazy(): Boolean {
         val visibleItemCount = linearLayoutManager?.childCount ?: 0
         val totalItemCount = linearLayoutManager?.itemCount ?: 0
         val firstVisibleItem = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
