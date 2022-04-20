@@ -18,7 +18,7 @@ import ru.campus.live.core.presentation.Keyboard
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreateCommentBinding
 import ru.campus.live.dialog.CustomDialog
-import ru.campus.live.discussion.data.model.CommentCreateObject
+import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionCreateViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
 import ru.campus.live.gallery.data.model.GalleryDataObject
@@ -107,7 +107,7 @@ class DiscussionEditorFragment : BaseFragment<FragmentCreateCommentBinding>() {
     private fun sendDataOnServer() {
         val message = binding.editText.text.toString()
         if (message.isEmpty()) return
-        val params = CommentCreateObject(
+        val params = CommentCreateModel(
             icon = 0, message = message, attachment = 0,
             parent = parent, answered = answered, publication = publication)
         viewModel.post(params)

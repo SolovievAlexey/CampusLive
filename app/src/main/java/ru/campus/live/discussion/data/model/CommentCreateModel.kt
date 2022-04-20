@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class CommentCreateObject(
+data class CommentCreateModel(
     var icon: Int = 0,
     val message: String,
     var attachment: Int,

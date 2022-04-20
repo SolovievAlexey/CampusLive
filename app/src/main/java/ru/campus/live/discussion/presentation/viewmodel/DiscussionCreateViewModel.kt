@@ -10,7 +10,7 @@ import kotlinx.coroutines.withContext
 import ru.campus.live.core.data.model.ErrorObject
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
-import ru.campus.live.discussion.data.model.CommentCreateObject
+import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.domain.CreateCommentInteractor
 import ru.campus.live.gallery.data.model.GalleryDataObject
@@ -28,7 +28,7 @@ class DiscussionCreateViewModel @Inject constructor(
     fun onFailureEvent() = failureLiveData
     fun onUploadLiveData(): LiveData<ArrayList<UploadMediaObject>> = uploadLiveData
 
-    fun post(params: CommentCreateObject) {
+    fun post(params: CommentCreateModel) {
         viewModelScope.launch(Dispatchers.IO) {
             params.attachment = uploadLiveData.value?.get(0)?.id ?: 0
             when (val result = interactor.post(params)) {

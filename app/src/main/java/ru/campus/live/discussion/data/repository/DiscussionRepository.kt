@@ -6,7 +6,7 @@ import ru.campus.live.core.data.source.CloudDataSource
 import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.core.data.model.ResponseObject
-import ru.campus.live.discussion.data.model.CommentCreateObject
+import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class DiscussionRepository @Inject constructor(
             .execute(call)
     }
 
-    override fun post(params: CommentCreateObject): ResponseObject<DiscussionModel> {
+    override fun post(params: CommentCreateModel): ResponseObject<DiscussionModel> {
         val call = apiService.commentCreate(
             token = user.token(),
             icon = params.icon,
