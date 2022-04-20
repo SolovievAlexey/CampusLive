@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.campus.live.R
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.di.component.DaggerRibbonComponent
 import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
@@ -23,7 +23,7 @@ import ru.campus.live.dialog.CustomDialog
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonEditorViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import ru.campus.live.gallery.presentation.GalleryBottomSheetDialog
 import ru.campus.live.ribbon.data.model.RibbonModel
@@ -53,7 +53,7 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parentFragment?.setFragmentResultListener("mediaRequest") { _, bundle ->
-            val params: GalleryDataObject? = bundle.getParcelable("item")
+            val params: GalleryDataModel? = bundle.getParcelable("item")
             if (params != null) viewModel.upload(params)
         }
     }
@@ -109,7 +109,7 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
         findNavController().popBackStack()
     }
 
-    private val failure = Observer<ErrorObject> { errorObject ->
+    private val failure = Observer<ErrorModel> { errorObject ->
         isVisibleToolBarMenu(false)
         val customDialog = CustomDialog()
         val bundle = Bundle()

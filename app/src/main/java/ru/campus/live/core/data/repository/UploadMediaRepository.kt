@@ -9,7 +9,7 @@ import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.UploadResultModel
 import ru.campus.live.core.domain.PreparationMediaUseCase
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import java.io.File
 import javax.inject.Inject
 
@@ -19,7 +19,7 @@ class UploadMediaRepository @Inject constructor(
     private val preparation: PreparationMediaUseCase
 ) : IUploadMediaRepository {
 
-    override fun upload(params: GalleryDataObject): ResponseObject<UploadResultModel> {
+    override fun upload(params: GalleryDataModel): ResponseObject<UploadResultModel> {
         val myFileUpload: File? = preparation.execute(params.fullPath, params.realOrientation)
         if (myFileUpload != null) {
             val reqFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), myFileUpload)

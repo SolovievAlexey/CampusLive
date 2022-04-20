@@ -21,7 +21,7 @@ import ru.campus.live.dialog.CustomDialog
 import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionCreateViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import ru.campus.live.gallery.presentation.GalleryBottomSheetDialog
 
@@ -58,7 +58,7 @@ class DiscussionEditorFragment : BaseFragment<FragmentCreateCommentBinding>() {
             answered = it.getInt("answered")
         }
         parentFragment?.setFragmentResultListener("mediaRequest") { _, bundle ->
-            val params: GalleryDataObject? = bundle.getParcelable("item")
+            val params: GalleryDataModel? = bundle.getParcelable("item")
             if (params != null) {
                 binding.toolBar.menu.clear()
                 viewModel.upload(params)

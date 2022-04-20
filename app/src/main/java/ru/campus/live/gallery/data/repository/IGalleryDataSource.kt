@@ -1,7 +1,7 @@
 package ru.campus.live.gallery.data.repository
 
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 
 interface IGalleryDataSource {
-    fun execute(offset: Int): ArrayList<GalleryDataObject>
+    fun execute(offset: Int): ArrayList<GalleryDataModel>
 }

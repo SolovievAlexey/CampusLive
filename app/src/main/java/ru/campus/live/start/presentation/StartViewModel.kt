@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
@@ -28,8 +28,8 @@ class StartViewModel @Inject constructor(
     val success: LiveData<LoginModel>
         get() = successLiveData
 
-    private val failureLiveData = SingleLiveEvent<ErrorObject>()
-    val failure: LiveData<ErrorObject>
+    private val failureLiveData = SingleLiveEvent<ErrorModel>()
+    val failure: LiveData<ErrorModel>
         get() = failureLiveData
 
     init { start() }

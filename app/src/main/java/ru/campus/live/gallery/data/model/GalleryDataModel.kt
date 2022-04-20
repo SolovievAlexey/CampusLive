@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GalleryDataObject(
+data class GalleryDataModel(
     val id: Int,
     val fullPath: String,
     val realOrientation: Int

@@ -6,7 +6,7 @@ import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.repository.IDiscussionRepository
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class CreateCommentInteractor @Inject constructor(
         return repository.post(params = params)
     }
 
-    fun upload(params: GalleryDataObject): UploadMediaObject {
+    fun upload(params: GalleryDataModel): UploadMediaObject {
         val result = uploadRepository.upload(params)
         val mediaServerId = if (result is ResponseObject.Success) result.data.id else 0
         return UploadMediaObject(
@@ -33,7 +33,7 @@ class CreateCommentInteractor @Inject constructor(
         )
     }
 
-    fun uploadMediaMapper(params: GalleryDataObject): UploadMediaObject {
+    fun uploadMediaMapper(params: GalleryDataModel): UploadMediaObject {
         return UploadMediaObject(
             id = 0,
             fullPath = params.fullPath,

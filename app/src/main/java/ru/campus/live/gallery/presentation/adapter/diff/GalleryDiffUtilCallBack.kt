@@ -1,11 +1,11 @@
 package ru.campus.live.gallery.presentation.adapter.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 
 class GalleryDiffUtilCallBack(
-    private val oldData: ArrayList<GalleryDataObject>,
-    private val newData: ArrayList<GalleryDataObject>,
+    private val oldData: ArrayList<GalleryDataModel>,
+    private val newData: ArrayList<GalleryDataModel>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

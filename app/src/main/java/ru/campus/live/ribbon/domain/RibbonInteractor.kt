@@ -1,13 +1,13 @@
 package ru.campus.live.ribbon.domain
 
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonPostModel
@@ -72,7 +72,7 @@ class RibbonInteractor @Inject constructor(
         return repository.post(params)
     }
 
-    fun upload(params: GalleryDataObject): UploadMediaObject {
+    fun upload(params: GalleryDataModel): UploadMediaObject {
         val result = uploadRepository.upload(params)
         val error = result !is ResponseObject.Success
         val id = if (result is ResponseObject.Success) result.data.id else 0
@@ -85,7 +85,7 @@ class RibbonInteractor @Inject constructor(
         )
     }
 
-    private fun getErrorItem(params: ErrorObject): RibbonModel {
+    private fun getErrorItem(params: ErrorModel): RibbonModel {
         return RibbonModel(viewType = RibbonViewType.ERROR, message = params.message)
     }
 

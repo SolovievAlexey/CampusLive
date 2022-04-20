@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.campus.live.R
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.di.component.DaggerStartComponent
 import ru.campus.live.core.di.component.StartComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
@@ -58,7 +58,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         findNavController().navigate(R.id.action_onBoarFragment_to_locationFragment)
     }
 
-    private val failure = Observer<ErrorObject> { errorObject ->
+    private val failure = Observer<ErrorModel> { errorObject ->
         isVisibleProgressBar(false)
         val bundle = Bundle()
         bundle.putParcelable("params", errorObject)

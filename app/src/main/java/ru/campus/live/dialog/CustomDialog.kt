@@ -4,13 +4,13 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.presentation.BaseDialogFragment
 import ru.campus.live.databinding.FragmentCustomDialogBinding
 
 class CustomDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
 
-    private var params: ErrorObject = ErrorObject()
+    private var params: ErrorModel = ErrorModel()
     override fun getViewBinding() = FragmentCustomDialogBinding.inflate(layoutInflater)
 
     override fun onCreate(savedInstanceState: Bundle?) {

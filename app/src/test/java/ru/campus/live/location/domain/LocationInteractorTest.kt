@@ -6,7 +6,7 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.mockito.kotlin.mock
 import ru.campus.live.core.data.model.ResponseObject
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.location.data.model.LocationModel
 import ru.campus.live.location.data.repository.ILocationRepository
 
@@ -22,7 +22,7 @@ class LocationInteractorTest {
     @Test
     fun `if an error occurs while searching for locations, an empty list is returned`() {
         val response = ResponseObject.Failure<List<LocationModel>>(
-            ErrorObject(code = 0, icon = 1, message = "")
+            ErrorModel(code = 0, icon = 1, message = "")
         )
         Mockito.`when`(repository.get(null)).thenReturn(response)
         val interactor = LocationInteractor(repository)

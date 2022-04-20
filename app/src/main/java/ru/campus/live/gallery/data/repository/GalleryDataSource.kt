@@ -4,13 +4,13 @@ import android.content.Context
 import android.database.Cursor
 import android.media.ExifInterface
 import android.provider.MediaStore
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import java.io.IOException
 import javax.inject.Inject
 
 class GalleryDataSource @Inject constructor(private val context: Context): IGalleryDataSource {
 
-    override fun execute(offset: Int): ArrayList<GalleryDataObject> {
+    override fun execute(offset: Int): ArrayList<GalleryDataModel> {
         val cursor = cursorCreate(offset)
         val model = modelCreate(cursor)
         cursor?.close()
@@ -25,17 +25,17 @@ class GalleryDataSource @Inject constructor(private val context: Context): IGall
         )
     }
 
-    private fun modelCreate(cursor: Cursor?): ArrayList<GalleryDataObject> {
-        val dataObject: ArrayList<GalleryDataObject> = ArrayList()
+    private fun modelCreate(cursor: Cursor?): ArrayList<GalleryDataModel> {
+        val dataModel: ArrayList<GalleryDataModel> = ArrayList()
         if (cursor != null) {
             for (i in 0 until cursor.count) {
                 cursor.moveToPosition(i)
                 val columnIndexPath = cursor.getColumnIndex(MediaStore.Images.Media.DATA)
                 val fullPath = cursor.getString(columnIndexPath)
-                dataObject.add(GalleryDataObject(0, fullPath, realOrientation(fullPath)))
+                dataModel.add(GalleryDataModel(0, fullPath, realOrientation(fullPath)))
             }
         }
-        return dataObject
+        return dataModel
     }
 
     private fun realOrientation(fullPath: String): Int {

@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.repository.IGalleryRepository
 import javax.inject.Inject
 
@@ -15,13 +15,13 @@ class GalleryViewModel @Inject constructor(
     private val repository: IGalleryRepository
 ) : ViewModel() {
 
-    private val listLiveData = MutableLiveData<ArrayList<GalleryDataObject>>()
-    val list: LiveData<ArrayList<GalleryDataObject>>
+    private val listLiveData = MutableLiveData<ArrayList<GalleryDataModel>>()
+    val list: LiveData<ArrayList<GalleryDataModel>>
         get() = listLiveData
 
     fun execute() {
         viewModelScope.launch(Dispatchers.IO) {
-            val model = ArrayList<GalleryDataObject>()
+            val model = ArrayList<GalleryDataModel>()
             listLiveData.value?.let { model.addAll(it) }
             val response = repository.get(model.size)
             if (response.size != 0) model.addAll(response)

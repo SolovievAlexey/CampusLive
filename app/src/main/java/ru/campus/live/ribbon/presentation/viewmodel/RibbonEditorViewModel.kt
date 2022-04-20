@@ -7,12 +7,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.domain.UploadMediaInteractor
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
@@ -29,8 +29,8 @@ class RibbonEditorViewModel @Inject constructor(
     val success: LiveData<RibbonModel>
         get() = successLiveData
 
-    private val failureLiveData = SingleLiveEvent<ErrorObject>()
-    val failure: LiveData<ErrorObject>
+    private val failureLiveData = SingleLiveEvent<ErrorModel>()
+    val failure: LiveData<ErrorModel>
         get() = failureLiveData
 
     private val uploadLiveData = MutableLiveData<ArrayList<UploadMediaObject>>()
@@ -48,7 +48,7 @@ class RibbonEditorViewModel @Inject constructor(
         }
     }
 
-    fun upload(params: GalleryDataObject) {
+    fun upload(params: GalleryDataModel) {
         viewModelScope.launch(dispatcher.io) {
             val model = ArrayList<UploadMediaObject>()
             model.add(uploadMediaInteractor.addList(params = params))

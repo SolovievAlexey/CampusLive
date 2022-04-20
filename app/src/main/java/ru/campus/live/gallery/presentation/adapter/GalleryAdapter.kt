@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.ItemGalleryBinding
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.presentation.adapter.diff.GalleryDiffUtilCallBack
 import ru.campus.live.gallery.presentation.adapter.holder.GalleryViewHolder
 
-class GalleryAdapter(private val myOnClick: MyOnClick<GalleryDataObject>) :
+class GalleryAdapter(private val myOnClick: MyOnClick<GalleryDataModel>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val model = ArrayList<GalleryDataObject>()
+    private val model = ArrayList<GalleryDataModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val itemBinding =
@@ -29,7 +29,7 @@ class GalleryAdapter(private val myOnClick: MyOnClick<GalleryDataObject>) :
         return model.size
     }
 
-    fun setData(newModel: ArrayList<GalleryDataObject>) {
+    fun setData(newModel: ArrayList<GalleryDataModel>) {
         val result =
             DiffUtil.calculateDiff(GalleryDiffUtilCallBack(model, newModel))
         model.clear()

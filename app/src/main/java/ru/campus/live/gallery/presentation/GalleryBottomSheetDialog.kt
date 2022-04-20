@@ -20,7 +20,7 @@ import ru.campus.live.core.presentation.BaseBottomSheetDialogFragment
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentGalleryBottomSheetBinding
 import ru.campus.live.gallery.presentation.adapter.GalleryAdapter
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.presentation.views.ItemOffsetDecorationGallery
 
 class GalleryBottomSheetDialog :
@@ -33,8 +33,8 @@ class GalleryBottomSheetDialog :
     }
 
     private val viewModel by viewModels<GalleryViewModel> { component.viewModelsFactory() }
-    private val myOnClick = object : MyOnClick<GalleryDataObject> {
-        override fun item(view: View, item: GalleryDataObject) {
+    private val myOnClick = object : MyOnClick<GalleryDataModel> {
+        override fun item(view: View, item: GalleryDataModel) {
             val bundle = Bundle()
             bundle.putParcelable("item", item)
             setFragmentResult("mediaRequest", bundle)
@@ -66,7 +66,7 @@ class GalleryBottomSheetDialog :
         viewModel.list.observe(viewLifecycleOwner, listLiveData)
     }
 
-    private val listLiveData = Observer<ArrayList<GalleryDataObject>> { newModel ->
+    private val listLiveData = Observer<ArrayList<GalleryDataModel>> { newModel ->
         adapter.setData(newModel)
     }
 

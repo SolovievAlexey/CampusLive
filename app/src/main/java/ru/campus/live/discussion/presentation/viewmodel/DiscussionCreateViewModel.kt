@@ -7,13 +7,13 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.campus.live.core.data.model.ErrorObject
+import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
 import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.domain.CreateCommentInteractor
-import ru.campus.live.gallery.data.model.GalleryDataObject
+import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ class DiscussionCreateViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val successLiveData = SingleLiveEvent<DiscussionModel?>()
-    private val failureLiveData = SingleLiveEvent<ErrorObject>()
+    private val failureLiveData = SingleLiveEvent<ErrorModel>()
     private val uploadLiveData = MutableLiveData<ArrayList<UploadMediaObject>>()
     fun onSuccessEvent() = successLiveData
     fun onFailureEvent() = failureLiveData
@@ -46,7 +46,7 @@ class DiscussionCreateViewModel @Inject constructor(
         }
     }
 
-    fun upload(params: GalleryDataObject) {
+    fun upload(params: GalleryDataModel) {
         viewModelScope.launch(Dispatchers.IO) {
             val model = ArrayList<UploadMediaObject>()
             model.add(interactor.uploadMediaMapper(params = params))
