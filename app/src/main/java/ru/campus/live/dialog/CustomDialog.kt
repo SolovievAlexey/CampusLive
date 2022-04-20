@@ -8,7 +8,7 @@ import ru.campus.live.core.data.model.ErrorObject
 import ru.campus.live.core.presentation.BaseDialogFragment
 import ru.campus.live.databinding.FragmentCustomDialogBinding
 
-class ErrorDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
+class CustomDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
 
     private var params: ErrorObject = ErrorObject()
     override fun getViewBinding() = FragmentCustomDialogBinding.inflate(layoutInflater)

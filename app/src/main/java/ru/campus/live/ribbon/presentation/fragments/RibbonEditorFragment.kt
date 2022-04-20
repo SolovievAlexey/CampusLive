@@ -19,7 +19,7 @@ import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.core.presentation.Keyboard
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreatePublicationBinding
-import ru.campus.live.dialog.ErrorDialog
+import ru.campus.live.dialog.CustomDialog
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonEditorViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
@@ -111,7 +111,7 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
 
     private val failure = Observer<ErrorObject> { errorObject ->
         isVisibleToolBarMenu(false)
-        val customDialog = ErrorDialog()
+        val customDialog = CustomDialog()
         val bundle = Bundle()
         bundle.putString("message", errorObject.message)
         bundle.putInt("icon", errorObject.icon)

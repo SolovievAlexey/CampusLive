@@ -14,7 +14,7 @@ import ru.campus.live.core.di.component.StartComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.databinding.FragmentStartBinding
-import ru.campus.live.dialog.ErrorDialog
+import ru.campus.live.dialog.CustomDialog
 import ru.campus.live.start.data.model.LoginModel
 import ru.campus.live.start.data.model.StartModel
 import ru.campus.live.start.presentation.adapter.StartAdapter
@@ -62,7 +62,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         isVisibleProgressBar(false)
         val bundle = Bundle()
         bundle.putParcelable("params", errorObject)
-        val customDialog = ErrorDialog()
+        val customDialog = CustomDialog()
         customDialog.arguments = bundle
         customDialog.show(requireActivity().supportFragmentManager, "CustomErrorDialog")
     }

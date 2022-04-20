@@ -17,7 +17,7 @@ import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.core.presentation.Keyboard
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreateCommentBinding
-import ru.campus.live.dialog.ErrorDialog
+import ru.campus.live.dialog.CustomDialog
 import ru.campus.live.discussion.data.model.CommentCreateObject
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionCreateViewModel
 import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
@@ -133,7 +133,7 @@ class DiscussionEditorFragment : BaseFragment<FragmentCreateCommentBinding>() {
         viewModel.onFailureEvent().observe(viewLifecycleOwner) { errorObject ->
             binding.progressBar.isVisible = false
             binding.toolBar.inflateMenu(R.menu.send_menu)
-            val customDialog = ErrorDialog()
+            val customDialog = CustomDialog()
             val bundle = Bundle()
             bundle.putString("message", errorObject.message)
             bundle.putInt("icon", errorObject.icon)
