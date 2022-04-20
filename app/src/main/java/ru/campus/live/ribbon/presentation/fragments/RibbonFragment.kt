@@ -31,11 +31,32 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
             .build()
     }
 
-    private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) {
-        component.viewModelsFactory()
+    private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) { component.viewModelsFactory() }
+    private val adapter = RibbonAdapter(myOnClick())
+    private var linearLayoutManager: LinearLayoutManager? = null
+
+    override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.scrollEvent()
+        viewModel.list.observe(viewLifecycleOwner, listLiveData())
+        viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent())
+        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent())
+        binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.get(refresh = true)
+        }
+
+        binding.fab.setOnClickListener {
+            findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
+        }
     }
 
-    private val myOnClick = object : MyOnClick<RibbonModel> {
+    private fun myOnClick() = object : MyOnClick<RibbonModel> {
         override fun item(view: View, item: RibbonModel) {
             if (view.id == R.id.fab) {
                 findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
@@ -49,42 +70,20 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         }
     }
 
-    private val adapter = RibbonAdapter(myOnClick)
-    private var linearLayoutManager: LinearLayoutManager? = null
-    override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = linearLayoutManager
-        binding.recyclerView.scrollEvent()
-        viewModel.list.observe(viewLifecycleOwner, listLiveData)
-        viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent)
-        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent)
-        binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.get(refresh = true)
-        }
-
-        binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
-        }
-    }
-
-    private val listLiveData = Observer<ArrayList<RibbonModel>> { newModel ->
+    private fun listLiveData() = Observer<ArrayList<RibbonModel>> { newModel ->
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
     }
 
-    private val startDiscussionEvent = Observer<RibbonModel> { model ->
-        val bundle = Bundle()
-        bundle.putParcelable("publication", model)
-        findNavController().navigate(R.id.action_feedFragment_to_discussionFragment, bundle)
+    private fun startDiscussionEvent() = Observer<RibbonModel> { model ->
+        findNavController().navigate(R.id.action_feedFragment_to_discussionFragment,
+            Bundle().apply {
+                putParcelable("publication", model)
+            })
     }
 
-    private val complaintEvent = Observer<RibbonModel> {
+    private fun complaintEvent() = Observer<RibbonModel> {
         val isCancel = AtomicBoolean(false)
         val snack = Snackbar.make(
             binding.root, getString(R.string.complaint_response),
