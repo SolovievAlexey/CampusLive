@@ -1,12 +1,12 @@
 package ru.campus.live.discussion.domain
 
 import ru.campus.live.R
+import ru.campus.live.core.data.model.ResponseObject
+import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.source.HostDataSource
 import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.core.data.source.ResourceManager
-import ru.campus.live.core.data.model.ResponseObject
-import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.data.repository.IDiscussionRepository
@@ -28,11 +28,11 @@ class DiscussionInteractor @Inject constructor(
         return repository.get(publication)
     }
 
-    fun header(
-        item: DiscussionModel,
-        model: ArrayList<DiscussionModel>,
+    fun adPublicationView(
+        publication: DiscussionModel,
+        model: ArrayList<DiscussionModel>
     ): ArrayList<DiscussionModel> {
-        model.add(0, item)
+        model.add(0, publication)
         return model
     }
 
@@ -58,20 +58,17 @@ class DiscussionInteractor @Inject constructor(
         return preparationDataViewHolder(response)
     }
 
-    fun error(): ArrayList<DiscussionModel> {
+    fun getErrorView(): ArrayList<DiscussionModel> {
         val model = ArrayList<DiscussionModel>()
         model.add(DiscussionModel(DiscussionViewType.DISCUSSION_NONE))
         return model
     }
 
     fun count(model: ArrayList<DiscussionModel>): Int {
-        var count = 0
-        model.forEach { item ->
-            if (item.type == DiscussionViewType.PARENT
-                || item.type == DiscussionViewType.CHILD
-            ) count++
+        return model.count {
+            it.type == DiscussionViewType.PARENT
+                    || it.type == DiscussionViewType.CHILD
         }
-        return count
     }
 
     fun title(count: Int): String {

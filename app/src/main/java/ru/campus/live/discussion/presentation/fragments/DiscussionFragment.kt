@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
@@ -23,21 +22,24 @@ import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.presentation.BounceEdgeEffectFactory
 import ru.campus.live.discussion.presentation.adapter.DiscussionAdapter
 import ru.campus.live.discussion.presentation.viewmodel.DiscussionViewModel
-import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.discussion.presentation.viewmodel.DiscussionViewModelFactory
 import java.util.concurrent.atomic.AtomicBoolean
+import javax.inject.Inject
 
 
 class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
-    private var publicationObject: RibbonModel? = null
+    lateinit var publication: DiscussionModel
     private val component: DiscussionComponent by lazy {
         DaggerDiscussionComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
     }
 
+    @Inject
+    lateinit var factory: DiscussionViewModelFactory.Factory
     private val viewModel: DiscussionViewModel by navGraphViewModels(R.id.discussionFragment) {
-        component.viewModelsFactory()
+        factory.create(publication)
     }
 
     private val myOnClick = object : MyOnClick<DiscussionModel> {
@@ -57,17 +59,9 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let { publicationObject = it.getParcelable("publication")!! }
-        parentFragment?.setFragmentResultListener("discussionObject") { _, bundle ->
-            val params: DiscussionModel? = bundle.getParcelable("object")
-            if (params != null) viewModel.insert(params)
-        }
-        parentFragment?.setFragmentResultListener("reply") { _, bundle ->
-            val params: DiscussionModel? = bundle.getParcelable("object")
-            if (params != null) onReplyEvent(params)
-        }
-        viewModel.set(publicationObject!!)
-        viewModel.get(publicationObject!!.comments)
+        arguments?.let { publication = it.getParcelable("publication")!! }
+        component.inject(this)
+        viewModel.get()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,49 +71,44 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.edgeEffectFactory = BounceEdgeEffectFactory()
         binding.recyclerView.scrollEvent()
-        viewModel.list.observe(viewLifecycleOwner, listLiveData)
-        viewModel.title.observe(viewLifecycleOwner, titleLiveData)
-        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent)
+        viewModel.list.observe(viewLifecycleOwner, listLiveData())
+        viewModel.title.observe(viewLifecycleOwner, titleLiveData())
+        viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent())
     }
 
     private fun initToolBar() {
         isProgressBarVisible(false)
-
-        if (publicationObject?.comments == 0) {
-            isProgressBarVisible(true)
-        } else {
-            isProgressBarVisible(false)
-        }
-
         binding.toolbar.setNavigationIcon(R.drawable.baseline_close_black_24)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
         binding.toolbar.setOnMenuItemClickListener {
             isProgressBarVisible(true)
-            viewModel.refresh()
+            viewModel.get()
             return@setOnMenuItemClickListener false
         }
         binding.fab.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("publication", publicationObject?.id ?: 0)
             findNavController().navigate(
                 R.id.action_discussionFragment_to_createCommentFragment,
-                bundle
+                Bundle(1).apply {
+                    putInt("publication", publication.id)
+                }
             )
         }
     }
 
-    private val listLiveData = Observer<ArrayList<DiscussionModel>> { model ->
+    private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
         if (model.size > 1) isProgressBarVisible(false)
         adapter.setData(model)
+        viewModel.getTitle()
+        viewModel.refreshUserAvatar()
     }
 
-    private val titleLiveData = Observer<String> { title ->
+    private fun titleLiveData() = Observer<String> { title ->
         binding.toolbar.title = title
     }
 
-    private val complaintEvent = Observer<DiscussionModel> {
+    private fun complaintEvent() = Observer<DiscussionModel> {
         val isCancel = AtomicBoolean(false)
         val snack = Snackbar.make(
             binding.root, getString(R.string.complaint_response),
@@ -147,7 +136,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     private fun onReplyEvent(item: DiscussionModel) {
         val parent = if (item.parent == 0) item.id else item.parent
         val bundle = Bundle()
-        bundle.putInt("publication", publicationObject!!.id)
+        bundle.putInt("publication", publication.id)
         bundle.putInt("parent", parent)
         bundle.putInt("answered", item.id)
         findNavController().navigate(

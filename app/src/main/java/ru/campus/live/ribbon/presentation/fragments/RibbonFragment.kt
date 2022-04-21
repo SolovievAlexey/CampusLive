@@ -78,7 +78,7 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     private fun startDiscussionEvent() = Observer<RibbonModel> { model ->
         findNavController().navigate(R.id.action_feedFragment_to_discussionFragment,
             Bundle().apply {
-                putParcelable("publication", model)
+                putParcelable("publication", viewModel.convertToDiscussionModel(model))
             })
     }
 

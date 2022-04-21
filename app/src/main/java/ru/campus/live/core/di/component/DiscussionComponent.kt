@@ -10,7 +10,7 @@ import ru.campus.live.discussion.presentation.fragments.DiscussionFragment
 interface DiscussionComponent {
 
     fun viewModelsFactory(): ViewModelFactory
-    abstract fun inject(discussionFragment: DiscussionFragment)
+    fun inject(discussionFragment: DiscussionFragment)
 
     @Component.Builder
     interface Builder {

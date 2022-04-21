@@ -14,11 +14,6 @@ abstract class DiscussionVModule : BaseViewModelModule() {
 
     @Binds
     @IntoMap
-    @ViewModelKey(DiscussionViewModel::class)
-    abstract fun discussionViewModel(viewModel: DiscussionViewModel): ViewModel
-
-    @Binds
-    @IntoMap
     @ViewModelKey(DiscussionCreateViewModel::class)
     abstract fun discussionCreateViewModel(viewModel: DiscussionCreateViewModel): ViewModel
 

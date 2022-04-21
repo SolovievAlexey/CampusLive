@@ -6,6 +6,8 @@ import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.source.IUserDataSource
+import ru.campus.live.discussion.data.model.DiscussionModel
+import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
@@ -114,6 +116,20 @@ class RibbonInteractor @Inject constructor(
                     location = userDataSource.location()))
         }
         return model
+    }
+
+    fun convertToDiscussionModel(item: RibbonModel): DiscussionModel {
+        return DiscussionModel(
+            type = DiscussionViewType.PUBLICATION,
+            id = item.id,
+            mediaWidth = item.mediaWidth,
+            mediaHeight = item.mediaHeight,
+            message = item.message,
+            attachment = item.attachment,
+            rating = item.rating,
+            vote = item.vote,
+            relativeTime = item.relativeTime
+        )
     }
 
 }

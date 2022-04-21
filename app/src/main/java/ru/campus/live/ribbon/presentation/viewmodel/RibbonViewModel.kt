@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
+import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.domain.RibbonInteractor
 import javax.inject.Inject
@@ -76,6 +77,10 @@ class RibbonViewModel @Inject constructor(
 
     fun startDiscussion(item: RibbonModel) {
         startDiscussionEvent.value = item
+    }
+
+    fun convertToDiscussionModel(item: RibbonModel): DiscussionModel {
+        return interactor.convertToDiscussionModel(item)
     }
 
 }
