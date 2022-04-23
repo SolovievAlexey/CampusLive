@@ -28,34 +28,44 @@ class RibbonInteractor @Inject constructor(
 ) {
 
     fun getCash(): ArrayList<RibbonModel> {
-        val result =  repository.getCash()
+        val result = repository.getCash()
         return map(result)
     }
 
     fun postCash(model: ArrayList<RibbonModel>) {
-        repository.postCash(model = model)
+        if (!isErrorView(model)) repository.postCash(model = model)
     }
 
-    fun get(model: ArrayList<RibbonModel>, offset: Int): ArrayList<RibbonModel> {
+    fun get(
+        model: ArrayList<RibbonModel>, offset: Int,
+    ): ArrayList<RibbonModel> {
         when (val result = repository.get(offset = offset)) {
-            is ResponseObject.Success -> return result.data
+            is ResponseObject.Success -> {
+                if(offset == 0) return result.data
+                model.addAll(result.data)
+                return model
+            }
             is ResponseObject.Failure -> {
-                if (offset == 0) {
-                    val response = ArrayList<RibbonModel>()
-                    response.add(0, getErrorItem(result.error))
-                    return response
+                if (model.size != 0 && offset == 0) {
+                    if (isErrorView(model)) model.removeAt(1)
+                    model.add(1, getErrorItem(result.error))
                 }
                 return model
             }
         }
     }
 
-    fun lazyDownloadFeed(model: ArrayList<RibbonModel>): Boolean {
-        return model.size == 25
+    fun isErrorView(model: ArrayList<RibbonModel>): Boolean {
+        val count = model.count { it.viewType == RibbonViewType.ERROR }
+        return count != 0
     }
 
-    fun getOffset(model: ArrayList<RibbonModel>): Int {
-        return model.count { it.viewType == RibbonViewType.PUBLICATION }
+    fun getOffset(refresh: Boolean, model: ArrayList<RibbonModel>): Int {
+        return if(refresh) 0 else model.count { it.viewType == RibbonViewType.PUBLICATION }
+    }
+
+    fun lazyDownloadFeed(model: ArrayList<RibbonModel>): Boolean {
+        return model.size == 25
     }
 
     fun map(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {

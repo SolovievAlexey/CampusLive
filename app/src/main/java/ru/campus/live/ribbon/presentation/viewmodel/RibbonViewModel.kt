@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class RibbonViewModel @Inject constructor(
     private val dispatchers: IDispatchers,
-    private val interactor: RibbonInteractor
+    private val interactor: RibbonInteractor,
 ) : ViewModel() {
 
     private var isLazyDownloadFeed = false
@@ -36,32 +36,40 @@ class RibbonViewModel @Inject constructor(
     val complaintEvent: LiveData<RibbonModel>
         get() = complaintLiveData
 
-    init { getCash() }
+    init {
+        getCash()
+    }
 
     private fun getCash() {
         viewModelScope.launch(dispatchers.io) {
             val result = interactor.getCash()
-            isDataCash = true
-            listLiveData.postValue(result)
-            isLazyDownloadFeed = true
+            if(result.size > 1) isDataCash = true
+            withContext(dispatchers.main) {
+                listLiveData.value = result
+            }
             get(refresh = true)
         }
     }
 
     fun get(refresh: Boolean = false) {
-        /*if(!isLazyDownloadFeed && !refresh) return
+        if (!isLazyDownloadFeed && !refresh) return
         viewModelScope.launch(dispatchers.io) {
             val model = ArrayList<RibbonModel>()
-            if (!refresh) list.value?.let { model.addAll(it) }
-            val offset = interactor.getOffset(model)
+            listLiveData.value?.let { model.addAll(it) }
+
+            val offset = interactor.getOffset(refresh, model)
             val result = interactor.get(offset = offset, model = model)
+
+            val error = interactor.isErrorView(model = result)
+            if(offset == 0 && !error) interactor.postCash(result)
             isLazyDownloadFeed = interactor.lazyDownloadFeed(result)
-            if(offset == 0) interactor.postCash(result)
-            model.addAll(interactor.map(result))
+
+            val response = interactor.map(result)
+
             withContext(dispatchers.main) {
-                listLiveData.value = model
+                listLiveData.value = response
             }
-        }*/
+        }
     }
 
     fun vote(params: VoteModel) {
