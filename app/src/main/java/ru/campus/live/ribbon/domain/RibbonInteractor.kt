@@ -23,8 +23,12 @@ class RibbonInteractor @Inject constructor(
     private val uploadRepository: IUploadMediaRepository,
     private val displayMetrics: DisplayMetrics,
     private val titleUseCase: DiscussionTitleUseCase,
-    private val userDataSource: IUserDataSource
+    private val userDataSource: IUserDataSource,
 ) {
+
+    fun postCash(model: ArrayList<RibbonModel>) {
+        repository.postCash(model = model)
+    }
 
     fun get(model: ArrayList<RibbonModel>, offset: Int): ArrayList<RibbonModel> {
         when (val result = repository.get(offset = offset)) {

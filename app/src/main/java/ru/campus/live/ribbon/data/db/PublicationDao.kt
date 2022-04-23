@@ -6,12 +6,12 @@ import androidx.room.Query
 
 @Dao
 interface PublicationDao {
-    @Query("SELECT * FROM publication")
-    fun get(): List<Publication>
+    @Query("SELECT * FROM ribbondbmodel")
+    fun get(): List<RibbonDBModel>
 
     @Insert
-    fun insert(item: Publication)
+    fun insert(item: RibbonDBModel)
 
-    @Query("DELETE FROM publication")
+    @Query("DELETE FROM ribbondbmodel")
     fun clear()
 }

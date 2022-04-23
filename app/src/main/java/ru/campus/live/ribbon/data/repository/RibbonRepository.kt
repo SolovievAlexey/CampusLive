@@ -1,5 +1,6 @@
 package ru.campus.live.ribbon.data.repository
 
+import android.util.Log
 import okhttp3.ResponseBody
 import ru.campus.live.core.data.APIService
 import ru.campus.live.core.data.source.CloudDataSource
@@ -15,8 +16,17 @@ import javax.inject.Inject
 class RibbonRepository @Inject constructor(
     private val apiService: APIService,
     private val errorDataSource: ErrorDataSource,
-    private val userDataSource: UserDataSource
+    private val userDataSource: UserDataSource,
+    private val cashDataSource: ICashDataSource
 ) : IRibbonRepository {
+
+    override fun getCash() {
+        Log.d("MyLog", "Получаем данные с БД")
+    }
+
+    override fun postCash(model: ArrayList<RibbonModel>) {
+        cashDataSource.post(model)
+    }
 
     override fun get(offset: Int): ResponseObject<ArrayList<RibbonModel>> {
         val call = apiService.wallGet(userDataSource.token(), userDataSource.location().id, offset)

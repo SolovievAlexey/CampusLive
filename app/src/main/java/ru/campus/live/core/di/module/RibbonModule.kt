@@ -4,10 +4,12 @@ import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.core.data.repository.UploadMediaRepository
+import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.di.module.viewmodel.FeedVModule
+import ru.campus.live.ribbon.data.repository.CashDataSource
+import ru.campus.live.ribbon.data.repository.ICashDataSource
 import ru.campus.live.ribbon.data.repository.IRibbonRepository
 import ru.campus.live.ribbon.data.repository.RibbonRepository
 
@@ -23,10 +25,14 @@ class FeedModule {
 
 @Module
 interface FeedBindModule {
+
     @Binds
     fun bindWallRepository(ribbonRepository: RibbonRepository): IRibbonRepository
 
     @Binds
     fun bindUploadMediaRepository(uploadMediaRepository: UploadMediaRepository): IUploadMediaRepository
+
+    @Binds
+    fun bindCashDataSource(cashDataSource: CashDataSource): ICashDataSource
 
 }
