@@ -8,7 +8,6 @@ import ru.campus.live.ribbon.data.model.RibbonModel
 
 interface IRibbonRepository {
     fun getCash(): ArrayList<RibbonModel>
-    fun postCash(model: ArrayList<RibbonModel>)
     fun get(offset: Int): ResponseObject<ArrayList<RibbonModel>>
     fun post(params: RibbonPostModel): ResponseObject<RibbonModel>
     fun vote(params: VoteModel)

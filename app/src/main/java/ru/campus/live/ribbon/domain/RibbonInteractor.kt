@@ -11,6 +11,7 @@ import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
+import ru.campus.live.ribbon.data.model.ResponseRibbon
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
@@ -26,62 +27,51 @@ class RibbonInteractor @Inject constructor(
     private val userDataSource: IUserDataSource,
 ) {
 
-    fun getCash(): ArrayList<RibbonModel> {
+    fun getModel(oldModel: ArrayList<RibbonModel>?): ArrayList<RibbonModel> {
+        val model = ArrayList<RibbonModel>()
+        oldModel?.let {  model.addAll(it) }
+        return model
+    }
+
+    fun cash(): ArrayList<RibbonModel> {
         val result = repository.getCash()
         return map(result)
     }
 
-    fun postCash(model: ArrayList<RibbonModel>) {
-        if (!isErrorView(model)) repository.postCash(model = model)
-    }
-
-    fun get(model: ArrayList<RibbonModel>, offset: Int): ArrayList<RibbonModel> {
+    fun get(offset: Int): ResponseRibbon {
         return when (val result = repository.get(offset = offset)) {
-            is ResponseObject.Success -> resultSuccess(
-                oldModel = model,
-                newModel = result.data,
-                offset = offset
-            )
-            is ResponseObject.Failure -> getFailure(
-                oldModel = model,
-                offset = offset,
-                error = result.error
-            )
+            is ResponseObject.Success -> ResponseRibbon(result.data)
+            is ResponseObject.Failure -> ResponseRibbon(statusCode = result.error.code)
         }
     }
 
-    private fun resultSuccess(
-        oldModel: ArrayList<RibbonModel>, newModel: ArrayList<RibbonModel>, offset: Int
+    fun render(
+        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
     ): ArrayList<RibbonModel> {
-        if (offset == 0) {
-            if(oldModel.size != 0) newModel.add(0, oldModel[0])
-            return newModel
-        }
-        oldModel.addAll(newModel)
-        return oldModel
+        return if (response.statusCode == 200) onRibbonSuccess(oldModel, response, offset)
+        else onRibbonFailure(oldModel, response, offset)
     }
 
-    private fun getFailure(
-        oldModel: ArrayList<RibbonModel>, offset: Int, error: ErrorModel
+    private fun onRibbonSuccess(
+        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
     ): ArrayList<RibbonModel> {
-        if (oldModel.size != 0 && offset == 0) {
-            if(isErrorView(oldModel)) oldModel.removeAt(1)
-            oldModel.add(1, getErrorItem(error))
-        }
-        return oldModel
+        if (offset == 0) return map(response.data)
+        oldModel.addAll(response.data)
+        return map(oldModel)
     }
 
-    fun isErrorView(model: ArrayList<RibbonModel>): Boolean {
-        val count = model.count { it.viewType == RibbonViewType.ERROR }
-        return count != 0
+    private fun onRibbonFailure(
+        oldMode: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
+    ): ArrayList<RibbonModel> {
+        return oldMode
     }
 
     fun getOffset(refresh: Boolean, model: ArrayList<RibbonModel>): Int {
         return if (refresh) 0 else model.count { it.viewType == RibbonViewType.PUBLICATION }
     }
 
-    fun lazyDownloadFeed(model: ArrayList<RibbonModel>): Boolean {
-        return model.size == 25
+    fun lazyDownloadFeed(statusCode: Int): Boolean {
+        return statusCode == 200
     }
 
     fun map(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {

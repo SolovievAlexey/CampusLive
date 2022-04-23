@@ -1,16 +1,14 @@
 package ru.campus.live.ribbon.data.repository
 
-import android.util.Log
 import okhttp3.ResponseBody
 import ru.campus.live.core.data.APIService
+import ru.campus.live.core.data.model.ResponseObject
+import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.source.CloudDataSource
 import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.source.UserDataSource
-import ru.campus.live.core.data.model.ResponseObject
-import ru.campus.live.core.data.model.VoteModel
-import ru.campus.live.ribbon.data.db.RibbonDBModel
-import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import javax.inject.Inject
 
@@ -25,14 +23,13 @@ class RibbonRepository @Inject constructor(
         return cashDataSource.get()
     }
 
-    override fun postCash(model: ArrayList<RibbonModel>) {
-        cashDataSource.post(model)
-    }
-
     override fun get(offset: Int): ResponseObject<ArrayList<RibbonModel>> {
-        val call = apiService.wallGet(userDataSource.token(), userDataSource.location().locationId, offset)
-        return CloudDataSource<ArrayList<RibbonModel>>(errorDataSource = errorDataSource).execute(
-            call)
+        val call =
+            apiService.wallGet(userDataSource.token(), userDataSource.location().locationId, offset)
+        val response =
+            CloudDataSource<ArrayList<RibbonModel>>(errorDataSource = errorDataSource).execute(call)
+        if (response is ResponseObject.Success && offset == 0) cashDataSource.post(response.data)
+        return response
     }
 
     override fun post(params: RibbonPostModel): ResponseObject<RibbonModel> {

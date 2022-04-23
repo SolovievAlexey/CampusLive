@@ -21,7 +21,6 @@ class RibbonViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var isLazyDownloadFeed = false
-
     private val listLiveData = MutableLiveData<ArrayList<RibbonModel>>()
     val list: LiveData<ArrayList<RibbonModel>>
         get() = listLiveData
@@ -38,7 +37,7 @@ class RibbonViewModel @Inject constructor(
 
     private fun getCash() {
         viewModelScope.launch(dispatchers.io) {
-            val result = interactor.getCash()
+            val result = interactor.cash()
             withContext(dispatchers.main) { listLiveData.value = result }
             get(refresh = true)
         }
@@ -47,21 +46,12 @@ class RibbonViewModel @Inject constructor(
     fun get(refresh: Boolean = false) {
         if (!isLazyDownloadFeed && !refresh) return
         viewModelScope.launch(dispatchers.io) {
-            val model = ArrayList<RibbonModel>()
-            listLiveData.value?.let { model.addAll(it) }
-
-            val offset = interactor.getOffset(refresh, model)
-            val result = interactor.get(offset = offset, model = model)
-
-
-
-            val error = interactor.isErrorView(model = result)
-            if(offset == 0 && !error) interactor.postCash(result)
-            isLazyDownloadFeed = interactor.lazyDownloadFeed(result)
-            val response = interactor.map(result)
-            withContext(dispatchers.main) {
-                listLiveData.value = response
-            }
+            val oldModel = interactor.getModel(list.value)
+            val offset = interactor.getOffset(refresh, oldModel)
+            val result = interactor.get(offset)
+            val response = interactor.render(oldModel, result, offset)
+            withContext(dispatchers.main) { listLiveData.value = response }
+            isLazyDownloadFeed = interactor.lazyDownloadFeed(statusCode = result.statusCode)
         }
     }
 
