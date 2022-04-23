@@ -35,5 +35,5 @@ data class RibbonDBModel(
     @ColumnInfo(name = "vote")
     val vote: Int = 0,
     @ColumnInfo(name = "relativeTime")
-    val relativeTime: String = "relativeTime"
+    val relativeTime: String = ""
 )

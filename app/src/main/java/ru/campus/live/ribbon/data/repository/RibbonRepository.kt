@@ -8,6 +8,7 @@ import ru.campus.live.core.data.source.ErrorDataSource
 import ru.campus.live.core.data.source.UserDataSource
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
+import ru.campus.live.ribbon.data.db.RibbonDBModel
 import ru.campus.live.ribbon.data.model.RibbonPostModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
@@ -20,8 +21,8 @@ class RibbonRepository @Inject constructor(
     private val cashDataSource: ICashDataSource
 ) : IRibbonRepository {
 
-    override fun getCash() {
-        Log.d("MyLog", "Получаем данные с БД")
+    override fun getCash(): ArrayList<RibbonModel> {
+        return cashDataSource.get()
     }
 
     override fun postCash(model: ArrayList<RibbonModel>) {

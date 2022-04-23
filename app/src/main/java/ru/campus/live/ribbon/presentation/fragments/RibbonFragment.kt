@@ -113,7 +113,7 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(isRibbonLazy()) viewModel.get()
-                binding.fab.apply { if(isVisibleFab(dy)) show() else hide() }
+                //binding.fab.apply { if(isVisibleFab(dy)) show() else hide() }
             }
         })
     }

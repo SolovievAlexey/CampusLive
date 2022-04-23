@@ -1,5 +1,6 @@
 package ru.campus.live.ribbon.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,7 +21,8 @@ class RibbonViewModel @Inject constructor(
     private val interactor: RibbonInteractor
 ) : ViewModel() {
 
-    private var isLazyDownloadFeed = true
+    private var isLazyDownloadFeed = false
+    private var isDataCash = false
 
     private val listLiveData = MutableLiveData<ArrayList<RibbonModel>>()
     val list: LiveData<ArrayList<RibbonModel>>
@@ -34,10 +36,20 @@ class RibbonViewModel @Inject constructor(
     val complaintEvent: LiveData<RibbonModel>
         get() = complaintLiveData
 
-    init { get() }
+    init { getCash() }
+
+    private fun getCash() {
+        viewModelScope.launch(dispatchers.io) {
+            val result = interactor.getCash()
+            isDataCash = true
+            listLiveData.postValue(result)
+            isLazyDownloadFeed = true
+            get(refresh = true)
+        }
+    }
 
     fun get(refresh: Boolean = false) {
-        if(!isLazyDownloadFeed && !refresh) return
+        /*if(!isLazyDownloadFeed && !refresh) return
         viewModelScope.launch(dispatchers.io) {
             val model = ArrayList<RibbonModel>()
             if (!refresh) list.value?.let { model.addAll(it) }
@@ -49,7 +61,7 @@ class RibbonViewModel @Inject constructor(
             withContext(dispatchers.main) {
                 listLiveData.value = model
             }
-        }
+        }*/
     }
 
     fun vote(params: VoteModel) {

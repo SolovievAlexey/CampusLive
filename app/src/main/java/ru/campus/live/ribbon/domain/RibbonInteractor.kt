@@ -1,5 +1,6 @@
 package ru.campus.live.ribbon.domain
 
+import android.util.Log
 import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
@@ -25,6 +26,11 @@ class RibbonInteractor @Inject constructor(
     private val titleUseCase: DiscussionTitleUseCase,
     private val userDataSource: IUserDataSource,
 ) {
+
+    fun getCash(): ArrayList<RibbonModel> {
+        val result =  repository.getCash()
+        return map(result)
+    }
 
     fun postCash(model: ArrayList<RibbonModel>) {
         repository.postCash(model = model)
@@ -103,7 +109,8 @@ class RibbonInteractor @Inject constructor(
             if (item.viewType == RibbonViewType.UNKNOWN) {
                 model[index].viewType = RibbonViewType.PUBLICATION
                 if (item.attachment != null) {
-                    val params = displayMetrics.get(item.attachment.attachmentWidth, item.attachment.attachmentHeight)
+                    val params = displayMetrics.get(item.attachment.attachmentWidth,
+                        item.attachment.attachmentHeight)
                     model[index].mediaWidth = params[0]
                     model[index].mediaHeight = params[1]
                 }

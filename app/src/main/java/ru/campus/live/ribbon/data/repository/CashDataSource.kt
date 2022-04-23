@@ -4,6 +4,7 @@ import android.util.Log
 import ru.campus.live.ribbon.data.db.AppDatabase
 import ru.campus.live.ribbon.data.db.RibbonDBModel
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonViewType
 import javax.inject.Inject
 
 /**
@@ -14,8 +15,9 @@ import javax.inject.Inject
 
 class CashDataSource @Inject constructor(private val appDatabase: AppDatabase): ICashDataSource {
 
-    override fun get() {
-        Log.d("MyLog", "Получаем данные с БД")
+    override fun get(): ArrayList<RibbonModel> {
+        val result = appDatabase.publicationDao().get()
+        return mapRibbon(result)
     }
 
     override fun post(model: ArrayList<RibbonModel>) {
@@ -30,6 +32,27 @@ class CashDataSource @Inject constructor(private val appDatabase: AppDatabase): 
         model.forEach { item ->
             response.add(RibbonDBModel(
                 viewType = item.viewType,
+                location = item.location,
+                id = item.id,
+                message = item.message,
+                attachment = item.attachment,
+                mediaWidth = item.mediaWidth,
+                mediaHeight = item.mediaHeight,
+                rating = item.rating,
+                comments = item.comments,
+                commentsString = item.commentsString,
+                vote = item.vote,
+                relativeTime = item.relativeTime
+            ))
+        }
+        return response
+    }
+
+    private fun mapRibbon(model: List<RibbonDBModel>): ArrayList<RibbonModel> {
+        val response = ArrayList<RibbonModel>()
+        model.forEach { item ->
+            response.add(RibbonModel(
+                viewType = RibbonViewType.UNKNOWN,
                 location = item.location,
                 id = item.id,
                 message = item.message,

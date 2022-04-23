@@ -9,6 +9,6 @@ import ru.campus.live.ribbon.data.model.RibbonModel
  */
 
 interface ICashDataSource {
-    fun get()
+    fun get(): ArrayList<RibbonModel>
     fun post(model: ArrayList<RibbonModel>)
 }

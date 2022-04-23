@@ -1,6 +1,7 @@
 package ru.campus.live.ribbon.presentation.adapter.holders
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.ViewGroup
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
