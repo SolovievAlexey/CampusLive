@@ -103,7 +103,7 @@ class RibbonInteractor @Inject constructor(
             if (item.viewType == RibbonViewType.UNKNOWN) {
                 model[index].viewType = RibbonViewType.PUBLICATION
                 if (item.attachment != null) {
-                    val params = displayMetrics.get(item.attachment.width, item.attachment.height)
+                    val params = displayMetrics.get(item.attachment.attachmentWidth, item.attachment.attachmentHeight)
                     model[index].mediaWidth = params[0]
                     model[index].mediaHeight = params[1]
                 }

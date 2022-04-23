@@ -45,10 +45,10 @@ class UserDataSource @Inject constructor(context: Context) : IUserDataSource {
 
     override fun locationSave(model: LocationModel) {
         with(sPref.edit()) {
-            putInt("LOCATION_ID", model.id)
-            putString("LOCATION_NAME", model.name)
-            putString("LOCATION_ADDRESS", model.address)
-            putInt("LOCATION_TYPE", model.type)
+            putInt("LOCATION_ID", model.locationId)
+            putString("LOCATION_NAME", model.locationName)
+            putString("LOCATION_ADDRESS", model.locationAddress)
+            putInt("LOCATION_TYPE", model.locationType)
             apply()
         }
     }
@@ -58,7 +58,7 @@ class UserDataSource @Inject constructor(context: Context) : IUserDataSource {
         val name = sPref.getString("LOCATION_NAME", "")
         val address = sPref.getString("LOCATION_ADDRESS", "")
         val type = sPref.getInt("LOCATION_TYPE", 1)
-        return LocationModel(id = id, name = name!!, address = address!!, type = type)
+        return LocationModel(locationId = id, locationName = name!!, locationAddress = address!!, locationType = type)
     }
 
     override fun saveUserAvatarIcon(userAvatarIcon: Int) {

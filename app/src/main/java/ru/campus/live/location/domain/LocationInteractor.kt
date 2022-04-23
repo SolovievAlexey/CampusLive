@@ -18,7 +18,7 @@ class LocationInteractor @Inject constructor(
     }
 
     override fun save(params: LocationModel) {
-        repository.rating(id = params.id)
+        repository.rating(id = params.locationId)
         repository.save(params)
     }
 

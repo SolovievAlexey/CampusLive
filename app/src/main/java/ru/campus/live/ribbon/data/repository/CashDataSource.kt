@@ -21,6 +21,7 @@ class CashDataSource @Inject constructor(private val appDatabase: AppDatabase): 
     override fun post(model: ArrayList<RibbonModel>) {
         val result = map(model)
         val dao = appDatabase.publicationDao()
+        dao.clear()
         result.forEach { item -> dao.insert(item = item) }
     }
 
@@ -29,8 +30,10 @@ class CashDataSource @Inject constructor(private val appDatabase: AppDatabase): 
         model.forEach { item ->
             response.add(RibbonDBModel(
                 viewType = item.viewType,
+                location = item.location,
                 id = item.id,
                 message = item.message,
+                attachment = item.attachment,
                 mediaWidth = item.mediaWidth,
                 mediaHeight = item.mediaHeight,
                 rating = item.rating,

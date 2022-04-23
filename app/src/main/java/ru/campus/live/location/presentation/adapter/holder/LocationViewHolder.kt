@@ -11,8 +11,8 @@ class LocationViewHolder(
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(item: LocationModel) {
-        itemBinding.name.text = item.name
-        itemBinding.address.text = item.address
+        itemBinding.name.text = item.locationName
+        itemBinding.address.text = item.locationAddress
         itemBinding.container.setOnClickListener {
             myOnClick.item(itemBinding.container, item)
         }

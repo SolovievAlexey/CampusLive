@@ -10,7 +10,7 @@ class RibbonLocationViewHolder(
     RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(model: RibbonModel) {
-        itemBinding.name.text = model.location!!.name
+        itemBinding.name.text = model.location!!.locationName
     }
 
 }

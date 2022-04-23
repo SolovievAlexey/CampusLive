@@ -44,7 +44,7 @@ class ChildCommentViewHolder(
             params.height = model.mediaHeight
             itemBinding.photo.layoutParams = params
             Glide.with(context)
-                .load(host + model.attachment.path)
+                .load(host + model.attachment.attachmentPath)
                 .into(itemBinding.photo)
         }
     }

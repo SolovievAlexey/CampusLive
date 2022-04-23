@@ -17,11 +17,11 @@ class LocationDiffUtilCallBack(
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldData[oldItemPosition].id == newData[newItemPosition].id
+        return oldData[oldItemPosition].locationId == newData[newItemPosition].locationId
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return oldData[oldItemPosition].id == newData[newItemPosition].id
+        return oldData[oldItemPosition].locationId == newData[newItemPosition].locationId
     }
 
 }

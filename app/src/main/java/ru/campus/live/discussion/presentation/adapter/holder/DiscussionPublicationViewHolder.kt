@@ -34,7 +34,7 @@ class DiscussionPublicationViewHolder(private val itemBinding: ItemPublicationBi
             params.width = model.mediaWidth
             params.height = model.mediaHeight
             itemBinding.media.layoutParams = params
-            Glide.with(context).load(host + model.attachment.path).into(itemBinding.media)
+            Glide.with(context).load(host + model.attachment.attachmentPath).into(itemBinding.media)
         } else {
             itemBinding.media.isVisible = false
         }

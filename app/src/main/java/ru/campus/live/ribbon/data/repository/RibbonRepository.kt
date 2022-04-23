@@ -29,14 +29,14 @@ class RibbonRepository @Inject constructor(
     }
 
     override fun get(offset: Int): ResponseObject<ArrayList<RibbonModel>> {
-        val call = apiService.wallGet(userDataSource.token(), userDataSource.location().id, offset)
+        val call = apiService.wallGet(userDataSource.token(), userDataSource.location().locationId, offset)
         return CloudDataSource<ArrayList<RibbonModel>>(errorDataSource = errorDataSource).execute(
             call)
     }
 
     override fun post(params: RibbonPostModel): ResponseObject<RibbonModel> {
         val call = apiService.post(
-            userDataSource.token(), userDataSource.location().id,
+            userDataSource.token(), userDataSource.location().locationId,
             params.message, params.attachment
         )
         return CloudDataSource<RibbonModel>(errorDataSource = errorDataSource).execute(call)

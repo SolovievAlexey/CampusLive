@@ -1,13 +1,19 @@
 package ru.campus.live.core.data.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class AttachmentModel(
-    val id: Int,
-    val path: String,
-    val width: Int,
-    val height: Int,
-    val orientation: Int
+    @SerializedName(value = "id")
+    val attachmentId: Int,
+    @SerializedName(value = "path")
+    val attachmentPath: String,
+    @SerializedName(value = "width")
+    val attachmentWidth: Int,
+    @SerializedName(value = "height")
+    val attachmentHeight: Int,
+    @SerializedName(value = "orientation")
+    val attachmentOrientation: Int
 ) : Parcelable
