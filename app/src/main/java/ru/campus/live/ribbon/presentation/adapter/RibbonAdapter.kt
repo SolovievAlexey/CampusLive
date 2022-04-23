@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.ItemFeedLocationBinding
 import ru.campus.live.databinding.ItemPublicationBinding
-import ru.campus.live.databinding.ItemRibbonMessageBinding
+import ru.campus.live.databinding.ItemRibbonErrorBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.data.model.RibbonViewType
 import ru.campus.live.ribbon.presentation.adapter.diff.FeedDiffUtilCallBack
@@ -43,7 +43,7 @@ class RibbonAdapter(private val myOnClick: MyOnClick<RibbonModel>) :
                 RibbonViewHolder(itemBinding, myOnClick)
             }
             else -> {
-                val itemBinding = ItemRibbonMessageBinding.inflate(
+                val itemBinding = ItemRibbonErrorBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent, false
                 )

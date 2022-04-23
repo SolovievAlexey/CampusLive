@@ -49,8 +49,12 @@ class RibbonViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             val model = ArrayList<RibbonModel>()
             listLiveData.value?.let { model.addAll(it) }
+
             val offset = interactor.getOffset(refresh, model)
             val result = interactor.get(offset = offset, model = model)
+
+
+
             val error = interactor.isErrorView(model = result)
             if(offset == 0 && !error) interactor.postCash(result)
             isLazyDownloadFeed = interactor.lazyDownloadFeed(result)

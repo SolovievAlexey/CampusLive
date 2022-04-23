@@ -1,6 +1,5 @@
 package ru.campus.live.ribbon.domain
 
-import android.util.Log
 import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
@@ -36,23 +35,40 @@ class RibbonInteractor @Inject constructor(
         if (!isErrorView(model)) repository.postCash(model = model)
     }
 
-    fun get(
-        model: ArrayList<RibbonModel>, offset: Int,
-    ): ArrayList<RibbonModel> {
-        when (val result = repository.get(offset = offset)) {
-            is ResponseObject.Success -> {
-                if(offset == 0) return result.data
-                model.addAll(result.data)
-                return model
-            }
-            is ResponseObject.Failure -> {
-                if (model.size != 0 && offset == 0) {
-                    if (isErrorView(model)) model.removeAt(1)
-                    model.add(1, getErrorItem(result.error))
-                }
-                return model
-            }
+    fun get(model: ArrayList<RibbonModel>, offset: Int): ArrayList<RibbonModel> {
+        return when (val result = repository.get(offset = offset)) {
+            is ResponseObject.Success -> resultSuccess(
+                oldModel = model,
+                newModel = result.data,
+                offset = offset
+            )
+            is ResponseObject.Failure -> getFailure(
+                oldModel = model,
+                offset = offset,
+                error = result.error
+            )
         }
+    }
+
+    private fun resultSuccess(
+        oldModel: ArrayList<RibbonModel>, newModel: ArrayList<RibbonModel>, offset: Int
+    ): ArrayList<RibbonModel> {
+        if (offset == 0) {
+            if(oldModel.size != 0) newModel.add(0, oldModel[0])
+            return newModel
+        }
+        oldModel.addAll(newModel)
+        return oldModel
+    }
+
+    private fun getFailure(
+        oldModel: ArrayList<RibbonModel>, offset: Int, error: ErrorModel
+    ): ArrayList<RibbonModel> {
+        if (oldModel.size != 0 && offset == 0) {
+            if(isErrorView(oldModel)) oldModel.removeAt(1)
+            oldModel.add(1, getErrorItem(error))
+        }
+        return oldModel
     }
 
     fun isErrorView(model: ArrayList<RibbonModel>): Boolean {
@@ -61,7 +77,7 @@ class RibbonInteractor @Inject constructor(
     }
 
     fun getOffset(refresh: Boolean, model: ArrayList<RibbonModel>): Int {
-        return if(refresh) 0 else model.count { it.viewType == RibbonViewType.PUBLICATION }
+        return if (refresh) 0 else model.count { it.viewType == RibbonViewType.PUBLICATION }
     }
 
     fun lazyDownloadFeed(model: ArrayList<RibbonModel>): Boolean {
@@ -119,8 +135,10 @@ class RibbonInteractor @Inject constructor(
             if (item.viewType == RibbonViewType.UNKNOWN) {
                 model[index].viewType = RibbonViewType.PUBLICATION
                 if (item.attachment != null) {
-                    val params = displayMetrics.get(item.attachment.attachmentWidth,
-                        item.attachment.attachmentHeight)
+                    val params = displayMetrics.get(
+                        item.attachment.attachmentWidth,
+                        item.attachment.attachmentHeight
+                    )
                     model[index].mediaWidth = params[0]
                     model[index].mediaHeight = params[1]
                 }
@@ -132,9 +150,12 @@ class RibbonInteractor @Inject constructor(
     private fun ArrayList<RibbonModel>.location(): ArrayList<RibbonModel> {
         val model = this
         if (model.size != 0 && model[0].viewType != RibbonViewType.LOCATION) {
-            model.add(0,
-                RibbonModel(viewType = RibbonViewType.LOCATION,
-                    location = userDataSource.location()))
+            model.add(
+                0, RibbonModel(
+                    viewType = RibbonViewType.LOCATION,
+                    location = userDataSource.location()
+                )
+            )
         }
         return model
     }
