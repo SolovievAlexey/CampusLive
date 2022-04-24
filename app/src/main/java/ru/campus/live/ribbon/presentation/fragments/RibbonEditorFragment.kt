@@ -37,10 +37,7 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
             .build()
     }
 
-    private val viewModel: RibbonEditorViewModel by viewModels {
-        component.viewModelsFactory()
-    }
-
+    private val viewModel: RibbonEditorViewModel by viewModels { component.viewModelsFactory() }
     private val deleteCallBack = object : MyOnClick<UploadMediaObject> {
         override fun item(view: View, item: UploadMediaObject) {
             viewModel.clearMediaList()
