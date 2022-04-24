@@ -19,7 +19,6 @@ class CustomDialog : BaseDialogFragment<FragmentCustomDialogBinding>() {
         if (params.code == 401) refreshToken()
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.message.text = params.message
