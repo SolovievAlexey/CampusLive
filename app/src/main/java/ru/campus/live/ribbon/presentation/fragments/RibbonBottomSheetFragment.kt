@@ -27,7 +27,6 @@ class RibbonBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentFeedBott
             .build()
     }
 
-
     private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) {
         component.viewModelsFactory()
     }
