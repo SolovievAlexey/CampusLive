@@ -2,56 +2,42 @@ package ru.campus.live.ribbon.presentation.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.navigation.navGraphViewModels
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ru.campus.live.R
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.di.component.DaggerRibbonComponent
 import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
+import ru.campus.live.core.presentation.BaseBottomSheetDialogFragment
 import ru.campus.live.databinding.FragmentFeedBottomSheetBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonViewModel
 
-class RibbonBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
+class RibbonBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentFeedBottomSheetBinding>(),
+    View.OnClickListener {
 
+    private var model: RibbonModel? = null
     private val component: RibbonComponent by lazy {
         DaggerRibbonComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
     }
 
-    private var _binding: FragmentFeedBottomSheetBinding? = null
-    private val binding get() = _binding!!
-    private var model: RibbonModel? = null
+
     private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) {
         component.viewModelsFactory()
     }
 
+    override fun getViewBinding() = FragmentFeedBottomSheetBinding.inflate(layoutInflater)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments.let { model = it?.getParcelable("publication_object") }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        _binding = FragmentFeedBottomSheetBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +46,6 @@ class RibbonBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListe
         binding.comments.text = model!!.commentsString
         renderVoteView()
         renderRatingView()
-
         binding.commentsRoot.setOnClickListener(this)
         binding.up.setOnClickListener(this)
         binding.down.setOnClickListener(this)
