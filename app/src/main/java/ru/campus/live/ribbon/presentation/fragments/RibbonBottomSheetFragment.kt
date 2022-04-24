@@ -37,7 +37,6 @@ class RibbonBottomSheetFragment : BaseBottomSheetDialogFragment<FragmentFeedBott
         arguments.let { model = it?.getParcelable("publication_object") }
     }
 
-
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
