@@ -79,7 +79,8 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         findNavController().navigate(R.id.action_feedFragment_to_discussionFragment,
             Bundle().apply {
                 putParcelable("publication", viewModel.convertToDiscussionModel(model))
-            })
+            }
+        )
     }
 
     private fun complaintEvent() = Observer<RibbonModel> {
