@@ -20,13 +20,13 @@ import ru.campus.live.core.presentation.Keyboard
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentCreatePublicationBinding
 import ru.campus.live.dialog.CustomDialog
-import ru.campus.live.ribbon.data.model.RibbonPostModel
-import ru.campus.live.ribbon.presentation.viewmodel.RibbonEditorViewModel
-import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
 import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
 import ru.campus.live.gallery.presentation.GalleryBottomSheetDialog
+import ru.campus.live.gallery.presentation.adapter.UploadMediaAdapter
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonPostModel
+import ru.campus.live.ribbon.presentation.viewmodel.RibbonEditorViewModel
 
 
 class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
@@ -61,15 +61,15 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
-        viewModel.success.observe(viewLifecycleOwner, success)
-        viewModel.failure.observe(viewLifecycleOwner, failure)
-        viewModel.upload.observe(viewLifecycleOwner, upload)
+        binding.recyclerViewUploadMedia.adapter = uploadMediaAdapter
+        binding.recyclerViewUploadMedia.layoutManager = LinearLayoutManager(requireContext())
+        viewModel.success.observe(viewLifecycleOwner, success())
+        viewModel.failure.observe(viewLifecycleOwner, failure())
+        viewModel.upload.observe(viewLifecycleOwner, upload())
         binding.gallery.setOnClickListener {
             val galleryView = GalleryBottomSheetDialog()
             galleryView.show(requireActivity().supportFragmentManager, "GalleryView")
         }
-        binding.recyclerViewUploadMedia.adapter = uploadMediaAdapter
-        binding.recyclerViewUploadMedia.layoutManager = LinearLayoutManager(requireContext())
         binding.editText.doAfterTextChanged {
             val count = 300 - binding.editText.text.toString().length
             binding.textCount.text = count.toString()
@@ -98,33 +98,30 @@ class RibbonEditorFragment : BaseFragment<FragmentCreatePublicationBinding>() {
         }
     }
 
-    private val upload = Observer<ArrayList<UploadMediaObject>> { newModel ->
+    private fun upload() = Observer<ArrayList<UploadMediaObject>> { newModel ->
         uploadMediaAdapter.setData(newModel)
     }
 
-    private val success = Observer<RibbonModel> { model ->
+    private fun success() = Observer<RibbonModel> { model ->
         val bundle = Bundle()
         bundle.putParcelable("publication", model)
         parentFragment?.setFragmentResult("new_publication", bundle)
         findNavController().popBackStack()
     }
 
-    private val failure = Observer<ErrorModel> { errorObject ->
+    private fun failure() = Observer<ErrorModel> { error ->
         isVisibleToolBarMenu(false)
-        val customDialog = CustomDialog()
-        val bundle = Bundle()
-        bundle.putString("message", errorObject.message)
-        bundle.putInt("icon", errorObject.icon)
-        bundle.putInt("code", errorObject.code)
-        customDialog.arguments = bundle
-        customDialog.show(requireActivity().supportFragmentManager, "CustomErrorDialog")
+        CustomDialog().apply {
+            Bundle(1).apply {
+                putParcelable("params", error)
+            }
+        }.show(requireActivity().supportFragmentManager, "CustomErrorDialog")
     }
 
     private fun isVisibleToolBarMenu(visible: Boolean) {
-        if (visible)
-            binding.toolBar.inflateMenu(R.menu.send_menu)
-        else
-            binding.toolBar.menu.clear()
+        binding.toolBar.apply {
+            if (visible) inflateMenu(R.menu.send_menu) else menu.clear()
+        }
     }
 
 }
