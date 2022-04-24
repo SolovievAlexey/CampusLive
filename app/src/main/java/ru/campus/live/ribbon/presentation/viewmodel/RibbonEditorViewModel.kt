@@ -62,7 +62,7 @@ class RibbonEditorViewModel @Inject constructor(
         }
     }
 
-    fun clearMediaList() {
+    fun clearUploadList() {
         viewModelScope.launch(dispatcher.io) {
             val result = uploadMediaInteractor.mediaRemove()
             uploadLiveData.postValue(result)
