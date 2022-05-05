@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.CampusLive">
+        android:theme="@style/Theme.CampusLive"
+        tools:ignore="UnusedAttribute">
         <activity
             android:name="ru.campus.live.core.presentation.main.MainActivity"
             android:exported="true"
