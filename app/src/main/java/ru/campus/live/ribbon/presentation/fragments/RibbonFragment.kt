@@ -16,14 +16,14 @@ import ru.campus.live.core.di.component.RibbonComponent
 import ru.campus.live.core.di.deps.AppDepsProvider
 import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.core.presentation.MyOnClick
-import ru.campus.live.databinding.FragmentFeedBinding
+import ru.campus.live.databinding.FragmentRibbonBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.ribbon.presentation.adapter.RibbonAdapter
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonViewModel
 import java.util.concurrent.atomic.AtomicBoolean
 
 
-class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
+class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
 
     private val component: RibbonComponent by lazy {
         DaggerRibbonComponent.builder()
@@ -34,7 +34,8 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
     private val viewModel: RibbonViewModel by navGraphViewModels(R.id.feedFragment) { component.viewModelsFactory() }
     private val adapter = RibbonAdapter(myOnClick())
     private var linearLayoutManager: LinearLayoutManager? = null
-    override fun getViewBinding() = FragmentFeedBinding.inflate(layoutInflater)
+
+    override fun getViewBinding() = FragmentRibbonBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
