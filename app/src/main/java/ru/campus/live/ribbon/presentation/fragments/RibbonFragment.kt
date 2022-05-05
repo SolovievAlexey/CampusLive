@@ -46,10 +46,7 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent())
         viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent())
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.get(refresh = true)
-        }
-
+        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.get(refresh = true) }
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
         }
@@ -114,7 +111,6 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 if(isRibbonLazy()) viewModel.get()
-                binding.fab.apply { if(isVisibleFab(dy)) show() else hide() }
             }
         })
     }
@@ -124,10 +120,6 @@ class RibbonFragment : BaseFragment<FragmentFeedBinding>() {
         val totalItemCount = linearLayoutManager?.itemCount ?: 0
         val firstVisibleItem = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
         return visibleItemCount + firstVisibleItem >= totalItemCount
-    }
-
-    private fun isVisibleFab(dy: Int): Boolean {
-        return dy < 0 && !binding.fab.isShown
     }
 
 }
