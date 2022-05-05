@@ -75,7 +75,7 @@ class RibbonInteractor @Inject constructor(
     }
 
     fun map(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {
-        return model.preparation().location()
+        return model.preparation()
     }
 
     fun remove(model: ArrayList<RibbonModel>, id: Int): ArrayList<RibbonModel> {
@@ -113,10 +113,6 @@ class RibbonInteractor @Inject constructor(
         )
     }
 
-    private fun getErrorItem(params: ErrorModel): RibbonModel {
-        return RibbonModel(viewType = RibbonViewType.ERROR, message = params.message)
-    }
-
     private fun ArrayList<RibbonModel>.preparation(): ArrayList<RibbonModel> {
         val model = this
         model.forEachIndexed { index, item ->
@@ -133,19 +129,6 @@ class RibbonInteractor @Inject constructor(
                     model[index].mediaHeight = params[1]
                 }
             }
-        }
-        return model
-    }
-
-    private fun ArrayList<RibbonModel>.location(): ArrayList<RibbonModel> {
-        val model = this
-        if (model.size != 0 && model[0].viewType != RibbonViewType.LOCATION) {
-            model.add(
-                0, RibbonModel(
-                    viewType = RibbonViewType.LOCATION,
-                    location = userDataSource.location()
-                )
-            )
         }
         return model
     }
