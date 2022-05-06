@@ -48,6 +48,7 @@
                     android:fontFamily="@font/montserrat"
                     android:text="3438 falovers · +98 karma"
                     android:textSize="13sp"
+                    android:textColor="#53646e"
                     app:fontFamily="@font/montserrat" />
 
             </LinearLayout>
@@ -99,7 +100,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
