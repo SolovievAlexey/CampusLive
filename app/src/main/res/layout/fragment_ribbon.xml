@@ -99,7 +99,9 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:clipToPadding="false"
+            android:paddingBottom="72dp"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
@@ -113,6 +115,5 @@
         android:src="@drawable/outline_add_white_24"
         app:tint="@android:color/white"
         tools:ignore="RtlHardcoded" />
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
