@@ -1,6 +1,6 @@
 package ru.campus.live.discussion.domain
 
-import ru.campus.live.core.data.source.IUserDataSource
+import ru.campus.live.core.data.source.IUserDataStore
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.discussion.data.model.CommentCreateModel
@@ -13,11 +13,11 @@ import javax.inject.Inject
 class CreateCommentInteractor @Inject constructor(
     private val repository: IDiscussionRepository,
     private val uploadRepository: IUploadMediaRepository,
-    private val userDataSource: IUserDataSource,
+    private val userDataStore: IUserDataStore,
 ) {
 
     fun post(params: CommentCreateModel): ResponseObject<DiscussionModel> {
-        params.icon = userDataSource.getUserAvatarIcon()
+        params.icon = userDataStore.getUserAvatarIcon()
         return repository.post(params = params)
     }
 

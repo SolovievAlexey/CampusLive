@@ -5,7 +5,7 @@ import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.data.source.HostDataSource
-import ru.campus.live.core.data.source.IUserDataSource
+import ru.campus.live.core.data.source.IUserDataStore
 import ru.campus.live.core.data.source.ResourceManager
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.model.DiscussionViewType
@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class DiscussionInteractor @Inject constructor(
     private val repository: IDiscussionRepository,
-    private val userDataSource: IUserDataSource,
+    private val userDataStore: IUserDataStore,
     private val hostDataSource: HostDataSource,
     private val displayMetrics: DisplayMetrics,
     private val resourceManager: ResourceManager,
@@ -99,7 +99,7 @@ class DiscussionInteractor @Inject constructor(
     }
 
     fun refreshUserAvatar(model: ArrayList<DiscussionModel>) {
-        userDataSource.saveUserAvatarIcon(UserAvatarUseCase().execute(model, userDataSource.uid()))
+        userDataStore.saveUserAvatarIcon(UserAvatarUseCase().execute(model, userDataStore.uid()))
     }
 
     fun shimmer(): ArrayList<DiscussionModel> {

@@ -6,7 +6,7 @@ import ru.campus.live.location.data.model.LocationModel
 import ru.campus.live.start.data.model.LoginModel
 import javax.inject.Inject
 
-class UserDataSource @Inject constructor(context: Context) : IUserDataSource {
+class UserDataStore @Inject constructor(context: Context) : IUserDataStore {
 
     private val sPref: SharedPreferences =
         context.getSharedPreferences("AppDB", Context.MODE_PRIVATE)
@@ -67,6 +67,10 @@ class UserDataSource @Inject constructor(context: Context) : IUserDataSource {
 
     override fun getUserAvatarIcon(): Int {
         return sPref.getInt("USER_AVATAR", 0)
+    }
+
+    override fun rating(): Int {
+        return sPref.getInt("RATING", 0)
     }
 
 }

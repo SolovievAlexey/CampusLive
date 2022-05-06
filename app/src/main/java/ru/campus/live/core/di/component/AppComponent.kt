@@ -4,8 +4,8 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ru.campus.live.core.data.APIService
-import ru.campus.live.core.data.source.IUserDataSource
-import ru.campus.live.core.data.source.UserDataSource
+import ru.campus.live.core.data.source.IUserDataStore
+import ru.campus.live.core.data.source.UserDataStore
 import ru.campus.live.core.di.deps.AppDeps
 import ru.campus.live.core.di.module.AppModule
 import ru.campus.live.ribbon.data.db.AppDatabase
@@ -18,8 +18,8 @@ interface AppComponent : AppDeps {
     override var apiService: APIService
     override var appDatabase: AppDatabase
     override var context: Context
-    override var userDatabase: UserDataSource
-    override val userDataSource: IUserDataSource
+    override var userDatabase: UserDataStore
+    override val userDataStore: IUserDataStore
 
     @Component.Builder
     interface Builder {

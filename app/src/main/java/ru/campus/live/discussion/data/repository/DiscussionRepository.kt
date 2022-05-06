@@ -4,7 +4,7 @@ import okhttp3.ResponseBody
 import ru.campus.live.core.data.APIService
 import ru.campus.live.core.data.source.CloudDataSource
 import ru.campus.live.core.data.source.ErrorDataSource
-import ru.campus.live.core.data.source.UserDataSource
+import ru.campus.live.core.data.source.UserDataStore
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.discussion.data.model.CommentCreateModel
 import ru.campus.live.discussion.data.model.DiscussionModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class DiscussionRepository @Inject constructor(
     private val apiService: APIService,
     private val errorDataSource: ErrorDataSource,
-    private val user: UserDataSource
+    private val user: UserDataStore
 ) : IDiscussionRepository {
 
     override fun get(publication: Int): ResponseObject<ArrayList<DiscussionModel>> {

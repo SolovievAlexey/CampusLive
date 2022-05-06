@@ -18,6 +18,7 @@ import ru.campus.live.core.presentation.BaseFragment
 import ru.campus.live.core.presentation.MyOnClick
 import ru.campus.live.databinding.FragmentRibbonBinding
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonStatusModel
 import ru.campus.live.ribbon.presentation.adapter.RibbonAdapter
 import ru.campus.live.ribbon.presentation.viewmodel.RibbonViewModel
 import java.util.concurrent.atomic.AtomicBoolean
@@ -45,6 +46,7 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
         viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent())
         viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent())
         viewModel.missing.observe(viewLifecycleOwner, missingLiveData())
+        viewModel.status.observe(viewLifecycleOwner, status())
 
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -80,6 +82,13 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
             binding.swipeRefreshLayout.isRefreshing = false
         binding.error.isVisible = false
         adapter.setData(newModel)
+    }
+
+    private fun status() = Observer<RibbonStatusModel> { model ->
+        binding.name.text = model.location
+        val karam = if(model.karma >= 0) "+ ${model.karma} " else model.karma.toString()
+        val status = "${model.falovers} ${getString(R.string.falovers)} · $karam ${getString(R.string.karma)}"
+        binding.status.text = status
     }
 
     private fun startDiscussionEvent() = Observer<RibbonModel> { model ->

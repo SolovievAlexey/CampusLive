@@ -4,7 +4,6 @@ import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.core.data.source.DisplayMetrics
-import ru.campus.live.core.data.source.IUserDataSource
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase

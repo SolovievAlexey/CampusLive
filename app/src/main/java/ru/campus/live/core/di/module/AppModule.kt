@@ -11,8 +11,8 @@ import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.di.coroutines.Dispatchers
 import ru.campus.live.core.data.APIService
 import ru.campus.live.core.data.source.HostDataSource
-import ru.campus.live.core.data.source.IUserDataSource
-import ru.campus.live.core.data.source.UserDataSource
+import ru.campus.live.core.data.source.IUserDataStore
+import ru.campus.live.core.data.source.UserDataStore
 import ru.campus.live.ribbon.data.db.AppDatabase
 import javax.inject.Singleton
 
@@ -47,8 +47,8 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideUserDataSource(context: Context): UserDataSource {
-        return UserDataSource(context = context)
+    fun provideUserDataSource(context: Context): UserDataStore {
+        return UserDataStore(context = context)
     }
 
 }
@@ -58,7 +58,7 @@ interface AppBindModule {
 
     @Singleton
     @Binds
-    fun bindUserDataSource(userDataSource: UserDataSource): IUserDataSource
+    fun bindUserDataSource(userDataStore: UserDataStore): IUserDataStore
 
     @Binds
     fun bindDispatchers(dispatchers: Dispatchers): IDispatchers
