@@ -49,6 +49,28 @@
                     android:textColor="#53646e"
                     app:fontFamily="@font/montserrat" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal">
+
+                    <androidx.emoji2.widget.EmojiButton
+                        android:id="@+id/menu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0"
+                        android:text="Меню 💡"/>
+
+                    <androidx.emoji2.widget.EmojiButton
+                        android:id="@+id/notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:alpha="0"
+                        android:text="Уведомления 📣"/>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -99,7 +121,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:alpha="0"/>
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

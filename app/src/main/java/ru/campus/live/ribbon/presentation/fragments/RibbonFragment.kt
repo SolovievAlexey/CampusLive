@@ -86,13 +86,17 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
             binding.swipeRefreshLayout.isRefreshing = false
         binding.error.isVisible = false
         adapter.setData(newModel)
+        if(binding.recyclerView.alpha == 0F)
+            binding.recyclerView.animate().alpha(1f).duration = 600
     }
 
     private fun status() = Observer<RibbonStatusModel> { model ->
         binding.name.text = model.location
         val karam = if(model.karma >= 0) "+ ${model.karma} " else model.karma.toString()
-        val status = "${model.falovers} ${getString(R.string.falovers)} · $karam ${getString(R.string.karma)}"
+        val status = "${model.falovers} ${getString(R.string.falovers)} \uD83E\uDDD1\u200D\uD83E\uDD1D\u200D\uD83E\uDDD1 · $karam ${getString(R.string.karma)} \uD83D\uDD25"
         binding.status.text = status
+        binding.menu.animate().alpha(1f).duration = 600
+        binding.notification.animate().alpha(1f).duration = 600
     }
 
     private fun startDiscussionEvent() = Observer<RibbonModel> { model ->
