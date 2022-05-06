@@ -34,7 +34,6 @@
                     android:paddingStart="16dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Астраханский Государственный Политехнический колледж"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/bigTextSize"
@@ -46,7 +45,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/montserrat"
-                    android:text="3438 falovers · +98 karma"
                     android:textSize="13sp"
                     android:textColor="#53646e"
                     app:fontFamily="@font/montserrat" />
@@ -63,7 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:ignore="UseCompoundDrawables">
 
         <ImageView

@@ -42,10 +42,6 @@ class RibbonInteractor @Inject constructor(
         return repository.get(offset = offset)
     }
 
-    fun render(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {
-        return model.preparation()
-    }
-
     fun render(
         oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int,
     ): ArrayList<RibbonModel> {
@@ -69,10 +65,6 @@ class RibbonInteractor @Inject constructor(
 
     fun getOffset(refresh: Boolean, model: ArrayList<RibbonModel>): Int {
         return if (refresh) 0 else model.count { it.viewType == RibbonViewType.PUBLICATION }
-    }
-
-    fun lazyDownloadFeed(statusCode: Int): Boolean {
-        return statusCode == 200
     }
 
     fun map(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {

@@ -66,15 +66,16 @@ class RibbonViewModel @Inject constructor(
         }
     }
 
-    @SuppressLint("NullSafeMutableLiveData")
+
     fun get(refresh: Boolean = false) {
         viewModelScope.launch(dispatchers.io) {
             val oldModel = interactor.getModel(list.value)
             val offset = interactor.getOffset(refresh, oldModel)
             when (val result = interactor.get(offset)) {
                 is ResponseObject.Success -> {
+                    val response = interactor.map(result.data)
                     withContext(dispatchers.main) {
-                        listLiveData.value = result.data
+                        listLiveData.value = response
                     }
                 }
 
