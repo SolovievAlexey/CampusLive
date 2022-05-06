@@ -1,5 +1,6 @@
 package ru.campus.live.ribbon.presentation.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,20 +8,21 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.di.coroutines.IDispatchers
 import ru.campus.live.core.presentation.wrapper.SingleLiveEvent
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.ribbon.data.model.RibbonModel
+import ru.campus.live.ribbon.data.model.RibbonStatusModel
 import ru.campus.live.ribbon.domain.RibbonInteractor
 import javax.inject.Inject
 
 class RibbonViewModel @Inject constructor(
     private val dispatchers: IDispatchers,
-    private val interactor: RibbonInteractor
+    private val interactor: RibbonInteractor,
 ) : ViewModel() {
 
-    private var isLazyDownloadFeed = false
     private val listLiveData = MutableLiveData<ArrayList<RibbonModel>>()
     val list: LiveData<ArrayList<RibbonModel>>
         get() = listLiveData
@@ -33,7 +35,28 @@ class RibbonViewModel @Inject constructor(
     val complaintEvent: LiveData<RibbonModel>
         get() = complaintLiveData
 
-    init { getCash() }
+    private val missingLiveData = MutableLiveData<Boolean>()
+    val missing: LiveData<Boolean>
+        get() = missingLiveData
+
+    private val statusLiveData = MutableLiveData<RibbonStatusModel>()
+    val status: LiveData<RibbonStatusModel>
+        get() = statusLiveData
+
+
+    init {
+        ribbonStatus()
+        getCash()
+    }
+
+    private fun ribbonStatus() {
+        viewModelScope.launch(dispatchers.io) {
+            val result = interactor.status()
+            withContext(dispatchers.main) {
+                statusLiveData.value = result
+            }
+        }
+    }
 
     private fun getCash() {
         viewModelScope.launch(dispatchers.io) {
@@ -43,15 +66,24 @@ class RibbonViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun get(refresh: Boolean = false) {
-        if (!isLazyDownloadFeed && !refresh) return
         viewModelScope.launch(dispatchers.io) {
             val oldModel = interactor.getModel(list.value)
             val offset = interactor.getOffset(refresh, oldModel)
-            val result = interactor.get(offset)
-            val response = interactor.render(oldModel, result, offset)
-            withContext(dispatchers.main) { listLiveData.value = response }
-            isLazyDownloadFeed = interactor.lazyDownloadFeed(statusCode = result.statusCode)
+            when (val result = interactor.get(offset)) {
+                is ResponseObject.Success -> {
+                    withContext(dispatchers.main) {
+                        listLiveData.value = result.data
+                    }
+                }
+
+                is ResponseObject.Failure -> {
+                    withContext(dispatchers.main) {
+                        missingLiveData.value = true
+                    }
+                }
+            }
         }
     }
 

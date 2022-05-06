@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import ru.campus.live.R
 import ru.campus.live.core.di.component.DaggerRibbonComponent
@@ -39,18 +39,26 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = linearLayoutManager
-        binding.recyclerView.scrollEvent()
+        initRecyclerView()
+
         viewModel.list.observe(viewLifecycleOwner, listLiveData())
         viewModel.startDiscussion.observe(viewLifecycleOwner, startDiscussionEvent())
         viewModel.complaintEvent.observe(viewLifecycleOwner, complaintEvent())
+        viewModel.missing.observe(viewLifecycleOwner, missingLiveData())
+
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
-        binding.swipeRefreshLayout.setOnRefreshListener { viewModel.get(refresh = true) }
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.get(refresh = true)
+        }
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.action_feedFragment_to_createPublicationFragment)
         }
+    }
+
+    private fun initRecyclerView() {
+        linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = linearLayoutManager
     }
 
     private fun myOnClick() = object : MyOnClick<RibbonModel> {
@@ -70,6 +78,7 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
     private fun listLiveData() = Observer<ArrayList<RibbonModel>> { newModel ->
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
+        binding.error.isVisible = false
         adapter.setData(newModel)
     }
 
@@ -81,15 +90,23 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
         )
     }
 
+    private fun missingLiveData() = Observer<Boolean> {
+        if (binding.swipeRefreshLayout.isRefreshing)
+            binding.swipeRefreshLayout.isRefreshing = false
+        binding.icon.alpha = 0F
+        binding.message.alpha = 0F
+        binding.error.isVisible = it
+        binding.icon.animate().alpha(1f).duration = 400
+        binding.message.animate().alpha(1F).duration = 400
+    }
+
     private fun complaintEvent() = Observer<RibbonModel> {
         val isCancel = AtomicBoolean(false)
-        val snack = Snackbar.make(
-            binding.root, getString(R.string.complaint_response),
-            Snackbar.LENGTH_LONG
-        )
+        val snack = Snackbar.make(binding.root,
+            getString(R.string.complaint_response),
+            Snackbar.LENGTH_LONG)
         val snackView = snack.view
-        val tv =
-            snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        val tv = snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
         tv.setTextColor("#f44336".toColorInt())
         snack.setAction(R.string.close) { isCancel.set(true) }
         snack.addCallback(object : Snackbar.Callback() {
@@ -106,21 +123,6 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
 
         })
         snack.show()
-    }
-
-    private fun RecyclerView.scrollEvent() {
-        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(isRibbonLazy()) viewModel.get()
-            }
-        })
-    }
-
-    private fun isRibbonLazy(): Boolean {
-        val visibleItemCount = linearLayoutManager?.childCount ?: 0
-        val totalItemCount = linearLayoutManager?.itemCount ?: 0
-        val firstVisibleItem = linearLayoutManager?.findFirstVisibleItemPosition() ?: 0
-        return visibleItemCount + firstVisibleItem >= totalItemCount
     }
 
 }

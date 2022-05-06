@@ -8,10 +8,7 @@ import ru.campus.live.core.data.repository.IUploadMediaRepository
 import ru.campus.live.core.data.repository.UploadMediaRepository
 import ru.campus.live.core.data.source.DisplayMetrics
 import ru.campus.live.core.di.module.viewmodel.FeedVModule
-import ru.campus.live.ribbon.data.repository.CashDataSource
-import ru.campus.live.ribbon.data.repository.ICashDataSource
-import ru.campus.live.ribbon.data.repository.IRibbonRepository
-import ru.campus.live.ribbon.data.repository.RibbonRepository
+import ru.campus.live.ribbon.data.repository.*
 
 @Module(includes = [FeedBindModule::class, FeedVModule::class])
 class FeedModule {
@@ -34,5 +31,8 @@ interface FeedBindModule {
 
     @Binds
     fun bindCashDataSource(cashDataSource: CashDataSource): ICashDataSource
+
+    @Binds
+    fun bindRibbonStatusRepository(baseRibbonStatusRepository: BaseRibbonStatusRepository): RibbonStatusRepository
 
 }

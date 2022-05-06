@@ -1,6 +1,7 @@
 package ru.campus.live.core
 
 import android.app.Application
+import androidx.emoji2.text.EmojiCompat
 import ru.campus.live.core.di.deps.AppDepsStore
 import ru.campus.live.core.di.component.AppComponent
 import ru.campus.live.core.di.component.DaggerAppComponent

@@ -1,6 +1,5 @@
 package ru.campus.live.ribbon.domain
 
-import ru.campus.live.core.data.model.ErrorModel
 import ru.campus.live.core.data.model.ResponseObject
 import ru.campus.live.core.data.model.VoteModel
 import ru.campus.live.core.data.repository.IUploadMediaRepository
@@ -11,11 +10,9 @@ import ru.campus.live.discussion.data.model.DiscussionViewType
 import ru.campus.live.discussion.domain.usecase.DiscussionTitleUseCase
 import ru.campus.live.gallery.data.model.GalleryDataModel
 import ru.campus.live.gallery.data.model.UploadMediaObject
-import ru.campus.live.ribbon.data.model.ResponseRibbon
-import ru.campus.live.ribbon.data.model.RibbonModel
-import ru.campus.live.ribbon.data.model.RibbonPostModel
-import ru.campus.live.ribbon.data.model.RibbonViewType
+import ru.campus.live.ribbon.data.model.*
 import ru.campus.live.ribbon.data.repository.IRibbonRepository
+import ru.campus.live.ribbon.data.repository.RibbonStatusRepository
 import ru.campus.live.ribbon.domain.usecase.RibbonVoteUseCase
 import javax.inject.Inject
 
@@ -24,12 +21,16 @@ class RibbonInteractor @Inject constructor(
     private val uploadRepository: IUploadMediaRepository,
     private val displayMetrics: DisplayMetrics,
     private val titleUseCase: DiscussionTitleUseCase,
-    private val userDataSource: IUserDataSource,
+    private val statusRepository: RibbonStatusRepository
 ) {
+
+    fun status(): RibbonStatusModel {
+        return statusRepository.get()
+    }
 
     fun getModel(oldModel: ArrayList<RibbonModel>?): ArrayList<RibbonModel> {
         val model = ArrayList<RibbonModel>()
-        oldModel?.let {  model.addAll(it) }
+        oldModel?.let { model.addAll(it) }
         return model
     }
 
@@ -38,22 +39,23 @@ class RibbonInteractor @Inject constructor(
         return map(result)
     }
 
-    fun get(offset: Int): ResponseRibbon {
-        return when (val result = repository.get(offset = offset)) {
-            is ResponseObject.Success -> ResponseRibbon(result.data)
-            is ResponseObject.Failure -> ResponseRibbon(statusCode = result.error.code)
-        }
+    fun get(offset: Int): ResponseObject<ArrayList<RibbonModel>> {
+        return repository.get(offset = offset)
+    }
+
+    fun render(model: ArrayList<RibbonModel>): ArrayList<RibbonModel> {
+        return model.preparation()
     }
 
     fun render(
-        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
+        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int,
     ): ArrayList<RibbonModel> {
         return if (response.statusCode == 200) onRibbonSuccess(oldModel, response, offset)
         else onRibbonFailure(oldModel, response, offset)
     }
 
     private fun onRibbonSuccess(
-        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
+        oldModel: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int,
     ): ArrayList<RibbonModel> {
         if (offset == 0) return map(response.data)
         oldModel.addAll(response.data)
@@ -61,7 +63,7 @@ class RibbonInteractor @Inject constructor(
     }
 
     private fun onRibbonFailure(
-        oldMode: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int
+        oldMode: ArrayList<RibbonModel>, response: ResponseRibbon, offset: Int,
     ): ArrayList<RibbonModel> {
         return oldMode
     }
