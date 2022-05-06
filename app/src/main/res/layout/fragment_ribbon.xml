@@ -23,7 +23,7 @@
                 android:orientation="vertical"
                 android:paddingBottom="26dp"
                 app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.6">
+                app:layout_collapseParallaxMultiplier="0.9">
 
                 <TextView
                     android:id="@+id/name"
