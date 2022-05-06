@@ -1,6 +1,7 @@
 package ru.campus.live.ribbon.presentation.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
@@ -27,6 +28,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
 
+    private var totalScrolled = 0
     private val component: RibbonComponent by lazy {
         DaggerRibbonComponent.builder()
             .deps(AppDepsProvider.deps)
@@ -62,6 +64,7 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
         linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.scrollEvent()
     }
 
     private fun myOnClick() = object : MyOnClick<RibbonModel> {
@@ -133,6 +136,18 @@ class RibbonFragment : BaseFragment<FragmentRibbonBinding>() {
 
         })
         snack.show()
+
+        linearLayoutManager
+
+    }
+
+    private fun RecyclerView.scrollEvent() {
+        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                totalScrolled += dy
+                binding.fab.apply { if(totalScrolled > 300) hide() else show() }
+            }
+        })
     }
 
 }
