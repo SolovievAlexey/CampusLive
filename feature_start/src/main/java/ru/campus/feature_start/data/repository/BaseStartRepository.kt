@@ -1,6 +1,7 @@
 package ru.campus.feature_start.data.repository
 
 import ru.campus.feature_start.data.model.StartModel
+import javax.inject.Inject
 
 /**
  * @author Soloviev Alexey
@@ -8,10 +9,12 @@ import ru.campus.feature_start.data.model.StartModel
  * @date 12.05.2022 19:46
  */
 
-class BaseStartRepository: StartRepository {
+class BaseStartRepository @Inject constructor(
+    private val startDataSource: StartDataSource
+) : StartRepository {
 
     override fun start(): List<StartModel> {
-        TODO("Not yet implemented")
+        return startDataSource.execute()
     }
 
 }

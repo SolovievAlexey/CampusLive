@@ -1,10 +1,10 @@
 package ru.campus.live.core
 
 import android.app.Application
-import androidx.emoji2.text.EmojiCompat
-import ru.campus.live.core.di.deps.AppDepsStore
-import ru.campus.live.core.di.component.AppComponent
-import ru.campus.live.core.di.component.DaggerAppComponent
+import ru.campus.core.di.AppComponent
+import ru.campus.core.di.AppDepsStore
+import ru.campus.core.di.DaggerAppComponent
+
 
 class App : Application() {
 
@@ -13,6 +13,7 @@ class App : Application() {
             .context(context = this)
             .build()
     }
+
 
     override fun onCreate() {
         super.onCreate()
