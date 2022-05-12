@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="onboard_title_one">Сообщество студентов для твоего учебного заведения</string>
+    <string name="onboard_message_one">Анонимно общайся с другими студентами из твоего учебного заведения</string>
+    <string name="start_title_two">Выбери свое учебное\nзаведений из тысячи\nдругих</string>
+    <string name="start_message_two">Доступно для болле двух тысяч институтов и колледжей России</string>
+    <string name="start_title_three">Получай PUSH\nуведомления о новых\nпубликациях</string>
+    <string name="start_message_three">Моментально узнавай о последних событиях в учебном заведение благодаря PUSH уведомлениям</string>
+    <string name="start_title_four">Вступай в анонимные дискуссии с другими студентами</string>
+    <string name="start_message_four">Делись анонимно своим мнением с другими студентами учебного заведения</string>
+    <string name="start">Выбрать учебное заведение</string>
+</resources>
