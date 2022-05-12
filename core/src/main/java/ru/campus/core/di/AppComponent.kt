@@ -3,6 +3,7 @@ package ru.campus.core.di
 import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 /**
@@ -17,6 +18,7 @@ import javax.inject.Singleton
 interface AppComponent : AppDeps {
 
     override var context: Context
+    override var retrofit: Retrofit
 
     @Component.Builder
     interface Builder {

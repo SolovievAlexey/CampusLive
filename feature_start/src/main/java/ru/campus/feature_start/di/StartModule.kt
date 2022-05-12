@@ -28,11 +28,7 @@ import javax.inject.Singleton
 class StartModule {
 
     @Provides
-    fun provideAPIService(): APIService {
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl("http://apiburg.beget.tech")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+    fun provideAPIService(retrofit: Retrofit): APIService {
         return retrofit.create(APIService::class.java)
     }
 

@@ -1,6 +1,7 @@
 package ru.campus.core.di
 
 import android.content.Context
+import retrofit2.Retrofit
 
 /**
  * @author Soloviev Alexey
@@ -10,4 +11,5 @@ import android.content.Context
 
 interface AppDeps {
     var context: Context
+    var retrofit: Retrofit
 }

@@ -3,6 +3,8 @@ package ru.campus.core.di
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -13,6 +15,14 @@ import javax.inject.Singleton
 
 @Module(includes = [AppBindModule::class])
 class AppModule {
+
+    @Provides
+    fun provideAPIService(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://apiburg.beget.tech")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
 
     @Singleton
     @Provides
