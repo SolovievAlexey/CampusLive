@@ -1,9 +1,11 @@
 package ru.campus.feature_start.presentation
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
@@ -21,8 +23,7 @@ import javax.inject.Inject
  */
 
 class StartViewModel @Inject constructor(
-    private val interactor: StartInteractor,
-    private val dispatchers: CoroutineDispatchers
+    private val interactor: StartInteractor
 ) : ViewModel() {
 
     private val listLiveData = MutableLiveData<List<StartModel>>()
@@ -38,24 +39,25 @@ class StartViewModel @Inject constructor(
         get() = failureLiveData
 
     fun start() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(Dispatchers.IO) {
             val result = interactor.start()
-            withContext(dispatchers.main) {
+            withContext(Dispatchers.Main) {
                 listLiveData.value = result
             }
         }
     }
 
+    @SuppressLint("NullSafeMutableLiveData")
     fun login() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(Dispatchers.IO) {
             when(val result = interactor.login()) {
                 is ResponseObject.Success -> {
-                    withContext(dispatchers.main) {
+                    withContext(Dispatchers.Main) {
                         successLiveData.value = result.data
                     }
                 }
                 is ResponseObject.Failure -> {
-                    withContext(dispatchers.main) {
+                    withContext(Dispatchers.Main) {
                         failureLiveData.value = result.code
                     }
                 }

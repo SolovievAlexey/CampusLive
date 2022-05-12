@@ -1,21 +1,34 @@
 package ru.campus.feature_start.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
-import ru.campus.feature_start.R
 import ru.campus.feature_start.databinding.FragmentStartBinding
+import ru.campus.feature_start.di.StartComponent
 
 
 class StartFragment : BaseFragment<FragmentStartBinding>() {
 
+    /*
+    private val component: StartComponent by lazy {
+        DaggerStartComponent.builder()
+            .deps(AppDepsProvider.deps)
+            .build()
+    }
+
+
+
+    private val viewModel by viewModels<StartViewModel> {
+        component.viewModelsFactory()
+    }
+
+     */
+
     override fun getViewBinding() = FragmentStartBinding.inflate(layoutInflater)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
 }

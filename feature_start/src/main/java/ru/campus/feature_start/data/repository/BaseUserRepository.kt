@@ -6,6 +6,7 @@ import ru.campus.core.data.UserDataStore
 import ru.campus.feature_start.data.APIService
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.OSType
+import javax.inject.Inject
 
 /**
  * @author Soloviev Alexey
@@ -13,9 +14,9 @@ import ru.campus.feature_start.data.model.OSType
  * @date 12.05.2022 20:16
  */
 
-class BaseUserRepository(
+class BaseUserRepository @Inject constructor(
     private val apiService: APIService,
-    private val userDataStore: UserDataStore,
+    private val userDataStore: UserDataStore
 ) : UserRepository {
 
     override fun registration(): ResponseObject<LoginModel> {

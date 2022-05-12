@@ -1,6 +1,8 @@
 package ru.campus.feature_start.di
 
 import dagger.Component
+import ru.campus.core.di.AppDeps
+import ru.campus.core.presentation.ViewModelFactory
 
 /**
  * @author Soloviev Alexey
@@ -8,7 +10,7 @@ import dagger.Component
  * @date 12.05.2022 21:32
  */
 
-/*
+
 @Component(modules = [StartModule::class], dependencies = [AppDeps::class])
 interface StartComponent {
 
@@ -21,5 +23,3 @@ interface StartComponent {
     }
 
 }
-
- */

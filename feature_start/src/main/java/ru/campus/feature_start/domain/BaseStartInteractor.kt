@@ -5,6 +5,7 @@ import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
 import ru.campus.feature_start.data.repository.StartRepository
 import ru.campus.feature_start.data.repository.UserRepository
+import javax.inject.Inject
 
 /**
  * @author Soloviev Alexey
@@ -12,7 +13,7 @@ import ru.campus.feature_start.data.repository.UserRepository
  * @date 12.05.2022 20:40
  */
 
-class BaseStartInteractor(
+class BaseStartInteractor @Inject constructor(
     private val startRepository: StartRepository,
     private val userRepository: UserRepository
 ) : StartInteractor {

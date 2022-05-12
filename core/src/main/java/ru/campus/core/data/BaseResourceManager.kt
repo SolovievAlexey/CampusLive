@@ -2,6 +2,7 @@ package ru.campus.core.data
 
 import android.content.Context
 import androidx.annotation.StringRes
+import javax.inject.Inject
 
 /**
  * @author Soloviev Alexey
@@ -10,7 +11,7 @@ import androidx.annotation.StringRes
  */
 
 
-class BaseResourceManager(private val context: Context): ResourceManager {
+class BaseResourceManager @Inject constructor(private val context: Context): ResourceManager {
 
     override fun get(@StringRes id: Int): String {
         return context.getString(id)

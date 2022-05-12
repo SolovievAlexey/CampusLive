@@ -10,5 +10,4 @@ import android.content.Context
 
 interface AppDeps {
     var context: Context
-   // val dispatchers: CoroutineDispatchers
 }
