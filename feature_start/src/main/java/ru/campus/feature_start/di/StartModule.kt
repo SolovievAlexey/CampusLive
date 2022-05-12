@@ -4,19 +4,17 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import ru.campus.core.data.BaseResourceManager
 import ru.campus.core.data.BaseUserDataStore
 import ru.campus.core.data.ResourceManager
 import ru.campus.core.data.UserDataStore
-import ru.campus.feature_start.data.APIService
+import ru.campus.feature_start.data.interfaces.APIService
 import ru.campus.feature_start.data.repository.BaseStartRepository
 import ru.campus.feature_start.data.repository.BaseUserRepository
 import ru.campus.feature_start.data.repository.StartRepository
 import ru.campus.feature_start.data.repository.UserRepository
 import ru.campus.feature_start.domain.BaseStartInteractor
 import ru.campus.feature_start.domain.StartInteractor
-import javax.inject.Singleton
 
 /**
  * @author Soloviev Alexey

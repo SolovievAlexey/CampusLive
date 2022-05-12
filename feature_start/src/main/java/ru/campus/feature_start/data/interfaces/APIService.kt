@@ -1,4 +1,4 @@
-package ru.campus.feature_start.data
+package ru.campus.feature_start.data.interfaces
 
 import retrofit2.Call
 import retrofit2.http.GET
