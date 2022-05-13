@@ -1,7 +1,9 @@
 package ru.campus.live
 
 import android.app.Application
+import ru.campus.core.di.AppDepsStore
 import ru.campus.live.di.AppComponent
+import ru.campus.live.di.DaggerAppComponent
 
 /**
  * @author Soloviev Alexey
@@ -10,10 +12,6 @@ import ru.campus.live.di.AppComponent
  */
 
 class App : Application() {
-
-
-
-    /*
 
     private val appComponent: AppComponent by lazy {
         DaggerAppComponent.builder()
@@ -25,7 +23,5 @@ class App : Application() {
         super.onCreate()
         AppDepsStore.deps = appComponent
     }
-
-     */
 
 }
