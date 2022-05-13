@@ -26,8 +26,8 @@ class StartViewModel @Inject constructor(
     private val interactor: StartInteractor
 ) : ViewModel() {
 
-    private val listLiveData = MutableLiveData<List<StartModel>>()
-    val list: LiveData<List<StartModel>>
+    private val listLiveData = MutableLiveData<ArrayList<StartModel>>()
+    val list: LiveData<ArrayList<StartModel>>
         get() = listLiveData
 
     private val successLiveData = SingleLiveEvent<LoginModel>()
@@ -42,7 +42,7 @@ class StartViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val result = interactor.start()
             withContext(Dispatchers.Main) {
-                listLiveData.value = result
+                listLiveData.value = result as ArrayList<StartModel>
             }
         }
     }
