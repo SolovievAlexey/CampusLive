@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/onBoarFragment"
-        android:name="ru.campus.live.start.presentation.StartFragment"
+        android:name="ru.campus.feature_start.presentation.StartFragment"
         android:label="fragment_on_boar"
         tools:layout="@layout/fragment_start" >
         <action
@@ -21,6 +21,7 @@
             app:popUpTo="@id/main_navigation"
             app:popUpToInclusive="true"/>
     </fragment>
+
     <fragment
         android:id="@+id/locationFragment"
         android:name="ru.campus.live.location.presentation.LocationFragment"

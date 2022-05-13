@@ -8,12 +8,8 @@ import ru.campus.live.core.data.model.UploadResultModel
 import ru.campus.live.discussion.data.model.DiscussionModel
 import ru.campus.live.ribbon.data.model.RibbonModel
 import ru.campus.live.location.data.model.LocationModel
-import ru.campus.live.start.data.model.LoginModel
 
 interface APIService {
-
-    @GET("api/2.0/user.login")
-    fun registration(@Query("os") os: Int): Call<LoginModel>
 
     @GET("api/2.0/location.get")
     fun location(

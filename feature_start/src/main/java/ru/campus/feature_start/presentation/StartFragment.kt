@@ -1,5 +1,6 @@
 package ru.campus.feature_start.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -24,6 +25,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         DaggerStartComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        Log.d("MyLog", "Значение AppDepsProvider = "+AppDepsProvider.deps.retrofit)
     }
 
     private val viewModel by viewModels<StartViewModel> { component.viewModelsFactory() }

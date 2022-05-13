@@ -5,18 +5,13 @@ import ru.campus.core.di.AppComponent
 import ru.campus.core.di.AppDepsStore
 import ru.campus.core.di.DaggerAppComponent
 
-
 class App : Application() {
 
-    private val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder()
-            .context(context = this)
-            .build()
-    }
-
+    private lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
+        appComponent = DaggerAppComponent.builder().context(context = this).build()
         AppDepsStore.deps = appComponent
     }
 

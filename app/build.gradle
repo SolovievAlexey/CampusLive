@@ -75,6 +75,7 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views-helper:$emoji2_version"
 
     implementation project(":core")
+    implementation project(":feature_start")
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'

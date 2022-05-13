@@ -4,7 +4,6 @@ import kotlin.properties.Delegates.notNull
 
 interface AppDepsProvider {
     val deps: AppDeps
-
     companion object : AppDepsProvider by AppDepsStore
 }
 
