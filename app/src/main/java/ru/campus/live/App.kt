@@ -23,4 +23,5 @@ class App : Application() {
         super.onCreate()
         AppDepsStore.deps = appComponent
     }
+
 }
