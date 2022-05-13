@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
-import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.core.presentation.SingleLiveEvent
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
@@ -23,7 +22,7 @@ import javax.inject.Inject
  */
 
 class StartViewModel @Inject constructor(
-    private val interactor: StartInteractor
+    private val interactor: StartInteractor,
 ) : ViewModel() {
 
     private val listLiveData = MutableLiveData<ArrayList<StartModel>>()
@@ -50,7 +49,7 @@ class StartViewModel @Inject constructor(
     @SuppressLint("NullSafeMutableLiveData")
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
-            when(val result = interactor.login()) {
+            when (val result = interactor.login()) {
                 is ResponseObject.Success -> {
                     withContext(Dispatchers.Main) {
                         successLiveData.value = result.data

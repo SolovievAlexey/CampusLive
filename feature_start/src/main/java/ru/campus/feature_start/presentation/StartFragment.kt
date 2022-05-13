@@ -1,6 +1,5 @@
 package ru.campus.feature_start.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -27,11 +26,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
             .build()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        Log.d("MyLog", "Значение AppDepsProvider = "+AppDepsProvider.deps.retrofit)
-    }
-
     private val viewModel by viewModels<StartViewModel> { component.viewModelsFactory() }
     override fun getViewBinding() = FragmentStartBinding.inflate(layoutInflater)
 
@@ -48,11 +42,6 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         }
     }
 
-    private fun isVisibleProgressBar(visible: Boolean) {
-        binding.progressBar.isVisible = visible
-        binding.start.isVisible = !visible
-    }
-
     private fun list() = Observer<ArrayList<StartModel>> { newModel ->
         adapter.setData(newModel)
     }
@@ -64,6 +53,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     private fun failure() = Observer<Int> {
         isVisibleProgressBar(false)
         Log.d("MyLog", "Произошла ошибка!")
+    }
+
+    private fun isVisibleProgressBar(visible: Boolean) {
+        binding.progressBar.isVisible = visible
+        binding.start.isVisible = !visible
     }
 
 }

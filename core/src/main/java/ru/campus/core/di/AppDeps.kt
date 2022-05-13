@@ -12,4 +12,5 @@ import retrofit2.Retrofit
 interface AppDeps {
     var context: Context
     var retrofit: Retrofit
+    var coroutineDispatchers: CoroutineDispatchers
 }
