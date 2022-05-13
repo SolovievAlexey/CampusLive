@@ -16,3 +16,4 @@ rootProject.name = "CampusLive"
 include ':app'
 include ':feature_start'
 include ':core'
+include ':feature_location'

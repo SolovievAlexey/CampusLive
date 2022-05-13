@@ -29,6 +29,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     private val viewModel by viewModels<StartViewModel> { component.viewModelsFactory() }
     override fun getViewBinding() = FragmentStartBinding.inflate(layoutInflater)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.start()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = adapter
@@ -43,6 +48,7 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     }
 
     private fun list() = Observer<ArrayList<StartModel>> { newModel ->
+        Log.d("MyLog", "Полученны новые данные для отображения!")
         adapter.setData(newModel)
     }
 
