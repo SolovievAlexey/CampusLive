@@ -3,12 +3,17 @@ package ru.campus.feature_start.presentation
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
+import ru.campus.feature_start.R
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
 import ru.campus.feature_start.databinding.FragmentStartBinding
@@ -48,12 +53,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     }
 
     private fun list() = Observer<ArrayList<StartModel>> { newModel ->
-        Log.d("MyLog", "Полученны новые данные для отображения!")
         adapter.setData(newModel)
     }
 
     private fun success() = Observer<LoginModel> {
-        Log.d("MyLog", "Тут должен был быть переход на экран выбора локации")
+        findNavController().popBackStack()
     }
 
     private fun failure() = Observer<Int> {

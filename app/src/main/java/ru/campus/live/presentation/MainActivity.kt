@@ -4,8 +4,10 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import ru.campus.core.di.AppDepsProvider
+import ru.campus.live.Navigation
 import ru.campus.live.R
 import ru.campus.live.di.DaggerMainComponent
 import ru.campus.live.di.MainComponent

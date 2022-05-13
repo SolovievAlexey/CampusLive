@@ -10,6 +10,7 @@ import kotlin.properties.Delegates
 
 interface AppDepsProvider {
     val deps: AppDeps
+
     companion object : AppDepsProvider by AppDepsStore
 }
 
