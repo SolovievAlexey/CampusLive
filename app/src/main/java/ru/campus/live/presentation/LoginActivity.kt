@@ -1,32 +1,24 @@
 package ru.campus.live.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import ru.campus.core.di.AppDepsProvider
 import ru.campus.live.R
-import ru.campus.live.di.DaggerMainComponent
-import ru.campus.live.di.MainComponent
+
+/**
+ * @author Soloviev Alexey
+ * @contacts soloviev@internet.ru
+ * @date 14.05.2022 21:22
+ */
 
 class LoginActivity : AppCompatActivity() {
 
-    private val component: MainComponent by lazy {
-        DaggerMainComponent.builder()
-            .deps(AppDepsProvider.deps)
-            .build()
-    }
-
-    private var navController: NavController? = null
-    private val viewModel by viewModels<MainViewModel> { component.viewModelsFactory() }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
-        navController = navHostFragment.navController
+            supportFragmentManager.findFragmentById(R.id.loginNavigationHost) as NavHostFragment
+        //val navController = navHostFragment.navController
     }
 
 }

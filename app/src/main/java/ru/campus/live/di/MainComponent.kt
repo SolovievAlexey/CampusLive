@@ -1,8 +1,10 @@
 package ru.campus.live.di
 
 import dagger.Component
+import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
+import ru.campus.live.presentation.MainActivity
 
 /**
  * @author Soloviev Alexey
@@ -14,6 +16,8 @@ import ru.campus.core.presentation.ViewModelFactory
 interface MainComponent {
 
     fun viewModelsFactory(): ViewModelFactory
+    fun userDataStore(): UserDataStore
+    fun inject(activity: MainActivity)
 
     @Component.Builder
     interface Builder {

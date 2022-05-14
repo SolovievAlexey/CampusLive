@@ -16,5 +16,6 @@
     <dimen name="textSizeMedium">18sp</dimen>
     <dimen name="bigTextSize">22sp</dimen>
     <dimen name="elevation">0dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 
 </resources>

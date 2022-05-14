@@ -2,19 +2,11 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/startFragment">
-
-    <include app:graph="@navigation/location_graph" />
-    <include app:graph="@navigation/feed_graph" />
+    app:startDestination="@id/feedFragment">
 
     <fragment
-        android:id="@+id/startFragment"
-        android:name="ru.campus.feature_start.presentation.StartFragment"
-        android:label="StartFragment">
-
-        <deepLink
-            app:uri="android-app://ru.campus.live/startFragment" />
-
-    </fragment>
+        android:id="@+id/feedFragment"
+        android:name="ru.campus.feature_news.presentation.FeedFragment"
+        android:label="FeedFragment" />
 
 </navigation>
