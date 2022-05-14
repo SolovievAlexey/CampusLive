@@ -5,12 +5,14 @@ import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import ru.campus.core.di.AppDepsProvider
+import ru.campus.core.navigation.LoginNavigationViewModel
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_location.data.LocationModel
@@ -29,6 +31,8 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     }
 
     private val viewModel by viewModels<LocationViewModel> { component.viewModelsFactory() }
+    private val navigationViewModel by activityViewModels<LoginNavigationViewModel>()
+
     private val myOnClick = object : MyOnClick<LocationModel> {
         override fun item(view: View, item: LocationModel) {
             binding.progressBar.isVisible = true
@@ -65,10 +69,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
 
     private fun success() = Observer<Boolean> {
         binding.progressBar.isVisible = false
-        val request = NavDeepLinkRequest.Builder
-            .fromUri("android-app://ru.campus.live/feedFragment".toUri())
-            .build()
-        findNavController().navigate(request)
+        navigationViewModel.setRegistration(params = true)
     }
 
 }
