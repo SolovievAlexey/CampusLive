@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_start_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="ru.campus.feature_start.presentation.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start">
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/startFragment" />
+
+    </fragment>
+
+</navigation>
