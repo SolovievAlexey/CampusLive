@@ -9,5 +9,11 @@
         android:id="@+id/feedFragment"
         android:name="ru.campus.feature_news.presentation.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/feedFragment" />
+
+    </fragment>
+
 </navigation>
