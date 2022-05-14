@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull
  * @date 12.05.2022 20:14
  */
 
-sealed class ResponseObject<T> {
-    class Success<T>(@NotNull val data: T): ResponseObject<T>()
-    class Failure<T>(val code: Int): ResponseObject<T>()
+sealed class ResponseObject<T: Any> {
+    class Success<T : Any>(@NotNull val data: T): ResponseObject<T>()
+    class Failure<T : Any>(val code: Int): ResponseObject<T>()
 }
