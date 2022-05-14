@@ -6,7 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
-import ru.campus.core.navigation.LoginNavigationViewModel
+import ru.campus.core.navigation.ActivityNavigationViewModel
 import ru.campus.live.R
 
 /**
@@ -17,7 +17,7 @@ import ru.campus.live.R
 
 class LoginActivity : AppCompatActivity() {
 
-    private val viewModel by viewModels<LoginNavigationViewModel>()
+    private val viewModel by viewModels<ActivityNavigationViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,7 @@ class LoginActivity : AppCompatActivity() {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.loginNavigationHost) as NavHostFragment
         val navController = navHostFragment.navController
-        viewModel.registration.observe(this, registration())
+        viewModel.login.observe(this, registration())
     }
 
     private fun registration() = Observer<Boolean> {
