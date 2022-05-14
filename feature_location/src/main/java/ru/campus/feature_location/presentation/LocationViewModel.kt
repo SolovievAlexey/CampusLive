@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
+import ru.campus.core.presentation.SingleLiveEvent
 import ru.campus.feature_location.data.LocationModel
 import ru.campus.feature_location.domain.LocationInteractor
 import javax.inject.Inject
@@ -27,6 +28,10 @@ class LocationViewModel @Inject constructor(
     val list: LiveData<ArrayList<LocationModel>>
         get() = liveData
 
+    private val successLiveData = SingleLiveEvent<Boolean>()
+    val success: LiveData<Boolean>
+        get() = successLiveData
+
     fun location(name: String?) {
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(name = name)) {
@@ -40,6 +45,15 @@ class LocationViewModel @Inject constructor(
                         liveData.value = ArrayList()
                     }
                 }
+            }
+        }
+    }
+
+    fun registration(locationModel: LocationModel) {
+        viewModelScope.launch(dispatchers.io) {
+            interactor.save(locationModel)
+            withContext(dispatchers.main) {
+                successLiveData.value = true
             }
         }
     }

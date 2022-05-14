@@ -17,7 +17,7 @@
         android:theme="@style/Theme.CampusLive"
         tools:ignore="UnusedAttribute">
         <activity
-            android:name="ru.campus.live.presentation.MainActivity"
+            android:name="ru.campus.live.presentation.LoginActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

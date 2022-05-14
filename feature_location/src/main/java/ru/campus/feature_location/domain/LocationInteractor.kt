@@ -19,4 +19,8 @@ class LocationInteractor @Inject constructor(
         return repository.get(name)
     }
 
+    fun save(locationModel: LocationModel) {
+        repository.save(params = locationModel)
+    }
+
 }

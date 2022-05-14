@@ -10,7 +10,7 @@ import ru.campus.live.R
 import ru.campus.live.di.DaggerMainComponent
 import ru.campus.live.di.MainComponent
 
-class MainActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val component: MainComponent by lazy {
         DaggerMainComponent.builder()
