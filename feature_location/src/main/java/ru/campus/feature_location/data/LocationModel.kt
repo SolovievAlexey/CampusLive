@@ -13,11 +13,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class LocationModel(
     @SerializedName(value = "id")
-    val locationId: Int,
+    val id: Int,
     @SerializedName(value = "name")
-    val locationName: String,
+    val name: String,
     @SerializedName(value = "address")
-    val locationAddress: String,
+    val address: String,
     @SerializedName(value = "type")
-    val locationType: Int,
+    val type: Int,
 ) : Parcelable
