@@ -20,11 +20,6 @@ class StartModule {
         return retrofit.create(APIService::class.java)
     }
 
-    @Provides
-    fun provideUserDataStore(): BaseUserDataStore {
-        return BaseUserDataStore()
-    }
-
 }
 
 

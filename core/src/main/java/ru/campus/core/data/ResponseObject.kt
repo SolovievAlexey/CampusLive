@@ -1,5 +1,7 @@
 package ru.campus.core.data
 
+import org.jetbrains.annotations.NotNull
+
 /**
  * @author Soloviev Alexey
  * @contacts soloviev@internet.ru
@@ -7,6 +9,6 @@ package ru.campus.core.data
  */
 
 sealed class ResponseObject<T> {
-    class Success<T>(val data: T) : ResponseObject<T>()
-    class Failure<T>(val code: Int) : ResponseObject<T>()
+    class Success<T>(@NotNull val data: T): ResponseObject<T>()
+    class Failure<T>(val code: Int): ResponseObject<T>()
 }

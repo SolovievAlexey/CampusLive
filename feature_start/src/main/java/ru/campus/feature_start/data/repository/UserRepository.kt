@@ -11,5 +11,5 @@ import ru.campus.feature_start.data.model.LoginModel
 
 interface UserRepository {
     fun registration(): ResponseObject<LoginModel>
-    fun login(params: LoginModel): Boolean
+    fun login(params: LoginModel)
 }

@@ -24,7 +24,7 @@ class BaseStartInteractor @Inject constructor(
 
     override fun login(): ResponseObject<LoginModel> {
         val result = userRepository.registration()
-        if (result is ResponseObject.Success<LoginModel>)
+        if (result is ResponseObject.Success)
             userRepository.login(result.data)
         return result
     }

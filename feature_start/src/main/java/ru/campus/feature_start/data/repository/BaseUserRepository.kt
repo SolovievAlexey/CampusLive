@@ -24,7 +24,7 @@ class BaseUserRepository @Inject constructor(
         return CloudDataSource<LoginModel>().execute(call = call)
     }
 
-    override fun login(params: LoginModel): Boolean {
+    override fun login(params: LoginModel) {
         return userDataStore.login(uid = params.uid, token = params.token)
     }
 
