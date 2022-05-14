@@ -17,9 +17,9 @@ class BaseLocationRepository @Inject constructor(
     private val userDataStore: UserDataStore
 ) : LocationRepository {
 
-    override fun get(name: String?): ResponseObject<List<LocationModel>> {
+    override fun get(name: String?): ResponseObject<ArrayList<LocationModel>> {
         val call = apiService.location(token = userDataStore.token(), name = name)
-        return CloudDataSource<List<LocationModel>>().execute(call = call)
+        return CloudDataSource<ArrayList<LocationModel>>().execute(call = call)
     }
 
     override fun rating(id: Int) {

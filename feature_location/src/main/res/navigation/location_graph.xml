@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/locationFragment"
-        android:name="ru.campus.feature_location.LocationFragment"
+        android:name="ru.campus.feature_location.presentation.LocationFragment"
         android:label="fragment_location"
         tools:layout="@layout/fragment_location" >
 

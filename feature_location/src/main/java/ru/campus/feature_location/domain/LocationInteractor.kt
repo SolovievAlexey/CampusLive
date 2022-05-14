@@ -15,7 +15,7 @@ class LocationInteractor @Inject constructor(
     private val repository: LocationRepository,
 ) {
 
-    fun get(name: String?): ResponseObject<List<LocationModel>> {
+    fun get(name: String?): ResponseObject<ArrayList<LocationModel>> {
         return repository.get(name)
     }
 

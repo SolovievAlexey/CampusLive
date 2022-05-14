@@ -1,6 +1,5 @@
 package ru.campus.feature_location.presentation
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,22 +23,21 @@ class LocationViewModel @Inject constructor(
     private val dispatchers: CoroutineDispatchers,
 ) : ViewModel() {
 
-    private val liveData = MutableLiveData<List<LocationModel>>()
-    val list: LiveData<List<LocationModel>>
+    private val liveData = MutableLiveData<ArrayList<LocationModel>>()
+    val list: LiveData<ArrayList<LocationModel>>
         get() = liveData
-
 
     fun location(name: String?) {
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(name = name)) {
-                is ResponseObject.Success<List<LocationModel>> -> {
+                is ResponseObject.Success<ArrayList<LocationModel>> -> {
                     withContext(dispatchers.main) {
                         liveData.value = result.data
                     }
                 }
                 is ResponseObject.Failure -> {
                     withContext(dispatchers.main) {
-                        liveData.value = emptyList()
+                        liveData.value = ArrayList()
                     }
                 }
             }

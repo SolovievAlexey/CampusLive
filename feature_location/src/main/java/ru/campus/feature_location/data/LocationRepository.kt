@@ -9,7 +9,7 @@ import ru.campus.core.data.ResponseObject
  */
 
 interface LocationRepository {
-    fun get(name: String?): ResponseObject<List<LocationModel>>
+    fun get(name: String?): ResponseObject<ArrayList<LocationModel>>
     fun rating(id: Int)
     fun save(params: LocationModel)
 }

@@ -17,7 +17,7 @@ interface APIService {
     fun location(
         @Query("token") token: String,
         @Query("name") name: String?
-    ): Call<List<LocationModel>>
+    ): Call<ArrayList<LocationModel>>
 
     @GET("api/2.0/location.rating")
     fun locationRating(
