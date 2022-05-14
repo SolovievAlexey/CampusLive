@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.campus.core.di.AppDepsProvider
@@ -57,7 +58,10 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     }
 
     private fun success() = Observer<LoginModel> {
-        findNavController().popBackStack()
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://ru.campus.live/locationFragment".toUri())
+            .build()
+        findNavController().navigate(request)
     }
 
     private fun failure() = Observer<Int> {
