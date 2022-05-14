@@ -10,4 +10,5 @@ interface UserDataStore {
     fun login(uid: Int, token: String)
     fun token(): String
     fun locationSave(id: Int, name: String)
+    fun location(): Int
 }

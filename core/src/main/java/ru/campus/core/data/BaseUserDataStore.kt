@@ -37,4 +37,8 @@ class BaseUserDataStore @Inject constructor(context: Context) : UserDataStore {
         }
     }
 
+    override fun location(): Int {
+        return sPref.getInt("LOCATION_ID", 0)
+    }
+
 }
