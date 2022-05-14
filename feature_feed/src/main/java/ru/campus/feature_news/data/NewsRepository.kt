@@ -1,9 +1,6 @@
-package ru.campus.feature_news
+package ru.campus.feature_news.data
 
 import ru.campus.core.data.ResponseObject
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedPostModel
-import ru.campus.feature_news.data.VoteModel
 
 /**
  * @author Soloviev Alexey

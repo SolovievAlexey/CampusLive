@@ -1,13 +1,9 @@
-package ru.campus.feature_news
+package ru.campus.feature_news.data
 
 import okhttp3.ResponseBody
 import ru.campus.core.data.CloudDataSource
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
-import ru.campus.feature_news.data.APIService
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedPostModel
-import ru.campus.feature_news.data.VoteModel
 import javax.inject.Inject
 
 /**
@@ -18,7 +14,7 @@ import javax.inject.Inject
 
 class BaseNewsRepository @Inject constructor(
     private val apiService: APIService,
-    private val userDataStore: UserDataStore,
+    private val userDataStore: UserDataStore
 ) : NewsRepository {
 
     override fun get(offset: Int): ResponseObject<ArrayList<FeedModel>> {
