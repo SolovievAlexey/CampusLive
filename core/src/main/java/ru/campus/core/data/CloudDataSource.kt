@@ -8,7 +8,7 @@ import retrofit2.Call
  * @date 12.05.2022 20:20
  */
 
-class CloudDataSource<T>() {
+class CloudDataSource<T : Any>() {
 
     fun execute(call: Call<T>): ResponseObject<T> {
         return try {

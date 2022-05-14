@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
+import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDeps
 import ru.campus.core.di.CoroutineDispatchers
 import javax.inject.Singleton
@@ -22,7 +23,8 @@ interface AppComponent : AppDeps {
     override var context: Context
     override var retrofit: Retrofit
     override var coroutineDispatchers: CoroutineDispatchers
-
+    override var userDataStore: UserDataStore
+    
     @Component.Builder
     interface Builder {
         @BindsInstance

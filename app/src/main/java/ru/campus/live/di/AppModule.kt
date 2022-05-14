@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.campus.core.data.BaseUserDataStore
+import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.BaseCoroutineDispatchers
 import ru.campus.core.di.CoroutineDispatchers
 import javax.inject.Singleton
@@ -39,5 +41,8 @@ interface AppBindModule {
 
     @Binds
     fun bindDispatchers(dispatchers: BaseCoroutineDispatchers): CoroutineDispatchers
+
+    @Binds
+    fun bindUserDataStore(baseUserDataStore: BaseUserDataStore): UserDataStore
 
 }

@@ -1,6 +1,8 @@
 package ru.campus.feature_location.di
 
 import dagger.Component
+import ru.campus.core.di.AppDeps
+import ru.campus.core.presentation.ViewModelFactory
 
 /**
  * @author Soloviev Alexey
@@ -8,6 +10,15 @@ import dagger.Component
  * @date 14.05.2022 17:03
  */
 
-@Component
+@Component(modules = [LocationModule::class], dependencies = [AppDeps::class])
 interface LocationComponent {
+
+    fun viewModelsFactory(): ViewModelFactory
+
+    @Component.Builder
+    interface Builder {
+        fun deps(appDeps: AppDeps): Builder
+        fun build(): LocationComponent
+    }
+
 }

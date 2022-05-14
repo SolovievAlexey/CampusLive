@@ -34,7 +34,4 @@ interface StartBindModule {
     @Binds
     fun bindUserRepository(baseUserRepository: BaseUserRepository): UserRepository
 
-    @Binds
-    fun bindUserDataStore(baseUserDataStore: BaseUserDataStore): UserDataStore
-
 }

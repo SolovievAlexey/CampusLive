@@ -19,7 +19,7 @@ import javax.inject.Inject
  * @date 14.05.2022 17:03
  */
 
-internal class LocationViewModel @Inject constructor(
+class LocationViewModel @Inject constructor(
     private val interactor: LocationInteractor,
     private val dispatchers: CoroutineDispatchers,
 ) : ViewModel() {
