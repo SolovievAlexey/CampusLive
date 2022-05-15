@@ -11,6 +11,12 @@
     <string name="start_message_four">Делись анонимно своим мнением с другими студентами учебного заведения</string>
     <string name="start">Выбрать учебное заведение</string>
 
+
+    <string name="feed">Новости</string>
+    <string name="notification">Уведомления</string>
+    <string name="menu">Меню</string>
+
+
     <string name="error_unknown">Произошла неизвестная ошибка, повторите попытку ещё раз или обратитесь в службу поддержки</string>
     <string name="error_network">Не удалось установить подключение к серверу\nпроверьте подключение к интернету</string>
     <string name="close">Закрыть</string>
