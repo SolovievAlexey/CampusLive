@@ -9,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.campus.core.data.DisplayMetrics
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
@@ -36,7 +35,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
         component.viewModelsFactory()
     }
 
-    private val myOnClick = object: MyOnClick<FeedModel> {
+    private val myOnClick = object : MyOnClick<FeedModel> {
         override fun item(view: View, item: FeedModel) {
             Log.d("MyLog", "Произошел клик на сообщение!")
         }
@@ -57,9 +56,9 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = linearLayoutManager
+        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.scrollEvent()
         viewModel.list.observe(viewLifecycleOwner, listLiveData())
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
         binding.swipeRefreshLayout.setOnRefreshListener {
@@ -71,7 +70,18 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
-        Log.d("MyLog", "Колличество публикаций = "+newModel.size)
+    }
+
+    private fun RecyclerView.scrollEvent() {
+        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                binding.fab.apply { if (isVisibleFab(dy)) show() else hide() }
+            }
+        })
+    }
+
+    private fun isVisibleFab(dy: Int): Boolean {
+        return dy <= 0
     }
 
 }
