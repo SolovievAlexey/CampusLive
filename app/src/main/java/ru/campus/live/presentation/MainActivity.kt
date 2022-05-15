@@ -1,12 +1,8 @@
 package ru.campus.live.presentation
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.live.R
@@ -33,15 +29,11 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         component.inject(this)
-        if (userDataSource.token().isEmpty() || userDataSource.location() == 0) {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else {
-            val navHostFragment =
-                supportFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
-            val navController = navHostFragment.navController
-        }
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
+        val navController = navHostFragment.navController
+        if (userDataSource.token().isEmpty() || userDataSource.location() == 0)
+            navController.navigate(R.id.action_feedFragment_to_navigation_start_graph)
     }
 
 }

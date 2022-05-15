@@ -4,19 +4,21 @@
     android:id="@+id/main_navigation"
     app:startDestination="@id/feedFragment">
 
+    <include app:graph="@navigation/location_graph" />
+
+
     <fragment
         android:id="@+id/feedFragment"
         android:name="ru.campus.feature_news.presentation.FeedFragment"
-        android:label="FeedFragment" />
+        android:label="FeedFragment" >
 
-    <fragment
-        android:id="@+id/notificationFragment"
-        android:name="ru.campus.feature_notification.NotificationFragment"
-        android:label="NotificationFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_navigation_start_graph"
+            app:destination="@id/navigation_start_graph" />
 
-    <dialog
-        android:id="@+id/menuBottomSheetDialogFragment"
-        android:name="ru.campus.feature_menu.MenuBottomSheetDialogFragment"
-        android:label="MenuBottomSheetDialogFragment" />
+    </fragment>
+
+    <include app:graph="@navigation/navigation_start_graph" />
+    <include app:graph="@navigation/feed_graph" />
 
 </navigation>
