@@ -5,14 +5,18 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_news.R
 import ru.campus.feature_news.data.FeedModel
 import ru.campus.feature_news.databinding.FragmentFeedBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
@@ -56,13 +60,22 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.list.observe(viewLifecycleOwner, listLiveData())
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.scrollEvent()
-        viewModel.list.observe(viewLifecycleOwner, listLiveData())
+
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.get()
+        }
+
+        binding.fab.setOnClickListener {
+            val request = NavDeepLinkRequest.Builder
+                .fromUri("android-app://ru.campus.live/addMessageFragment".toUri())
+                .build()
+            findNavController().navigate(request)
         }
     }
 

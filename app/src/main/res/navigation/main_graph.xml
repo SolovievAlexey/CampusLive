@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_feedFragment_to_navigation_start_graph"
             app:destination="@id/navigation_start_graph" />
+        <action
+            android:id="@+id/action_feedFragment_to_feed_graph"
+            app:destination="@id/feed_graph" />
 
     </fragment>
 

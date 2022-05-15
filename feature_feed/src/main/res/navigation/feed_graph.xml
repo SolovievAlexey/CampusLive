@@ -14,6 +14,20 @@
         <deepLink
             app:uri="android-app://ru.campus.live/feedFragment" />
 
+        <action
+            android:id="@+id/action_feedFragment_to_addMessageFragment"
+            app:destination="@id/addMessageFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addMessageFragment"
+        android:name="ru.campus.feature_news.presentation.AddMessageFragment"
+        android:label="fragment_add_message"
+        tools:layout="@layout/fragment_add_message">
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/addMessageFragment" />
+
     </fragment>
 
 </navigation>
