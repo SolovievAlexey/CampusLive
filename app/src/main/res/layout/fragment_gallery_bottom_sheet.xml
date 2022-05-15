@@ -22,7 +22,7 @@
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:layout_margin="16dp"
-            android:background="@drawable/bg_publication"/>
+            android:background="@drawable/bg_message"/>
 
     </FrameLayout>
 
