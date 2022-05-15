@@ -122,4 +122,15 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="16dp"
+        android:contentDescription="@null"
+        android:src="@drawable/outline_add_white_24"
+        app:tint="@android:color/white"
+        tools:ignore="RtlHardcoded" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
