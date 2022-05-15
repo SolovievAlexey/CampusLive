@@ -78,6 +78,7 @@ dependencies {
     implementation project(":feature_start")
     implementation project(":feature_location")
     implementation project(":feature_feed")
+    implementation project(":feature_notification")
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
