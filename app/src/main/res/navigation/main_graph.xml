@@ -8,13 +8,15 @@
         android:id="@+id/feedFragment"
         android:name="ru.campus.feature_news.presentation.FeedFragment"
         android:label="FeedFragment" />
-    <dialog
-        android:id="@+id/menuBottomSheetDialogFragment"
-        android:name="ru.campus.feature_menu.MenuBottomSheetDialogFragment"
-        android:label="MenuBottomSheetDialogFragment" />
+
     <fragment
         android:id="@+id/notificationFragment"
         android:name="ru.campus.feature_notification.NotificationFragment"
         android:label="NotificationFragment" />
+
+    <dialog
+        android:id="@+id/menuBottomSheetDialogFragment"
+        android:name="ru.campus.feature_menu.MenuBottomSheetDialogFragment"
+        android:label="MenuBottomSheetDialogFragment" />
 
 </navigation>
