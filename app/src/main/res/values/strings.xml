@@ -21,7 +21,6 @@
     <string name="error_network">Не удалось установить подключение к серверу\nпроверьте подключение к интернету</string>
     <string name="close">Закрыть</string>
     <string name="location_hint">Название или аббревиатура</string>
-    <string name="create_publication_hint">Что у Вас нового?</string>
     <string name="gallery">Фотографии</string>
     <string name="permission_data">Разрешите доступ к памяти\nтелефона, для отображение ваших\nфотографий и загрузки\nих на сервер</string>
     <string name="request_permission">Запросить разрешение</string>

@@ -1,8 +1,7 @@
-package ru.campus.feature_news.presentation
+package ru.campus.feature_news.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.graphics.toColorInt
 import androidx.core.net.toUri
@@ -16,16 +15,16 @@ import ru.campus.core.data.DomainDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_news.R
 import ru.campus.feature_news.data.FeedModel
 import ru.campus.feature_news.databinding.FragmentFeedBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.di.FeedComponent
+import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
 import ru.campus.feature_news.presentation.adapter.FeedAdapter
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment<FragmentFeedBinding>() {
+class NewsFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val component: FeedComponent by lazy {
         DaggerFeedComponent.builder()
@@ -41,7 +40,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val myOnClick = object : MyOnClick<FeedModel> {
         override fun item(view: View, item: FeedModel) {
-            Log.d("MyLog", "Произошел клик на сообщение!")
+            NewsMenuSheetFragment().show(requireActivity().supportFragmentManager,
+                "FeedMenuSheetFragment")
         }
     }
 

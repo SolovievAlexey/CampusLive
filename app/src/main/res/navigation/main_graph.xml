@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="ru.campus.feature_news.presentation.FeedFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
         android:label="FeedFragment" >
 
         <action

@@ -10,7 +10,7 @@ import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_news.data.APIService
 import ru.campus.feature_news.data.BaseNewsRepository
 import ru.campus.feature_news.data.NewsRepository
-import ru.campus.feature_news.presentation.FeedViewModel
+import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
 
 /**
  * @author Soloviev Alexey

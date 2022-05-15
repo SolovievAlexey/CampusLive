@@ -1,4 +1,4 @@
-package ru.campus.feature_news.presentation
+package ru.campus.feature_news.presentation.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
