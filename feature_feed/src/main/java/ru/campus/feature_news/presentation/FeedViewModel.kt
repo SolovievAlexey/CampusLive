@@ -1,6 +1,16 @@
 package ru.campus.feature_news.presentation
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ru.campus.core.data.ResponseObject
+import ru.campus.core.di.CoroutineDispatchers
+import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.domain.FeedInteractor
+import javax.inject.Inject
 
 /**
  * @author Soloviev Alexey
@@ -8,5 +18,28 @@ import androidx.lifecycle.ViewModel
  * @date 14.05.2022 20:59
  */
 
-class FeedViewModel: ViewModel() {
+class FeedViewModel @Inject constructor(
+    private val interactor: FeedInteractor,
+    private val dispatchers: CoroutineDispatchers,
+) : ViewModel() {
+
+    private val listLiveData = MutableLiveData<ArrayList<FeedModel>>()
+    val list: LiveData<ArrayList<FeedModel>>
+        get() = listLiveData
+
+    fun get() {
+        viewModelScope.launch(dispatchers.io) {
+            when (val result = interactor.get(offset = 0)) {
+                is ResponseObject.Success -> {
+                    withContext(dispatchers.main) {
+                        listLiveData.value = result.data
+                    }
+                }
+                is ResponseObject.Failure -> {
+
+                }
+            }
+        }
+    }
+
 }
