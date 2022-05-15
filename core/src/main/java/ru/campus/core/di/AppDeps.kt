@@ -3,6 +3,7 @@ package ru.campus.core.di
 import android.content.Context
 import retrofit2.Retrofit
 import ru.campus.core.data.DomainDataStore
+import ru.campus.core.data.ResourceManager
 import ru.campus.core.data.UserDataStore
 
 /**
@@ -17,4 +18,5 @@ interface AppDeps {
     var coroutineDispatchers: CoroutineDispatchers
     var userDataStore: UserDataStore
     var domainDataStore: DomainDataStore
+    var resourceManager: ResourceManager
 }

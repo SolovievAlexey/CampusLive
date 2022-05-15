@@ -1,5 +1,6 @@
 package ru.campus.feature_news.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,10 +30,12 @@ class FeedViewModel @Inject constructor(
 
     fun get() {
         viewModelScope.launch(dispatchers.io) {
-            when (val result = interactor.get(offset = 0)) {
+            val result = interactor.get(offset = 0)
+            when (result) {
                 is ResponseObject.Success -> {
+                    val response = interactor.preparation(result.data)
                     withContext(dispatchers.main) {
-                        listLiveData.value = result.data
+                        listLiveData.value = response
                     }
                 }
                 is ResponseObject.Failure -> {

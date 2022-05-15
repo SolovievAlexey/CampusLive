@@ -23,9 +23,6 @@ import ru.campus.feature_start.domain.StartInteractor
 interface StartBindModule {
 
     @Binds
-    fun bindResourceManager(resourceManager: BaseResourceManager): ResourceManager
-
-    @Binds
     fun bindStartRepository(startRepository: BaseStartRepository): StartRepository
 
     @Binds

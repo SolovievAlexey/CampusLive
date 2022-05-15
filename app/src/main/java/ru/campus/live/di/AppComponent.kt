@@ -5,6 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
 import ru.campus.core.data.DomainDataStore
+import ru.campus.core.data.ResourceManager
 import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDeps
 import ru.campus.core.di.CoroutineDispatchers
@@ -26,6 +27,7 @@ interface AppComponent : AppDeps {
     override var coroutineDispatchers: CoroutineDispatchers
     override var userDataStore: UserDataStore
     override var domainDataStore: DomainDataStore
+    override var resourceManager: ResourceManager
     
     @Component.Builder
     interface Builder {
