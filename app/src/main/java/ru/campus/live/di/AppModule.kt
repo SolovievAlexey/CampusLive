@@ -5,7 +5,9 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.campus.core.data.BaseDomainDataStore
 import ru.campus.core.data.BaseUserDataStore
+import ru.campus.core.data.DomainDataStore
 import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.BaseCoroutineDispatchers
 import ru.campus.core.di.CoroutineDispatchers
@@ -21,9 +23,9 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    fun provideAPIService(): Retrofit {
+    fun provideAPIService(domainDataStore: DomainDataStore): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://apiburg.beget.tech")
+            .baseUrl(domainDataStore.get())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -44,5 +46,8 @@ interface AppBindModule {
 
     @Binds
     fun bindUserDataStore(baseUserDataStore: BaseUserDataStore): UserDataStore
+
+    @Binds
+    fun bindDomainDataStore(domainDataStore: BaseDomainDataStore): DomainDataStore
 
 }
