@@ -4,14 +4,14 @@
 
     <item android:id="@+id/action_search"
         android:title="@string/feed"
-        android:icon="@drawable/notification" />
+        android:icon="@drawable/ic_action_home" />
 
     <item android:id="@+id/action_settings"
         android:title="@string/notification"
-        android:icon="@drawable/notification" />
+        android:icon="@drawable/ic_action_notification" />
 
     <item android:id="@+id/action_navigation"
         android:title="@string/menu"
-        android:icon="@drawable/notification" />
+        android:icon="@drawable/ic_action_menu" />
 
 </menu>
