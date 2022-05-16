@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/gallery_graph"
+    app:startDestination="@id/galleryFragment">
+
+    <dialog
+        android:id="@+id/galleryFragment"
+        android:name="ru.campus.feature_gallery.presentation.GalleryFragment"
+        android:label="GalleryFragment" >
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/galleryFragment" />
+    </dialog>
+
+</navigation>
