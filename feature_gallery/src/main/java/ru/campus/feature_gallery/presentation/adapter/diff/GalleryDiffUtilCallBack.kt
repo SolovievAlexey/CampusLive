@@ -1,7 +1,7 @@
 package ru.campus.feature_gallery.presentation.adapter.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.campus.feature_gallery.data.GalleryDataModel
+import ru.campus.core.data.GalleryDataModel
 
 /**
  * @author Soloviev Alexey

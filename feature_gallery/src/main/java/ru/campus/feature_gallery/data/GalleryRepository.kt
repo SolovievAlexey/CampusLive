@@ -1,5 +1,7 @@
 package ru.campus.feature_gallery.data
 
+import ru.campus.core.data.GalleryDataModel
+
 /**
  * @author Soloviev Alexey
  * @contacts soloviev@internet.ru

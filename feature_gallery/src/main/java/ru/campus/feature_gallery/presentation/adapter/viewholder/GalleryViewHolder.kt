@@ -3,7 +3,7 @@ package ru.campus.feature_gallery.presentation.adapter.viewholder
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_gallery.data.GalleryDataModel
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.feature_gallery.databinding.ItemGalleryBinding
 
 /**

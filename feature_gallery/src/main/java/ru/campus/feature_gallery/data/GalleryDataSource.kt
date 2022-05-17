@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.MediaStore
 import androidx.exifinterface.media.ExifInterface
+import ru.campus.core.data.GalleryDataModel
 import java.io.IOException
 import javax.inject.Inject
 

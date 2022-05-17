@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_gallery.data.GalleryDataModel
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.feature_gallery.databinding.ItemGalleryBinding
 import ru.campus.feature_gallery.presentation.adapter.diff.GalleryDiffUtilCallBack
 import ru.campus.feature_gallery.presentation.adapter.viewholder.GalleryViewHolder

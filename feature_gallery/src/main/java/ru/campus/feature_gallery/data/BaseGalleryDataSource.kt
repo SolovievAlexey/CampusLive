@@ -1,5 +1,6 @@
 package ru.campus.feature_gallery.data
 
+import ru.campus.core.data.GalleryDataModel
 import javax.inject.Inject
 
 /**

@@ -17,4 +17,7 @@
     <string name="reply_description">Ваш комментарий будет расположен под комментарием на который вы ответили</string>
     <string name="create_publication_hint">Что у Вас нового?</string>
 
+    <string name="new_publication">Новая запись</string>
+    <string name="send">Отправить</string>
+
 </resources>

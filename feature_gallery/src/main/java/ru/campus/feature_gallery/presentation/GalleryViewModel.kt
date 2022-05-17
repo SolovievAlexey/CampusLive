@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.di.CoroutineDispatchers
-import ru.campus.feature_gallery.data.GalleryDataModel
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.feature_gallery.data.GalleryRepository
 import javax.inject.Inject
 

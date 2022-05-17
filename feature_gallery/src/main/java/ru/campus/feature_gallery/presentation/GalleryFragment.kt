@@ -16,7 +16,7 @@ import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseBottomSheetDialogFragment
 import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_gallery.R
-import ru.campus.feature_gallery.data.GalleryDataModel
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.feature_gallery.databinding.FragmentGalleryBinding
 import ru.campus.feature_gallery.di.DaggerGalleryComponent
 import ru.campus.feature_gallery.di.GalleryComponent

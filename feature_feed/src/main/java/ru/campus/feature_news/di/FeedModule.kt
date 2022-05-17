@@ -10,6 +10,7 @@ import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_news.data.APIService
 import ru.campus.feature_news.data.BaseNewsRepository
 import ru.campus.feature_news.data.NewsRepository
+import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
 
 /**
@@ -30,11 +31,17 @@ class FeedModule {
 
 @Module
 interface FeedAbstractModule {
+
     @Binds
     fun bindNewsRepository(baseNewsRepository: BaseNewsRepository): NewsRepository
 
     @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
-    abstract fun onBoardViewModel(viewModel: FeedViewModel): ViewModel
+    fun onBoardViewModel(viewModel: FeedViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreateMessageViewModel::class)
+    fun createMessageViewModel(viewModel: CreateMessageViewModel): ViewModel
 }

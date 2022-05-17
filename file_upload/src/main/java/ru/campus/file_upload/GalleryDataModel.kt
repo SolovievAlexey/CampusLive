@@ -1,4 +1,4 @@
-package ru.campus.feature_gallery.data
+package ru.campus.file_upload
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 /**
  * @author Soloviev Alexey
  * @contacts soloviev@internet.ru
- * @date 15.05.2022 23:00
+ * @date 17.05.2022 22:29
  */
 
 @Parcelize
