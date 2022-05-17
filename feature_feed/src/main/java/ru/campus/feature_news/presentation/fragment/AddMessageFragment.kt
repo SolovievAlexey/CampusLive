@@ -105,6 +105,10 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->
+        if(model[0].upload)
+            binding.toolBar.menu.clear()
+        else
+            binding.toolBar.inflateMenu(R.menu.send_menu)
         uploadMediaAdapter.setData(model)
     }
 
