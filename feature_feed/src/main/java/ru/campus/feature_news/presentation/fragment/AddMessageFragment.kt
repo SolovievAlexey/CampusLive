@@ -83,6 +83,7 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
         binding.toolBar.setNavigationIcon(R.drawable.arrow_back)
         binding.toolBar.setNavigationOnClickListener {
+            Keyboard().hide(requireActivity())
             findNavController().popBackStack()
         }
     }
