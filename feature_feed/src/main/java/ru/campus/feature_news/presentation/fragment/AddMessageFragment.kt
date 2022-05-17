@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
@@ -36,6 +37,12 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().supportFragmentManager
+            .setFragmentResultListener("mediaRequest", viewLifecycleOwner) { _, bundle ->
+                Log.d("MyLog", "Получен новый объект для загрузки на сервер!")
+            }
+
         initToolBar()
         viewModel.success.observe(viewLifecycleOwner, success())
         viewModel.failure.observe(viewLifecycleOwner, failure())

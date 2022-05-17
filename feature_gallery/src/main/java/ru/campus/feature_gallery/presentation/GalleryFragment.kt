@@ -41,7 +41,7 @@ class GalleryFragment: BaseBottomSheetDialogFragment<FragmentGalleryBinding>() {
         override fun item(view: View, item: GalleryDataModel) {
             val bundle = Bundle()
             bundle.putParcelable("item", item)
-            setFragmentResult("mediaRequest", bundle)
+            requireActivity().supportFragmentManager.setFragmentResult("mediaRequest", bundle)
             dismiss()
         }
     }
