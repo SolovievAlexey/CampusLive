@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.data.AlertMessageModel
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UploadMediaModel
 import ru.campus.core.di.CoroutineDispatchers
@@ -59,8 +60,15 @@ class CreateMessageViewModel @Inject constructor(
         }
     }
 
-    fun upload() {
-
+    fun upload(item: GalleryDataModel) {
+        viewModelScope.launch(dispatchers.io) {
+            val upload = interactor.uploadMediaMap(item)
+            val model = ArrayList<UploadMediaModel>()
+            model.add(upload)
+            withContext(dispatchers.main) {
+                mutableMediaList.value = model
+            }
+        }
     }
 
 }
