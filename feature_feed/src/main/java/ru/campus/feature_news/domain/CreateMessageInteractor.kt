@@ -6,6 +6,8 @@ import ru.campus.core.data.UploadMediaModel
 import ru.campus.feature_news.data.FeedModel
 import ru.campus.feature_news.data.FeedPostModel
 import ru.campus.feature_news.data.NewsRepository
+import ru.campus.file_upload.data.UploadMediaRepository
+import ru.campus.file_upload.data.UploadResultModel
 import javax.inject.Inject
 
 /**
@@ -15,11 +17,16 @@ import javax.inject.Inject
  */
 
 class CreateMessageInteractor @Inject constructor(
-    private val repository: NewsRepository
+    private val repository: NewsRepository,
+    private val uploadRepository: UploadMediaRepository
 ) {
 
     fun post(params: FeedPostModel): ResponseObject<FeedModel> {
         return repository.post(params)
+    }
+
+    fun upload(params: GalleryDataModel): ResponseObject<UploadResultModel> {
+        return uploadRepository.upload(params = params)
     }
 
     fun uploadMediaMap(item: GalleryDataModel): UploadMediaModel {

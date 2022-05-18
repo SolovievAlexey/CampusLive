@@ -25,8 +25,8 @@ import javax.inject.Inject
 
 class CreateMessageViewModel @Inject constructor(
     private val interactor: CreateMessageInteractor,
-    private val dispatchers: CoroutineDispatchers
-): ViewModel() {
+    private val dispatchers: CoroutineDispatchers,
+) : ViewModel() {
 
     private val mutableSuccess = SingleLiveEvent<FeedModel>()
     val success: LiveData<FeedModel>
@@ -43,15 +43,15 @@ class CreateMessageViewModel @Inject constructor(
     fun post(message: String) {
         viewModelScope.launch(dispatchers.io) {
             val attachment = mutableMediaList.value?.get(0)?.id ?: 0
-            val post = FeedPostModel(message =  message, attachment = attachment)
-            when(val result = interactor.post(post)) {
+            val post = FeedPostModel(message = message, attachment = attachment)
+            when (val result = interactor.post(post)) {
                 is ResponseObject.Success -> {
                     withContext(dispatchers.main) {
                         mutableSuccess.value = result.data
                     }
                 }
                 is ResponseObject.Failure -> {
-                    val response = AlertMessageModel(message =  "", icon = 1)
+                    val response = AlertMessageModel(message = "", icon = 1)
                     withContext(dispatchers.main) {
                         mutableFailure.value = response
                     }
@@ -68,7 +68,27 @@ class CreateMessageViewModel @Inject constructor(
             withContext(dispatchers.main) {
                 mutableMediaList.value = model
             }
+
+            when (val result = interactor.upload(params = item)) {
+                is ResponseObject.Success -> {
+                    model[0].id = result.data.id
+                    model[0].upload = false
+                    withContext(dispatchers.main) {
+                        mutableMediaList.value = model
+                    }
+                }
+
+                is ResponseObject.Failure -> {
+                    model[0].upload = false
+                    model[0].error = true
+                    withContext(dispatchers.main) {
+                        mutableMediaList.value = model
+                    }
+                }
+
+            }
         }
     }
+
 
 }
