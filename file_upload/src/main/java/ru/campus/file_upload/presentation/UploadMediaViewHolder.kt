@@ -1,5 +1,6 @@
 package ru.campus.file_upload.presentation
 
+import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.core.view.isVisible

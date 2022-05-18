@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -41,7 +42,7 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
     private val uploadMediaAdapterCallBack = object : MyOnClick<UploadMediaModel> {
         override fun item(view: View, item: UploadMediaModel) {
-
+            viewModel.uploadListClear()
         }
     }
 
@@ -71,6 +72,11 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
         binding.recyclerViewUploadMedia.adapter = uploadMediaAdapter
         binding.recyclerViewUploadMedia.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
+
+        binding.editText.doAfterTextChanged {
+            val size = 300 - binding.editText.text.toString().length
+            binding.textCount.text = size.toString()
+        }
     }
 
     private fun initToolBar() {
@@ -89,6 +95,7 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
     }
 
     private fun sendMessageOnServer() {
+        Keyboard().hide(requireActivity())
         val message = binding.editText.text.toString()
         if (message.isEmpty()) return
         isVisibleProgressBar(visible = true)
@@ -106,10 +113,12 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->
-        if(model[0].upload)
-            binding.toolBar.menu.clear()
-        else
-            binding.toolBar.inflateMenu(R.menu.send_menu)
+        if(model.size != 0) {
+            if(model[0].upload)
+                binding.toolBar.menu.clear()
+            else
+                binding.toolBar.inflateMenu(R.menu.send_menu)
+        }
         uploadMediaAdapter.setData(model)
     }
 

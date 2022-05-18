@@ -1,5 +1,6 @@
 package ru.campus.feature_news.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -69,25 +70,16 @@ class CreateMessageViewModel @Inject constructor(
                 mutableMediaList.value = model
             }
 
-            when (val result = interactor.upload(params = item)) {
-                is ResponseObject.Success -> {
-                    model[0].id = result.data.id
-                    model[0].upload = false
-                    withContext(dispatchers.main) {
-                        mutableMediaList.value = model
-                    }
-                }
-
-                is ResponseObject.Failure -> {
-                    model[0].upload = false
-                    model[0].error = true
-                    withContext(dispatchers.main) {
-                        mutableMediaList.value = model
-                    }
-                }
-
+            val result = interactor.upload(params = item)
+            val response = interactor.newUploadModel(model, result)
+            withContext(dispatchers.main) {
+                mutableMediaList.value = response
             }
         }
+    }
+
+    fun uploadListClear() {
+        mutableMediaList.value = ArrayList()
     }
 
 

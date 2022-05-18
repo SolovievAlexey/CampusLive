@@ -1,5 +1,6 @@
 package ru.campus.file_upload.presentation
 
+import android.util.Log
 import androidx.recyclerview.widget.DiffUtil
 import ru.campus.core.data.UploadMediaModel
 
@@ -28,9 +29,9 @@ class UploadMediaDiffUtilCallBack(
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldData[oldItemPosition].id == newData[newItemPosition].id
-                || oldData[oldItemPosition].upload == newData[newItemPosition].upload
-                || oldData[oldItemPosition].animation == newData[newItemPosition].animation
-                || oldData[oldItemPosition].error == newData[newItemPosition].error
+                && oldData[oldItemPosition].upload == newData[newItemPosition].upload
+                && oldData[oldItemPosition].animation == newData[newItemPosition].animation
+                && oldData[oldItemPosition].error == newData[newItemPosition].error
     }
 
 }

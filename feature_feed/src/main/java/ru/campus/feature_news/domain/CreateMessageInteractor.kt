@@ -18,7 +18,7 @@ import javax.inject.Inject
 
 class CreateMessageInteractor @Inject constructor(
     private val repository: NewsRepository,
-    private val uploadRepository: UploadMediaRepository
+    private val uploadRepository: UploadMediaRepository,
 ) {
 
     fun post(params: FeedPostModel): ResponseObject<FeedModel> {
@@ -37,6 +37,31 @@ class CreateMessageInteractor @Inject constructor(
             error = false,
             animation = false
         )
+    }
+
+    fun newUploadModel(
+        model: ArrayList<UploadMediaModel>,
+        result: ResponseObject<UploadResultModel>,
+    ): ArrayList<UploadMediaModel> {
+        val item = UploadMediaModel(
+            id = model[0].id,
+            fullPath = model[0].fullPath,
+            upload = false,
+            error = model[0].error,
+            animation = model[0].animation
+        )
+
+        when (result) {
+            is ResponseObject.Success -> {
+                item.id = result.data.id
+            }
+            is ResponseObject.Failure -> {
+                item.error = true
+            }
+        }
+        val response = ArrayList<UploadMediaModel>()
+        response.add(item)
+        return response
     }
 
 }

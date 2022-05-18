@@ -12,6 +12,7 @@ import retrofit2.Call
 class CloudDataSource<T : Any>() {
 
     fun execute(call: Call<T>): ResponseObject<T> {
+        Log.d("MyLog", "Запрос к серверу!")
         return try {
             val response = call.execute()
             Log.d("MyLog", "Результат запроса = "+response.message())
