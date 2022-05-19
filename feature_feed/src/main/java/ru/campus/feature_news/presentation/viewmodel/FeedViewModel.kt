@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
     private val interactor: FeedInteractor,
-    private val dispatchers: CoroutineDispatchers,
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     private val listLiveData = MutableLiveData<ArrayList<FeedModel>>()
@@ -49,6 +49,10 @@ class FeedViewModel @Inject constructor(
                     if (listSize == 0) {
                         withContext(dispatchers.main) {
                             mutableFailure.value = error
+                        }
+                    } else {
+                        withContext(dispatchers.main) {
+                            listLiveData.value = list.value
                         }
                     }
                 }
