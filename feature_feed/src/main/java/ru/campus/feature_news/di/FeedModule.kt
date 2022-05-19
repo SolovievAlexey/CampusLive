@@ -10,8 +10,8 @@ import retrofit2.Retrofit
 import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_news.data.APIService
-import ru.campus.feature_news.data.BaseNewsRepository
-import ru.campus.feature_news.data.NewsRepository
+import ru.campus.feature_news.data.repository.BaseNewsRepository
+import ru.campus.feature_news.data.repository.NewsRepository
 import ru.campus.feature_news.domain.BaseErrorMessageHandler
 import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel

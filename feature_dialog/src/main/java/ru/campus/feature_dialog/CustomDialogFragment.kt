@@ -12,10 +12,12 @@ import ru.campus.feature_dialog.databinding.FragmentCustomDialogBinding
 
 class CustomDialogFragment : BaseDialogFragment<FragmentCustomDialogBinding>() {
 
+    private val message by lazy { arguments?.getString("message") }
     override fun getViewBinding() = FragmentCustomDialogBinding.inflate(layoutInflater)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.message.text = message
         binding.close.setOnClickListener { dismiss() }
     }
 

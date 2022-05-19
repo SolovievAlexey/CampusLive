@@ -1,18 +1,13 @@
 package ru.campus.feature_news.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavOptions
-import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,8 +18,9 @@ import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.Keyboard
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_dialog.CustomDialogFragment
 import ru.campus.feature_news.R
-import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.databinding.FragmentAddMessageBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
@@ -113,12 +109,13 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
         findNavController().popBackStack()
     }
 
-    private fun failure() = Observer<AlertMessageModel> {
+    private fun failure() = Observer<String> { error ->
         isVisibleProgressBar(visible = false)
-        val request = NavDeepLinkRequest.Builder
-            .fromUri("android-app://ru.campus.live/customDialogFragment".toUri())
-            .build()
-        findNavController().navigate(request)
+        val dialog = CustomDialogFragment()
+        val bundle = Bundle()
+        bundle.putString("message", error)
+        dialog.arguments = bundle
+        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->

@@ -3,9 +3,9 @@ package ru.campus.feature_news.domain
 import ru.campus.core.data.DisplayMetrics
 import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.data.ResponseObject
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedViewType
-import ru.campus.feature_news.data.NewsRepository
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.FeedViewType
+import ru.campus.feature_news.data.repository.NewsRepository
 import javax.inject.Inject
 
 /**

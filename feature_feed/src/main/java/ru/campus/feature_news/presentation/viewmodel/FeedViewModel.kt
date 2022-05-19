@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.core.presentation.SingleLiveEvent
-import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.domain.FeedInteractor
 import javax.inject.Inject
 

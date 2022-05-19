@@ -1,4 +1,4 @@
-package ru.campus.feature_news.data
+package ru.campus.feature_news.data.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

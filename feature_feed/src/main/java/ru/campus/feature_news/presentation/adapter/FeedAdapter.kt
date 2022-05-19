@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedViewType
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.FeedViewType
 import ru.campus.feature_news.databinding.ItemMessageBinding
 import ru.campus.feature_news.databinding.ItemNotAvailableBinding
 import ru.campus.feature_news.presentation.adapter.diff.FeedDiffUtilCallBack

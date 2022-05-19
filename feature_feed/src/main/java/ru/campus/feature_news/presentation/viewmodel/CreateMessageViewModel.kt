@@ -1,20 +1,18 @@
 package ru.campus.feature_news.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.campus.core.data.AlertMessageModel
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UploadMediaModel
 import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.core.presentation.SingleLiveEvent
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedPostModel
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.FeedPostModel
 import ru.campus.feature_news.domain.CreateMessageInteractor
 import javax.inject.Inject
 
@@ -26,15 +24,15 @@ import javax.inject.Inject
 
 class CreateMessageViewModel @Inject constructor(
     private val interactor: CreateMessageInteractor,
-    private val dispatchers: CoroutineDispatchers
+    private val dispatchers: CoroutineDispatchers,
 ) : ViewModel() {
 
     private val mutableSuccess = SingleLiveEvent<FeedModel>()
     val success: LiveData<FeedModel>
         get() = mutableSuccess
 
-    private val mutableFailure = SingleLiveEvent<AlertMessageModel>()
-    val failure: LiveData<AlertMessageModel>
+    private val mutableFailure = SingleLiveEvent<String>()
+    val failure: LiveData<String>
         get() = mutableFailure
 
     private val mutableMediaList = MutableLiveData<ArrayList<UploadMediaModel>>()
@@ -52,7 +50,7 @@ class CreateMessageViewModel @Inject constructor(
                     }
                 }
                 is ResponseObject.Failure -> {
-                    val response = AlertMessageModel(message = "", icon = 1)
+                    val response = interactor.error(statusCode = result.code)
                     withContext(dispatchers.main) {
                         mutableFailure.value = response
                     }

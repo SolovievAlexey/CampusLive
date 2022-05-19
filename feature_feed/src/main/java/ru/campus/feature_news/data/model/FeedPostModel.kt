@@ -1,4 +1,4 @@
-package ru.campus.feature_news.data
+package ru.campus.feature_news.data.model
 
 /**
  * @author Soloviev Alexey

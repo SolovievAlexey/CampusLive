@@ -4,6 +4,8 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.UploadResultModel
 
 /**
  * @author Soloviev Alexey

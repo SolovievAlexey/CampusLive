@@ -1,8 +1,7 @@
 package ru.campus.feature_news.domain
 
 import ru.campus.core.data.ErrorMessageHandler
-import ru.campus.feature_dialog.DialogDataModel
-import ru.campus.feature_news.data.ErrorDataSource
+import ru.campus.feature_news.data.repository.ErrorDataSource
 import javax.inject.Inject
 
 /**
@@ -15,7 +14,6 @@ class BaseErrorMessageHandler @Inject constructor(
     private val errorDataSource: ErrorDataSource
 ) : ErrorMessageHandler {
 
-
-    override fun get(statusCode: Int) = errorDataSource.get(statusCode = statusCode)
+    override fun get(statusCode: Int): String = errorDataSource.get(statusCode = statusCode)
 
 }

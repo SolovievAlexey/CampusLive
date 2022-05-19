@@ -1,7 +1,7 @@
 package ru.campus.feature_news.presentation.adapter.diff
 
 import androidx.recyclerview.widget.DiffUtil
-import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.data.model.FeedModel
 
 /**
  * @author Soloviev Alexey
