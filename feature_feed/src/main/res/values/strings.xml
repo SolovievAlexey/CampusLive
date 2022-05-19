@@ -19,7 +19,7 @@
 
     <string name="new_publication">Новая запись</string>
     <string name="send">Отправить</string>
-    <string name="old_messages_not_available">Доступ к более старым\nпубликациям ограничен</string>
+    <string name="old_messages_not_available">Доступ к более поздним\nпубликациям на данный\nмомент ограничен</string>
 
     <string name="error_network_connection">Не удалось установить\nподключение к серверу\nпроверьте подключени\nк сети интернет</string>
     <string name="error_unknown">Произошла неизвестная ошибка\nповторите попытку еще раз\nили обратитесь к администратору</string>

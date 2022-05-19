@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:paddingStart="26dp"
         android:paddingEnd="26dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="32dp"
         android:paddingBottom="18dp"
         android:textColor="#000000"
         android:textSize="16sp"
@@ -20,7 +20,7 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center_horizontal"
         android:textAlignment="center"
-        android:layout_marginBottom="22dp"/>
+        android:layout_marginBottom="6dp"/>
 
     <Button
         android:id="@+id/close"
@@ -34,6 +34,6 @@
         android:paddingBottom="@dimen/padding_bottom"
         android:text="@string/close"
         app:fontFamily="@font/roboto_regular"
-        android:layout_marginBottom="26dp"/>
+        android:layout_marginBottom="32dp"/>
 
 </LinearLayout>
