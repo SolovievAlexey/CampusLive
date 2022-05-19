@@ -2,6 +2,7 @@ package ru.campus.feature_news.presentation.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.graphics.toColorInt
 import androidx.core.net.toUri
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.data.DomainDataStore
+import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
@@ -60,10 +62,17 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().supportFragmentManager
+            .setFragmentResultListener("publication", viewLifecycleOwner) { _, bundle ->
+                val publication: FeedModel? = bundle.getParcelable("publication")
+                if (publication != null) viewModel.insert(publication = publication)
+            }
+
         viewModel.list.observe(viewLifecycleOwner, listLiveData())
 
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerView.scrollEvent()
 
         binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
@@ -83,6 +92,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
+        binding.recyclerView.smoothScrollToPosition(0)
     }
 
     private fun RecyclerView.scrollEvent() {

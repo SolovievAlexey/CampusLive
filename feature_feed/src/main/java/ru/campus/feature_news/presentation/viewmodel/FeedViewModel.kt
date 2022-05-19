@@ -44,4 +44,16 @@ class FeedViewModel @Inject constructor(
         }
     }
 
+    fun insert(publication : FeedModel) {
+        viewModelScope.launch(dispatchers.io) {
+            val list = ArrayList<FeedModel>()
+            listLiveData.value?.let { list.addAll(it) }
+            val result = interactor.insert(list = list, publication = publication)
+            val response = interactor.preparation(result)
+            withContext(dispatchers.main) {
+                listLiveData.value = response
+            }
+        }
+    }
+
 }

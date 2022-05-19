@@ -26,7 +26,7 @@ import javax.inject.Inject
 
 class CreateMessageViewModel @Inject constructor(
     private val interactor: CreateMessageInteractor,
-    private val dispatchers: CoroutineDispatchers,
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     private val mutableSuccess = SingleLiveEvent<FeedModel>()

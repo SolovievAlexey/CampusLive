@@ -42,5 +42,9 @@ class FeedInteractor @Inject constructor(
         return model
     }
 
+    fun insert(list: ArrayList<FeedModel>, publication: FeedModel): ArrayList<FeedModel> {
+        list.add(0, publication)
+        return list
+    }
 
 }
