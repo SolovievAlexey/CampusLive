@@ -105,22 +105,19 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
         viewModel.post(message = message)
     }
 
-    private fun success() = Observer<FeedModel> {
+    private fun success() = Observer<FeedModel> { model ->
         Keyboard().hide(requireActivity())
+        val bundle = Bundle()
+        bundle.putParcelable("publication", model)
+        requireActivity().supportFragmentManager.setFragmentResult("publication", bundle)
         findNavController().popBackStack()
     }
 
     private fun failure() = Observer<AlertMessageModel> {
         isVisibleProgressBar(visible = false)
-
-
-        val bundle = Bundle()
-
-
         val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://ru.campus.live/customDialogFragment".toUri())
             .build()
-
         findNavController().navigate(request)
     }
 
