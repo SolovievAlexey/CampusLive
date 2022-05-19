@@ -9,7 +9,10 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -109,7 +112,16 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
     private fun failure() = Observer<AlertMessageModel> {
         isVisibleProgressBar(visible = false)
-        Log.d("MyLog", "Произошла ошибка! Повторите попытку ещё раз")
+
+
+        val bundle = Bundle()
+
+
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://ru.campus.live/customDialogFragment".toUri())
+            .build()
+
+        findNavController().navigate(request)
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->

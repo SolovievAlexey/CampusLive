@@ -26,6 +26,7 @@
 
         </fragment>
     </navigation>
+    <include app:graph="@navigation/dialog_graph" />
 
 
 </navigation>

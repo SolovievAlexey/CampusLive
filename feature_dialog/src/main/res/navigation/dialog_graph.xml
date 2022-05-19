@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_graph"
+    app:startDestination="@id/customDialogFragment">
+
+    <dialog
+        android:id="@+id/customDialogFragment"
+        android:name="ru.campus.feature_dialog.CustomDialogFragment"
+        android:label="CustomDialogFragment">
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/customDialogFragment" />
+
+
+
+        <argument
+            android:name="icon"
+            app:argType="integer"
+            android:defaultValue="0" />
+
+        <argument
+            android:name="message"
+            app:argType="string"
+            android:defaultValue="0" />
+
+    </dialog>
+
+</navigation>

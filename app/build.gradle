@@ -81,6 +81,7 @@ dependencies {
     implementation project(":feature_notification")
     implementation project(":feature_menu")
     implementation project(":feature_gallery")
+    implementation project(":feature_dialog")
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
