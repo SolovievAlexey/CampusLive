@@ -32,6 +32,10 @@ class FeedViewModel @Inject constructor(
     val failure: LiveData<String>
         get() = mutableFailure
 
+    private val mutableScrollOnPosition = SingleLiveEvent<Int>()
+    val scrollOnPositionEvent: LiveData<Int>
+        get() = mutableScrollOnPosition
+
     fun get() {
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(offset = 0)) {
@@ -69,6 +73,7 @@ class FeedViewModel @Inject constructor(
             val response = interactor.footer(preparation)
             withContext(dispatchers.main) {
                 listLiveData.value = response
+                mutableScrollOnPosition.value = 0
             }
         }
     }
