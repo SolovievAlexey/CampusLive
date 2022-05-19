@@ -7,5 +7,5 @@ package ru.campus.feature_news.data
  */
 
 enum class FeedViewType {
-    UNKNOWN, LOCATION, PUBLICATION, HELPER, ERROR
+    UNKNOWN, LOCATION, PUBLICATION, HELPER, ERROR, FOOTER
 }

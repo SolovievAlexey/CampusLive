@@ -7,10 +7,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
+import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_news.data.APIService
 import ru.campus.feature_news.data.BaseNewsRepository
 import ru.campus.feature_news.data.NewsRepository
+import ru.campus.feature_news.domain.BaseErrorMessageHandler
 import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
 import ru.campus.file_upload.data.BaseUploadMediaRepository
@@ -60,6 +62,9 @@ interface FeedAbstractModule {
 
     @Binds
     fun bindUploadMediaRepository(baseUploadMediaRepository: BaseUploadMediaRepository): UploadMediaRepository
+
+    @Binds
+    fun bindErrorHandler(baseErrorMessageHandler: BaseErrorMessageHandler): ErrorMessageHandler
 
     @Binds
     @IntoMap

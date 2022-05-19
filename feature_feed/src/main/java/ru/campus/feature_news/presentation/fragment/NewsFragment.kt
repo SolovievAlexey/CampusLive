@@ -6,17 +6,20 @@ import android.util.Log
 import android.view.View
 import androidx.core.graphics.toColorInt
 import androidx.core.net.toUri
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_dialog.DialogDataModel
 import ru.campus.feature_news.data.FeedModel
 import ru.campus.feature_news.databinding.FragmentFeedBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
@@ -69,6 +72,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
             }
 
         viewModel.list.observe(viewLifecycleOwner, listLiveData())
+        viewModel.failure.observe(viewLifecycleOwner, failure())
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
@@ -89,10 +93,18 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun listLiveData() = Observer<ArrayList<FeedModel>> { newModel ->
+        binding.error.isVisible = false
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
         binding.recyclerView.smoothScrollToPosition(0)
+    }
+
+    private fun failure() = Observer<String> { error ->
+        if (binding.swipeRefreshLayout.isRefreshing)
+            binding.swipeRefreshLayout.isRefreshing = false
+        binding.error.isVisible = true
+        binding.message.text = error
     }
 
     private fun RecyclerView.scrollEvent() {
