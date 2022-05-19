@@ -14,6 +14,8 @@ class BaseErrorMessageHandler @Inject constructor(
     private val errorDataSource: ErrorDataSource
 ) : ErrorMessageHandler {
 
-    override fun get(statusCode: Int): String = errorDataSource.get(statusCode = statusCode)
+    override fun get(statusCode: Int): String {
+        return errorDataSource.get(statusCode = statusCode)
+    }
 
 }

@@ -18,11 +18,13 @@
         android:fontFamily="@font/montserrat"
         app:fontFamily="@font/montserrat"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
         android:layout_marginBottom="22dp"/>
 
     <Button
         android:id="@+id/close"
-        style="@style/StartButtonStyle"
+        style="@style/DialogButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

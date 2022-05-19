@@ -51,7 +51,7 @@
     <string name="karma">karma</string>
     <string name="title_activity_login">LoginActivity</string>
 
-    <string name="error_network_connection">Не удалось установить\nподключение с сервером\nпроверьте подключение к сети\nинтернет</string>
+    <string name="error_network_connection">Не удалось установить\nподключение к серверу\nпроверьте подключени\nк сети интернет</string>
     <string name="error_unknown">Произошла неизвестная ошибка\nповторите попытку еще раз\nили обратитесь к администратору</string>
     <string name="error_404">Ещё никто не оставил\nсообщения на странице\nданного учебного заведения</string>
     <string name="error_401">Токен пользователя устарел, вам необходимо переустановить приложение</string>
@@ -60,8 +60,5 @@
     <string name="error_wall_407">Новым пользователям не доступна публикация новых записей</string>
     <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
     <string name="error_500">Произошла неизвестная ошибка, повторите попытку ещё раз</string>
-
-
-
 
 </resources>

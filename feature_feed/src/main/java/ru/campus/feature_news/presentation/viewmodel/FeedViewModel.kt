@@ -28,7 +28,7 @@ class FeedViewModel @Inject constructor(
     val list: LiveData<ArrayList<FeedModel>>
         get() = listLiveData
 
-    private val mutableFailure = SingleLiveEvent<String>()
+    private val mutableFailure = MutableLiveData<String>()
     val failure: LiveData<String>
         get() = mutableFailure
 
