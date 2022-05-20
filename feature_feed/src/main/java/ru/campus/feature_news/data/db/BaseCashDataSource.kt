@@ -21,7 +21,6 @@ class BaseCashDataSource @Inject constructor(
         db.forEach { item ->
             model.add(FeedModel(
                 viewType = FeedViewType.PUBLICATION,
-                location = null,
                 id = item.id,
                 message = item.message,
                 attachment = item.attachment,

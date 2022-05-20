@@ -46,8 +46,8 @@ class FeedInteractor @Inject constructor(
         return model
     }
 
-    fun save(model: ArrayList<FeedModel>) {
-        repository.save(model)
+    fun save(list: ArrayList<FeedModel>) {
+        repository.save(list)
     }
 
     fun cache(): ArrayList<FeedModel> {
@@ -68,6 +68,24 @@ class FeedInteractor @Inject constructor(
 
     fun error(statusCode: Int): String {
         return errorMessageHandler.get(statusCode = statusCode)
+    }
+
+    fun delete(item: FeedModel, model: ArrayList<FeedModel>): ArrayList<FeedModel> {
+        val index = model.indexOf(item)
+        model.removeAt(index)
+        return model
+    }
+
+    fun sendComplaintDataOnServer(id: Int) {
+        repository.complaint(id = id)
+    }
+
+    fun vote(item: FeedModel, model: ArrayList<FeedModel>, vote: Int): ArrayList<FeedModel> {
+        return VoteUseCase().execute(item = item, model = model, vote = vote)
+    }
+
+    fun sendVoteDataOnServer(id: Int, vote: Int) {
+        repository.vote(id = id, vote = vote)
     }
 
 }

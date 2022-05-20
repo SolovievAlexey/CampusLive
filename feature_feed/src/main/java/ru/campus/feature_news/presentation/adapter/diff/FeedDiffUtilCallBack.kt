@@ -11,7 +11,7 @@ import ru.campus.feature_news.data.model.FeedModel
 
 class FeedDiffUtilCallBack(
     private val oldData: ArrayList<FeedModel>,
-    private val newData: ArrayList<FeedModel>,
+    private val newData: ArrayList<FeedModel>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

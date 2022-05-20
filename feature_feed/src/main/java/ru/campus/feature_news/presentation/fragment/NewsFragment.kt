@@ -3,26 +3,30 @@ package ru.campus.feature_news.presentation.fragment
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.core.graphics.toColorInt
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.snackbar.Snackbar
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_news.R
 import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.databinding.FragmentFeedBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.di.FeedComponent
 import ru.campus.feature_news.presentation.adapter.FeedAdapter
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
@@ -36,11 +40,14 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
 
     @Inject
     lateinit var domainDataStore: DomainDataStore
-    private val viewModel by viewModels<FeedViewModel> { component.viewModelsFactory() }
+    private val viewModel: FeedViewModel by navGraphViewModels(R.id.feedFragment) {
+        component.viewModelsFactory()
+    }
+
     private val myOnClick = object : MyOnClick<FeedModel> {
         override fun item(view: View, item: FeedModel) {
-            NewsMenuSheetFragment().show(requireActivity().supportFragmentManager,
-                "FeedMenuSheetFragment")
+            val bundle = Bundle(1).apply { putParcelable("item", item) }
+            findNavController().navigate(R.id.newsFeedBottomSheetFragment, bundle)
         }
     }
 
@@ -50,7 +57,6 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         super.onAttach(context)
         component.inject(this)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +74,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         viewModel.list.observe(viewLifecycleOwner, listLiveData())
         viewModel.failure.observe(viewLifecycleOwner, failure())
         viewModel.scrollOnPositionEvent.observe(viewLifecycleOwner, scrollOnPositionEvent())
+        viewModel.complaintLiveData.observe(viewLifecycleOwner, complaintLiveData())
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
@@ -103,7 +110,6 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         binding.recyclerView.smoothScrollToPosition(position)
     }
 
-
     private fun failure() = Observer<String> { error ->
         if (binding.swipeRefreshLayout.isRefreshing)
             binding.swipeRefreshLayout.isRefreshing = false
@@ -114,6 +120,31 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         params.scrollFlags = (AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP)
     }
 
+    private fun complaintLiveData() = Observer<FeedModel> { item ->
+        val isCancel = AtomicBoolean(false)
+        val snack = Snackbar.make(
+            binding.root, getString(R.string.complaint_response),
+            Snackbar.LENGTH_LONG
+        )
+        val snackView = snack.view
+        val tv = snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        tv.setTextColor("#f44336".toColorInt())
+        snack.setAction(R.string.close) { isCancel.set(true) }
+        snack.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(snackbar: Snackbar, event: Int) {
+                if (!isCancel.get()) {
+                    viewModel.sendComplaintDataOnServer(item = item)
+                    binding.fab.show()
+                }
+            }
+
+            override fun onShown(snackbar: Snackbar) {
+                binding.fab.hide()
+            }
+
+        })
+        snack.show()
+    }
 
     private fun RecyclerView.scrollEvent() {
         this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -122,7 +153,6 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
             }
         })
     }
-
 
     private fun isVisibleFab(dy: Int): Boolean {
         return dy <= 0

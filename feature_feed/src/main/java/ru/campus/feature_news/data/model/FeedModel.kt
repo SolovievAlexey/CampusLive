@@ -15,7 +15,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class FeedModel(
     var viewType: FeedViewType = FeedViewType.UNKNOWN,
-    val location: LocationModel? = null,
     val id: Int = 0,
     val message: String = "",
     val attachment: AttachmentModel? = null,

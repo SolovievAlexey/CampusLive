@@ -29,4 +29,10 @@
     <include app:graph="@navigation/dialog_graph" />
 
 
+    <dialog
+        android:id="@+id/newsFeedBottomSheetFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
+        android:label="NewsMenuSheetFragment" />
+
+
 </navigation>

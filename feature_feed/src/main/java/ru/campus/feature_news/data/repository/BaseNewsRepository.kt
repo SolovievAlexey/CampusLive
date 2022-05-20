@@ -8,7 +8,6 @@ import ru.campus.feature_news.data.APIService
 import ru.campus.feature_news.data.db.CashDataSource
 import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.data.model.FeedPostModel
-import ru.campus.feature_news.data.model.VoteModel
 import javax.inject.Inject
 
 /**
@@ -20,7 +19,7 @@ import javax.inject.Inject
 class BaseNewsRepository @Inject constructor(
     private val apiService: APIService,
     private val cashDataSource: CashDataSource,
-    private val userDataStore: UserDataStore
+    private val userDataStore: UserDataStore,
 ) : NewsRepository {
 
     override fun cache(): ArrayList<FeedModel> {
@@ -50,12 +49,8 @@ class BaseNewsRepository @Inject constructor(
         return CloudDataSource<FeedModel>().execute(call = call)
     }
 
-    override fun vote(params: VoteModel) {
-        val call = apiService.vote(
-            token = userDataStore.token(),
-            id = params.id,
-            vote = params.vote
-        )
+    override fun vote(id: Int, vote: Int) {
+        val call = apiService.vote(token = userDataStore.token(), id = id, vote = vote)
         CloudDataSource<ResponseBody>().execute(call = call)
     }
 

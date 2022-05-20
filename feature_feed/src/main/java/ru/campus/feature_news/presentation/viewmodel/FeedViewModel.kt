@@ -38,12 +38,18 @@ class FeedViewModel @Inject constructor(
     val scrollOnPositionEvent: LiveData<Int>
         get() = mutableScrollOnPosition
 
-    init { getCash() }
+    private val mutableComplaintLiveData = SingleLiveEvent<FeedModel>()
+    val complaintLiveData: LiveData<FeedModel>
+        get() = mutableComplaintLiveData
+
+    init {
+        getCash()
+    }
 
     private fun getCash() {
         viewModelScope.launch(dispatchers.io) {
             val result = interactor.cache()
-            if(result.size != 0) {
+            if (result.size != 0) {
                 isDataCash = true
                 val preparation = interactor.preparation(result)
                 val response = interactor.footer(preparation)
@@ -60,12 +66,12 @@ class FeedViewModel @Inject constructor(
                 is ResponseObject.Success -> {
                     val preparation = interactor.preparation(result.data)
                     val response = interactor.footer(preparation)
-                    Log.d("MyLog", "С сервера поступило "+response.size+" публикаций")
                     withContext(dispatchers.main) {
                         listLiveData.value = response
                     }
-                    interactor.save(result.data)
+                    interactor.save(list = result.data)
                 }
+
                 is ResponseObject.Failure -> {
                     val error = interactor.error(statusCode = result.code)
                     val listSize = listLiveData.value?.size ?: 0
@@ -96,5 +102,34 @@ class FeedViewModel @Inject constructor(
             }
         }
     }
+
+    fun complaint(item: FeedModel) {
+        mutableComplaintLiveData.value = item
+    }
+
+    fun sendComplaintDataOnServer(item: FeedModel) {
+        viewModelScope.launch(dispatchers.io) {
+            val model = listLiveData.value
+            val result = interactor.delete(item = item, model = model!!)
+            withContext(dispatchers.main) {
+                listLiveData.value = result
+            }
+            interactor.sendComplaintDataOnServer(id = item.id)
+        }
+    }
+
+    fun vote(item: FeedModel, vote: Int) {
+        viewModelScope.launch(dispatchers.io) {
+            val model = listLiveData.value
+            val result = interactor.vote(item = item, model = model!!, vote = vote)
+            withContext(dispatchers.main) {
+                Log.d("MyLog", "Поставили оценку! Обновляем модельку!")
+                listLiveData.value = result
+            }
+            interactor.sendVoteDataOnServer(id = item.id, vote = vote)
+        }
+    }
+
+
 
 }

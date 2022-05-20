@@ -16,6 +16,6 @@ interface NewsRepository {
     fun get(offset: Int): ResponseObject<ArrayList<FeedModel>>
     fun save(model: ArrayList<FeedModel>)
     fun post(params: FeedPostModel): ResponseObject<FeedModel>
-    fun vote(params: VoteModel)
+    fun vote(id: Int, vote: Int)
     fun complaint(id: Int)
 }
