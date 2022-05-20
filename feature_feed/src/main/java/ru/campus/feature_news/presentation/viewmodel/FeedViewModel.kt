@@ -68,11 +68,14 @@ class FeedViewModel @Inject constructor(
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(offset = 0)) {
                 is ResponseObject.Success -> {
-                    val preparation = interactor.preparation(result.data)
+                    val model = ArrayList<FeedModel>()
+                    model.addAll(result.data)
+                    val preparation = interactor.preparation(model)
                     val response = interactor.footer(preparation)
                     withContext(dispatchers.main) {
                         listLiveData.value = response
                     }
+
                     interactor.save(list = result.data)
                 }
 
