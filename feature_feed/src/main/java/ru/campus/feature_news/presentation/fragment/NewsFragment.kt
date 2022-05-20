@@ -75,6 +75,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         viewModel.failure.observe(viewLifecycleOwner, failure())
         viewModel.scrollOnPositionEvent.observe(viewLifecycleOwner, scrollOnPositionEvent())
         viewModel.complaintLiveData.observe(viewLifecycleOwner, complaintLiveData())
+        viewModel.discussionLiveData.observe(viewLifecycleOwner, discussionLiveData())
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
@@ -144,6 +145,13 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
 
         })
         snack.show()
+    }
+
+    private fun discussionLiveData() = Observer<FeedModel> {
+        val request = NavDeepLinkRequest.Builder
+            .fromUri("android-app://ru.campus.live/discussionFragment".toUri())
+            .build()
+        findNavController().navigate(request)
     }
 
     private fun RecyclerView.scrollEvent() {

@@ -96,7 +96,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/commentsRoot"
+        android:id="@+id/discussion_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"

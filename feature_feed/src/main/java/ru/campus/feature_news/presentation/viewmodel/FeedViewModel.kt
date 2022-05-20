@@ -42,6 +42,10 @@ class FeedViewModel @Inject constructor(
     val complaintLiveData: LiveData<FeedModel>
         get() = mutableComplaintLiveData
 
+    private val mutableDiscussionLiveData = SingleLiveEvent<FeedModel>()
+    val discussionLiveData: LiveData<FeedModel>
+        get() = mutableDiscussionLiveData
+
     init {
         getCash()
     }
@@ -130,6 +134,8 @@ class FeedViewModel @Inject constructor(
         }
     }
 
-
+    fun discussion(item: FeedModel) {
+        mutableDiscussionLiveData.value = item
+    }
 
 }

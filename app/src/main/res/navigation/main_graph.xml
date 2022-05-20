@@ -33,6 +33,7 @@
         android:id="@+id/newsFeedBottomSheetFragment"
         android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
         android:label="NewsMenuSheetFragment" />
+    <include app:graph="@navigation/discussion_graph" />
 
 
 </navigation>

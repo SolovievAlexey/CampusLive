@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/discussion_graph"
+    app:startDestination="@id/discussionFragment">
+
+    <fragment
+        android:id="@+id/discussionFragment"
+        android:name="ru.campus.feaure_discussion.DiscussionFragment"
+        android:label="fragment_discussion"
+        tools:layout="@layout/fragment_discussion" >
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/discussionFragment" />
+
+    </fragment>
+
+</navigation>

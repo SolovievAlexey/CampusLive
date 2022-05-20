@@ -60,6 +60,12 @@ class NewsMenuSheetFragment : BaseBottomSheetDialogFragment<FragmentMenuBottomSh
             viewModel.vote(item = item, vote = VoteTypeModel.DISLIKE.ordinal)
             dismiss()
         }
+
+        binding.discussionRoot.setOnClickListener {
+            viewModel.discussion(item = item)
+            dismiss()
+        }
+
     }
 
     private fun renderVoteView() {
