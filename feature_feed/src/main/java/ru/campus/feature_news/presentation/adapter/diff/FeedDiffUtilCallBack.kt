@@ -9,9 +9,9 @@ import ru.campus.feature_news.data.model.FeedModel
  * @date 15.05.2022 19:26
  */
 
-class FeedDiffUtilCallBack (
+class FeedDiffUtilCallBack(
     private val oldData: ArrayList<FeedModel>,
-    private val newData: ArrayList<FeedModel>
+    private val newData: ArrayList<FeedModel>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
@@ -33,8 +33,10 @@ class FeedDiffUtilCallBack (
         val newRating = newData[newItemPosition].rating
         val oldRelativeTime = oldData[oldItemPosition].relativeTime
         val newRelativeTime = newData[newItemPosition].relativeTime
+        val oldComment = oldData[oldItemPosition].comments
+        val newComment = newData[newItemPosition].comments
         return oldVote == newVote && oldRating == newRating &&
-                oldRelativeTime == newRelativeTime
+                oldRelativeTime == newRelativeTime && oldComment == newComment
     }
 
 }

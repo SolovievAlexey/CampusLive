@@ -20,7 +20,7 @@ class FeedInteractor @Inject constructor(
     private val repository: NewsRepository,
     private val titleCommentsUseCase: TitleCommentsUseCase,
     private val displayMetrics: DisplayMetrics,
-    private val errorMessageHandler: ErrorMessageHandler
+    private val errorMessageHandler: ErrorMessageHandler,
 ) {
 
     fun get(offset: Int): ResponseObject<ArrayList<FeedModel>> {
@@ -46,19 +46,27 @@ class FeedInteractor @Inject constructor(
         return model
     }
 
+    fun save(model: ArrayList<FeedModel>) {
+        repository.save(model)
+    }
+
+    fun cache(): ArrayList<FeedModel> {
+        return repository.cache()
+    }
+
     fun insert(list: ArrayList<FeedModel>, publication: FeedModel): ArrayList<FeedModel> {
         list.add(0, publication)
         return list
     }
 
     fun footer(model: ArrayList<FeedModel>): ArrayList<FeedModel> {
-        if(model.size == RESPONSE_API_SIZE) {
+        if (model.size == RESPONSE_API_SIZE) {
             model.add(FeedModel(viewType = FeedViewType.FOOTER))
         }
         return model
     }
 
-    fun error(statusCode: Int) : String {
+    fun error(statusCode: Int): String {
         return errorMessageHandler.get(statusCode = statusCode)
     }
 

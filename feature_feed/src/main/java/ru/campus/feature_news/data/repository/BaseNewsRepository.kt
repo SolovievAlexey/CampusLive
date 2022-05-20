@@ -4,7 +4,8 @@ import okhttp3.ResponseBody
 import ru.campus.core.data.CloudDataSource
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
-import ru.campus.feature_news.data.*
+import ru.campus.feature_news.data.APIService
+import ru.campus.feature_news.data.db.CashDataSource
 import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.data.model.FeedPostModel
 import ru.campus.feature_news.data.model.VoteModel
@@ -18,8 +19,13 @@ import javax.inject.Inject
 
 class BaseNewsRepository @Inject constructor(
     private val apiService: APIService,
+    private val cashDataSource: CashDataSource,
     private val userDataStore: UserDataStore
 ) : NewsRepository {
+
+    override fun cache(): ArrayList<FeedModel> {
+        return cashDataSource.get()
+    }
 
     override fun get(offset: Int): ResponseObject<ArrayList<FeedModel>> {
         val call = apiService.get(
@@ -28,6 +34,10 @@ class BaseNewsRepository @Inject constructor(
             offset = offset
         )
         return CloudDataSource<ArrayList<FeedModel>>().execute(call = call)
+    }
+
+    override fun save(model: ArrayList<FeedModel>) {
+        cashDataSource.post(model)
     }
 
     override fun post(params: FeedPostModel): ResponseObject<FeedModel> {

@@ -12,7 +12,9 @@ import ru.campus.feature_news.data.model.VoteModel
  */
 
 interface NewsRepository {
+    fun cache(): ArrayList<FeedModel>
     fun get(offset: Int): ResponseObject<ArrayList<FeedModel>>
+    fun save(model: ArrayList<FeedModel>)
     fun post(params: FeedPostModel): ResponseObject<FeedModel>
     fun vote(params: VoteModel)
     fun complaint(id: Int)

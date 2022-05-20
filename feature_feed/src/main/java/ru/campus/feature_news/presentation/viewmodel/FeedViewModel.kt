@@ -1,5 +1,6 @@
 package ru.campus.feature_news.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,6 +25,7 @@ class FeedViewModel @Inject constructor(
     private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
+    private var isDataCash = false
     private val listLiveData = MutableLiveData<ArrayList<FeedModel>>()
     val list: LiveData<ArrayList<FeedModel>>
         get() = listLiveData
@@ -36,21 +38,38 @@ class FeedViewModel @Inject constructor(
     val scrollOnPositionEvent: LiveData<Int>
         get() = mutableScrollOnPosition
 
+    init { getCash() }
+
+    private fun getCash() {
+        viewModelScope.launch(dispatchers.io) {
+            val result = interactor.cache()
+            if(result.size != 0) {
+                isDataCash = true
+                val preparation = interactor.preparation(result)
+                val response = interactor.footer(preparation)
+                withContext(dispatchers.main) {
+                    listLiveData.value = response
+                }
+            }
+        }
+    }
+
     fun get() {
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(offset = 0)) {
                 is ResponseObject.Success -> {
                     val preparation = interactor.preparation(result.data)
                     val response = interactor.footer(preparation)
+                    Log.d("MyLog", "С сервера поступило "+response.size+" публикаций")
                     withContext(dispatchers.main) {
                         listLiveData.value = response
                     }
+                    interactor.save(result.data)
                 }
-
                 is ResponseObject.Failure -> {
                     val error = interactor.error(statusCode = result.code)
                     val listSize = listLiveData.value?.size ?: 0
-                    if (listSize == 0) {
+                    if (listSize == 0 && !isDataCash) {
                         withContext(dispatchers.main) {
                             mutableFailure.value = error
                         }

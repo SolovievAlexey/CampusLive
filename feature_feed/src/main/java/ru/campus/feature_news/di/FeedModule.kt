@@ -2,6 +2,7 @@ package ru.campus.feature_news.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
+import androidx.room.Room
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -10,6 +11,9 @@ import retrofit2.Retrofit
 import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_news.data.APIService
+import ru.campus.feature_news.data.db.AppDatabase
+import ru.campus.feature_news.data.db.BaseCashDataSource
+import ru.campus.feature_news.data.db.CashDataSource
 import ru.campus.feature_news.data.repository.BaseNewsRepository
 import ru.campus.feature_news.data.repository.NewsRepository
 import ru.campus.feature_news.domain.BaseErrorMessageHandler
@@ -52,6 +56,15 @@ class FeedModule {
         return PreparationMediaUseCase(context)
     }
 
+    @Provides
+    fun provideAppDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "publication_db"
+        ).build()
+    }
+
 }
 
 @Module
@@ -65,6 +78,9 @@ interface FeedAbstractModule {
 
     @Binds
     fun bindErrorHandler(baseErrorMessageHandler: BaseErrorMessageHandler): ErrorMessageHandler
+
+    @Binds
+    fun bindCashDataSource(baseCashDataSource: BaseCashDataSource): CashDataSource
 
     @Binds
     @IntoMap
