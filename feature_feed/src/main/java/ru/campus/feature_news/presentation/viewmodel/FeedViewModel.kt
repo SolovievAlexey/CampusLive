@@ -130,7 +130,6 @@ class FeedViewModel @Inject constructor(
             val model = listLiveData.value
             val result = interactor.vote(item = item, model = model!!, vote = vote)
             withContext(dispatchers.main) {
-                Log.d("MyLog", "Поставили оценку! Обновляем модельку!")
                 listLiveData.value = result
             }
             interactor.sendVoteDataOnServer(id = item.id, vote = vote)
