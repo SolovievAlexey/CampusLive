@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 
 class DiscussionViewModel @Inject constructor(
-    private val discussionInteractor: DiscussionInteractor,
+    private val interactor: DiscussionInteractor,
     private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
@@ -33,10 +33,11 @@ class DiscussionViewModel @Inject constructor(
 
     fun get(publicationId: Int) {
         viewModelScope.launch(dispatchers.io) {
-            when (val result = discussionInteractor.get(publicationId = publicationId)) {
+            when (val result = interactor.get(publicationId = publicationId)) {
                 is ResponseObject.Success -> {
-                    val raw = discussionInteractor.map(model = result.data)
-                    val preparation = discussionInteractor.preparation(model = raw)
+                    val raw = interactor.map(model = result.data)
+                    val preparation = interactor.preparation(model = raw)
+                    interactor.avatar(model = preparation)
                     withContext(dispatchers.main) {
                         mutableListLiveData.value = preparation
                     }
@@ -50,5 +51,17 @@ class DiscussionViewModel @Inject constructor(
         }
     }
 
+    fun insert(item: DiscussionModel) {
+        viewModelScope.launch(dispatchers.io) {
+            val model = mutableListLiveData.value ?: ArrayList()
+            model.add(item)
+            val raw = interactor.map(model = model)
+            val preparation = interactor.preparation(model = raw)
+            interactor.avatar(model = preparation)
+            withContext(dispatchers.main) {
+                mutableListLiveData.value = preparation
+            }
+        }
+    }
 
 }

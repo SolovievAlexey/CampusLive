@@ -14,6 +14,7 @@ class CloudDataSource<T : Any>() {
     fun execute(call: Call<T>): ResponseObject<T> {
         return try {
             val response = call.execute()
+            Log.d("MyLog", "Код ответа от сервера = "+response.code())
             if (response.code() == 200)
                 ResponseObject.Success(data = response.body()!!)
             else

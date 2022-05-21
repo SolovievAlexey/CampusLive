@@ -88,13 +88,13 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
         binding.toolBar.setNavigationIcon(R.drawable.arrow_back)
         binding.toolBar.setNavigationOnClickListener {
-            Keyboard().hide(requireActivity())
+            Keyboard(activity).hide()
             findNavController().popBackStack()
         }
     }
 
     private fun sendMessageOnServer() {
-        Keyboard().hide(requireActivity())
+        Keyboard(activity).hide()
         val message = binding.editText.text.toString()
         if (message.isEmpty()) return
         isVisibleProgressBar(visible = true)
@@ -102,7 +102,7 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
     }
 
     private fun success() = Observer<FeedModel> { model ->
-        Keyboard().hide(requireActivity())
+        Keyboard(activity).hide()
         val bundle = Bundle()
         bundle.putParcelable("publication", model)
         requireActivity().supportFragmentManager.setFragmentResult("publication", bundle)

@@ -58,11 +58,16 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
         binding.fab.isVisible = true
         binding.fab.setOnClickListener {
-
             val bundle = Bundle()
             bundle.putInt("publication", publicationId)
             findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment, bundle)
         }
+
+        requireActivity().supportFragmentManager
+            .setFragmentResultListener("new_comment", viewLifecycleOwner) { _, bundle ->
+                val comment: DiscussionModel? = bundle.getParcelable("item")
+                if (comment != null) viewModel.insert(comment)
+            }
     }
 
     private fun initToolbar() {

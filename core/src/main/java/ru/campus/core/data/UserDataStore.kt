@@ -7,9 +7,12 @@ package ru.campus.core.data
  */
 
 interface UserDataStore {
+    fun uid(): Int
     fun login(uid: Int, token: String)
     fun token(): String
     fun locationSave(id: Int, name: String)
     fun location(): Int
     fun locationName(): String
+    fun avatarSave(id: Int)
+    fun avatar(): Int
 }

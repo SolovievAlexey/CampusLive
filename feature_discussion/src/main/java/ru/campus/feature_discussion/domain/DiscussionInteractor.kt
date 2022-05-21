@@ -7,6 +7,7 @@ import ru.campus.core.data.ResponseObject
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionViewType
 import ru.campus.feature_discussion.data.repository.DiscussionRepository
+import ru.campus.feature_discussion.data.repository.UserAvatarStore
 import ru.campus.feaure_discussion.R
 import javax.inject.Inject
 
@@ -20,7 +21,8 @@ class DiscussionInteractor @Inject constructor(
     private val repository: DiscussionRepository,
     private val domainDataStore: DomainDataStore,
     private val displayMetrics: DisplayMetrics,
-    private val resourceManager: ResourceManager
+    private val resourceManager: ResourceManager,
+    private val userAvatarStore: UserAvatarStore
 ) {
 
     fun get(publicationId: Int): ResponseObject<ArrayList<DiscussionModel>> {
@@ -61,6 +63,10 @@ class DiscussionInteractor @Inject constructor(
                 model[index].message = resourceManager.get(R.string.comment_hidden)
         }
         return model
+    }
+
+    fun avatar(model: ArrayList<DiscussionModel>) {
+        userAvatarStore.execute(model = model)
     }
 
 }

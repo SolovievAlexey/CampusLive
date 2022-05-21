@@ -10,9 +10,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import ru.campus.core.data.GalleryDataModel
+import ru.campus.core.data.UploadMediaModel
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.Keyboard
+import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionPostModel
 import ru.campus.feature_discussion.di.DaggerDiscussionComponent
@@ -20,6 +24,7 @@ import ru.campus.feature_discussion.di.DiscussionComponent
 import ru.campus.feature_discussion.presentation.viewmodel.CreateCommentViewModel
 import ru.campus.feaure_discussion.R
 import ru.campus.feaure_discussion.databinding.FragmentCreateCommentBinding
+import ru.campus.file_upload.presentation.UploadMediaAdapter
 
 
 class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
@@ -38,17 +43,27 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
         component.viewModelsFactory()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        Log.d("MyLog", "id publication = $publication")
+    private val uploadMediaAdapterCallback = object : MyOnClick<UploadMediaModel> {
+        override fun item(view: View, item: UploadMediaModel) {
+            Log.d("MyLog", "Необходимо удалить изображение!")
+        }
     }
+
+    private val uploadMediaAdapter = UploadMediaAdapter(uploadMediaAdapterCallback)
 
     override fun getViewBinding() = FragmentCreateCommentBinding.inflate(layoutInflater)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+
+        binding.recyclerViewUploadMedia.adapter = uploadMediaAdapter
+        binding.recyclerViewUploadMedia.layoutManager = LinearLayoutManager(requireContext())
+
         viewModel.successLiveData.observe(viewLifecycleOwner, successLiveData())
         viewModel.failureLiveData.observe(viewLifecycleOwner, failureLiveData())
+        viewModel.mediaListLiveData.observe(viewLifecycleOwner, mediaListLiveData())
+
+
         binding.editText.doAfterTextChanged {
             val count = 200 - binding.editText.text.toString().length
             binding.textCount.text = count.toString()
@@ -60,6 +75,12 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
                 .build()
             findNavController().navigate(request)
         }
+
+        requireActivity().supportFragmentManager
+            .setFragmentResultListener("mediaRequest", viewLifecycleOwner) { _, bundle ->
+                val params: GalleryDataModel? = bundle.getParcelable("item")
+                if (params != null) viewModel.upload(params)
+            }
     }
 
     private fun initToolbar() {
@@ -67,19 +88,20 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
         binding.toolBar.inflateMenu(R.menu.send)
         binding.toolBar.setNavigationIcon(R.drawable.ic_action_close)
         binding.toolBar.setOnClickListener {
+            Keyboard(activity = requireActivity()).hide()
             findNavController().popBackStack()
         }
 
         binding.toolBar.setOnMenuItemClickListener { menuItem ->
-            if(menuItem.itemId == R.id.send) sentCommentDataOnServer()
+            if (menuItem.itemId == R.id.send) sentCommentDataOnServer()
             return@setOnMenuItemClickListener false
         }
     }
 
     private fun sentCommentDataOnServer() {
-        Keyboard().hide(activity = requireActivity())
+        Keyboard(activity = requireActivity()).hide()
         val message = binding.editText.text.toString()
-        if(message.isNotEmpty()) {
+        if (message.isNotEmpty()) {
             isProgressBarVisible(visible = true)
             val params = DiscussionPostModel(message = message, parent = parent,
                 answered = answered, publication = publication)
@@ -98,9 +120,17 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
         isProgressBarVisible(visible = false)
     }
 
+    private fun mediaListLiveData() = Observer<ArrayList<UploadMediaModel>> { model ->
+        if (model[0].upload)
+            binding.toolBar.menu.clear()
+        else
+            binding.toolBar.inflateMenu(R.menu.send)
+        uploadMediaAdapter.setData(model)
+    }
+
     private fun isProgressBarVisible(visible: Boolean) {
         binding.progressBar.isVisible = visible
-        if(isVisible)
+        if (isVisible)
             binding.toolBar.menu.clear()
         else
             binding.toolBar.inflateMenu(R.menu.send)

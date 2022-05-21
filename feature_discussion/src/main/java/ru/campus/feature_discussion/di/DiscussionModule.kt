@@ -8,10 +8,16 @@ import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
 import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_discussion.data.APIService
+import ru.campus.feature_discussion.data.repository.BaseDataAvatarStore
 import ru.campus.feature_discussion.data.repository.BaseDiscussionRepository
 import ru.campus.feature_discussion.data.repository.DiscussionRepository
+import ru.campus.feature_discussion.data.repository.UserAvatarStore
 import ru.campus.feature_discussion.presentation.viewmodel.CreateCommentViewModel
 import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModel
+import ru.campus.file_upload.data.BaseUploadMediaRepository
+import ru.campus.file_upload.data.UploadMediaRepository
+import ru.campus.file_upload.data.UploadMediaService
+import ru.campus.file_upload.domain.PreparationMediaUseCase
 
 /**
  * @author Soloviev Alexey
@@ -27,6 +33,19 @@ class DiscussionModule {
         return retrofit.create(APIService::class.java)
     }
 
+    @Provides
+    fun provideUploadMediaServices(retrofit: Retrofit): UploadMediaService {
+        return retrofit.create(UploadMediaService::class.java)
+    }
+
+    @Provides
+    fun provideUploadMediaRepository(
+        uploadMediaService: UploadMediaService,
+        preparationMediaUseCase: PreparationMediaUseCase
+    ): BaseUploadMediaRepository {
+        return BaseUploadMediaRepository(uploadMediaService, preparationMediaUseCase)
+    }
+
 }
 
 @Module
@@ -34,6 +53,12 @@ interface DiscussionAbstractModule {
 
     @Binds
     fun bindDiscussionRepository(baseDiscussionRepository: BaseDiscussionRepository): DiscussionRepository
+
+    @Binds
+    fun bindUploadMediaRepository(baseUploadMediaRepository: BaseUploadMediaRepository): UploadMediaRepository
+
+    @Binds
+    fun bindUserAvatarStore(baseDataAvatarStore: BaseDataAvatarStore): UserAvatarStore
 
     @Binds
     @IntoMap

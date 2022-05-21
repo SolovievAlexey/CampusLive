@@ -15,6 +15,10 @@ class BaseUserDataStore @Inject constructor(context: Context) : UserDataStore {
     private val sPref: SharedPreferences =
         context.getSharedPreferences("AppDB", Context.MODE_PRIVATE)
 
+    override fun uid(): Int {
+        return sPref.getInt("UID", 0)
+    }
+
     override fun login(uid: Int, token: String) {
         val dateReg = System.currentTimeMillis() / 1000
         with(sPref.edit()) {
@@ -43,6 +47,14 @@ class BaseUserDataStore @Inject constructor(context: Context) : UserDataStore {
 
     override fun locationName(): String {
         return sPref.getString("LOCATION_NAME","") ?: ""
+    }
+
+    override fun avatarSave(id: Int) {
+        sPref.edit().putInt("AVATAR", id).apply()
+    }
+
+    override fun avatar(): Int {
+        return sPref.getInt("AVATAR", 0)
     }
 
 }
