@@ -1,6 +1,5 @@
 package ru.campus.feature_discussion.domain
 
-import android.util.Log
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UploadMediaModel
@@ -21,7 +20,7 @@ import javax.inject.Inject
 class CreateCommentInteractor @Inject constructor(
     private val repository: DiscussionRepository,
     private val uploadMediaRepository: UploadMediaRepository,
-    private val userDataStore: UserDataStore,
+    private val userDataStore: UserDataStore
 ) {
 
     fun post(params: DiscussionPostModel): ResponseObject<DiscussionModel> {

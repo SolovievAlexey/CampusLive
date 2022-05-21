@@ -16,14 +16,14 @@ import javax.inject.Inject
  * @date 15.05.2022 18:47
  */
 
-private const val RESPONSE_API_SIZE = 25
+private const val RESPONSE_API_SIZE = 35
 
 class FeedInteractor @Inject constructor(
     private val repository: NewsRepository,
     private val statusRepository: StatusRepository,
     private val titleCommentsUseCase: TitleCommentsUseCase,
     private val displayMetrics: DisplayMetrics,
-    private val errorMessageHandler: ErrorMessageHandler,
+    private val errorMessageHandler: ErrorMessageHandler
 ) {
 
     fun status(): StatusModel {

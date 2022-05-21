@@ -19,7 +19,7 @@ import javax.inject.Inject
 class BaseNewsRepository @Inject constructor(
     private val apiService: APIService,
     private val cashDataSource: CashDataSource,
-    private val userDataStore: UserDataStore,
+    private val userDataStore: UserDataStore
 ) : NewsRepository {
 
     override fun cache(): ArrayList<FeedModel> {
