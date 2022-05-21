@@ -40,7 +40,6 @@
 
     <string name="talk">Расскажи о наше приложение своим одногруппникам и сделай соощество более интересным</string>
     <string name="complaint_response">Жалоба отправлена</string>
-    <string name="new_comment">Новый комментарий</string>
     <string name="comment_hidden">Комментарий скрыт по решению сообщества</string>
     <string name="comment_create_hint">Ваш комментарий</string>
     <string name="discussion_none">Комментарии остутсвуют\nоставьте свой комментарий к данной публикации</string>

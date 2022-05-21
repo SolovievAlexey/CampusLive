@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @date 21.05.2022 16:29
  */
 
-class Interactor @Inject constructor(
+class DiscussionInteractor @Inject constructor(
     private val repository: DiscussionRepository,
     private val domainDataStore: DomainDataStore,
     private val displayMetrics: DisplayMetrics,

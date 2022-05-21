@@ -15,7 +15,15 @@
             app:uri="android-app://ru.campus.live/discussionFragment/?id={id}" />
 
         <argument android:name="id" app:argType="integer"/>
+        <action
+            android:id="@+id/action_discussionFragment_to_createCommentFragment"
+            app:destination="@id/createCommentFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/createCommentFragment"
+        android:name="ru.campus.feature_discussion.presentation.CreateCommentFragment"
+        android:label="fragment_create_comment"
+        tools:layout="@layout/fragment_create_comment" />
 
 </navigation>

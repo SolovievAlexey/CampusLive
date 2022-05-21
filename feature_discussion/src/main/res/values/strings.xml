@@ -1,4 +1,8 @@
 <resources>
     <string name="refresh">Обновить</string>
     <string name="comment_hidden">Комментарий скрыт по решению сообщества</string>
+    <string name="comment_create_hint">Ваш комментарий</string>
+    <string name="send">Отправить</string>
+    <string name="new_comment">Новый</string>
+    <string name="answer">Ответ</string>
 </resources>

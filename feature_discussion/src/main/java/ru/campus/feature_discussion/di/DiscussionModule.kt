@@ -10,6 +10,7 @@ import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_discussion.data.APIService
 import ru.campus.feature_discussion.data.repository.BaseDiscussionRepository
 import ru.campus.feature_discussion.data.repository.DiscussionRepository
+import ru.campus.feature_discussion.presentation.CreateCommentViewModel
 import ru.campus.feature_discussion.presentation.DiscussionViewModel
 
 /**
@@ -38,5 +39,10 @@ interface DiscussionAbstractModule {
     @IntoMap
     @ViewModelKey(DiscussionViewModel::class)
     fun discussionViewModel(viewModel: DiscussionViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreateCommentViewModel::class)
+    fun createCommentViewModel(viewModel: CreateCommentViewModel): ViewModel
 
 }

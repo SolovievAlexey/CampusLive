@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".discussion.presentation.fragments.DiscussionEditorFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="ru.campus.feature_discussion.presentation.CreateCommentFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -57,8 +55,7 @@
         app:layout_constraintBottom_toTopOf="@id/recyclerViewUploadMedia"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarSeparator"
-        />
+        app:layout_constraintTop_toBottomOf="@id/toolbarSeparator" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewUploadMedia"

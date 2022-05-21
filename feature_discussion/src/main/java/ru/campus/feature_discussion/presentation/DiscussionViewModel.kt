@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.feature_discussion.data.model.DiscussionModel
-import ru.campus.feature_discussion.domain.Interactor
+import ru.campus.feature_discussion.domain.DiscussionInteractor
 import javax.inject.Inject
 
 /**
@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 
 class DiscussionViewModel @Inject constructor(
-    private val interactor: Interactor,
+    private val discussionInteractor: DiscussionInteractor,
     private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
@@ -33,10 +33,10 @@ class DiscussionViewModel @Inject constructor(
 
     fun get(publicationId: Int) {
         viewModelScope.launch(dispatchers.io) {
-            when (val result = interactor.get(publicationId = publicationId)) {
+            when (val result = discussionInteractor.get(publicationId = publicationId)) {
                 is ResponseObject.Success -> {
-                    val raw = interactor.map(model = result.data)
-                    val preparation = interactor.preparation(model = raw)
+                    val raw = discussionInteractor.map(model = result.data)
+                    val preparation = discussionInteractor.preparation(model = raw)
                     withContext(dispatchers.main) {
                         mutableListLiveData.value = preparation
                     }
