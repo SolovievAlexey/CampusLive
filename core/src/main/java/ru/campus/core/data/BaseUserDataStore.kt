@@ -41,4 +41,8 @@ class BaseUserDataStore @Inject constructor(context: Context) : UserDataStore {
         return sPref.getInt("LOCATION_ID", 0)
     }
 
+    override fun locationName(): String {
+        return sPref.getString("LOCATION_NAME","") ?: ""
+    }
+
 }

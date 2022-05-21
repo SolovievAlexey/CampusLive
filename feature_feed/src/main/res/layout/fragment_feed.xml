@@ -29,7 +29,7 @@
                 app:layout_collapseParallaxMultiplier="0.9">
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_medium"
@@ -37,7 +37,6 @@
                     android:paddingStart="16dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Астраханский государственный политехнический колледж"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="@dimen/bigTextSize"
@@ -49,7 +48,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:fontFamily="@font/montserrat"
-                    android:text="1234 viewing • karma 🔥"
                     android:textColor="#53646e"
                     android:textSize="13sp"
                     app:fontFamily="@font/montserrat" />

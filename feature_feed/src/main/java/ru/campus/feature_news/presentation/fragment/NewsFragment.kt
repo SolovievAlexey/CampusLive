@@ -1,5 +1,6 @@
 package ru.campus.feature_news.presentation.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -21,6 +22,7 @@ import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_news.R
 import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.StatusModel
 import ru.campus.feature_news.databinding.FragmentFeedBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.di.FeedComponent
@@ -76,6 +78,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         viewModel.scrollOnPositionEvent.observe(viewLifecycleOwner, scrollOnPositionEvent())
         viewModel.complaintLiveData.observe(viewLifecycleOwner, complaintLiveData())
         viewModel.discussionLiveData.observe(viewLifecycleOwner, discussionLiveData())
+        viewModel.statusLiveData.observe(viewLifecycleOwner, statusLiveData())
 
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
@@ -119,6 +122,14 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         val params: AppBarLayout.LayoutParams =
             binding.collapsingToolbarLayout.layoutParams as AppBarLayout.LayoutParams
         params.scrollFlags = (AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP)
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun statusLiveData() = Observer<StatusModel> { model ->
+        binding.location.text = model.location
+        binding.status.text = "${model.views} views • karma ${model.karma}"
+        binding.notificationCount.text = model.notification.toString()
+        binding.notificationCount.isVisible = model.notification != 0
     }
 
     private fun complaintLiveData() = Observer<FeedModel> { item ->

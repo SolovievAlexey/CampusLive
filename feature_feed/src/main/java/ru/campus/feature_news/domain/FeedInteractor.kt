@@ -5,7 +5,9 @@ import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.data.ResponseObject
 import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.data.model.FeedViewType
+import ru.campus.feature_news.data.model.StatusModel
 import ru.campus.feature_news.data.repository.NewsRepository
+import ru.campus.feature_news.data.repository.StatusRepository
 import javax.inject.Inject
 
 /**
@@ -18,10 +20,19 @@ private const val RESPONSE_API_SIZE = 25
 
 class FeedInteractor @Inject constructor(
     private val repository: NewsRepository,
+    private val statusRepository: StatusRepository,
     private val titleCommentsUseCase: TitleCommentsUseCase,
     private val displayMetrics: DisplayMetrics,
     private val errorMessageHandler: ErrorMessageHandler,
 ) {
+
+    fun status(): StatusModel {
+        return statusRepository.read()
+    }
+
+    fun statusRefresh(): StatusModel {
+        return statusRepository.refresh()
+    }
 
     fun get(offset: Int): ResponseObject<ArrayList<FeedModel>> {
         return repository.get(offset = offset)

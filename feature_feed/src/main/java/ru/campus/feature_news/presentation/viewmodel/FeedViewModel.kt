@@ -1,6 +1,5 @@
 package ru.campus.feature_news.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.core.presentation.SingleLiveEvent
 import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.StatusModel
 import ru.campus.feature_news.domain.FeedInteractor
 import javax.inject.Inject
 
@@ -22,7 +22,7 @@ import javax.inject.Inject
 
 class FeedViewModel @Inject constructor(
     private val interactor: FeedInteractor,
-    private val dispatchers: CoroutineDispatchers
+    private val dispatchers: CoroutineDispatchers,
 ) : ViewModel() {
 
     private var isDataCash = false
@@ -46,22 +46,13 @@ class FeedViewModel @Inject constructor(
     val discussionLiveData: LiveData<FeedModel>
         get() = mutableDiscussionLiveData
 
-    init {
-        getCash()
-    }
+    private val mutableStatusLiveData = MutableLiveData<StatusModel>()
+    val statusLiveData: LiveData<StatusModel>
+        get() = mutableStatusLiveData
 
-    private fun getCash() {
-        viewModelScope.launch(dispatchers.io) {
-            val result = interactor.cache()
-            if (result.size != 0) {
-                isDataCash = true
-                val preparation = interactor.preparation(result)
-                val response = interactor.footer(preparation)
-                withContext(dispatchers.main) {
-                    listLiveData.value = response
-                }
-            }
-        }
+    init {
+        status()
+        getCash()
     }
 
     fun get() {
@@ -138,6 +129,34 @@ class FeedViewModel @Inject constructor(
 
     fun discussion(item: FeedModel) {
         mutableDiscussionLiveData.value = item
+    }
+
+    private fun status() {
+        viewModelScope.launch(dispatchers.io) {
+            val status = interactor.status()
+            withContext(dispatchers.main) {
+                mutableStatusLiveData.value = status
+            }
+            val refresh = interactor.statusRefresh()
+            withContext(dispatchers.main) {
+                mutableStatusLiveData.value = refresh
+            }
+        }
+    }
+
+
+    private fun getCash() {
+        viewModelScope.launch(dispatchers.io) {
+            val result = interactor.cache()
+            if (result.size != 0) {
+                isDataCash = true
+                val preparation = interactor.preparation(result)
+                val response = interactor.footer(preparation)
+                withContext(dispatchers.main) {
+                    listLiveData.value = response
+                }
+            }
+        }
     }
 
 }

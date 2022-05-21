@@ -15,7 +15,9 @@ import ru.campus.feature_news.data.db.AppDatabase
 import ru.campus.feature_news.data.db.BaseCashDataSource
 import ru.campus.feature_news.data.db.CashDataSource
 import ru.campus.feature_news.data.repository.BaseNewsRepository
+import ru.campus.feature_news.data.repository.BaseStatusRepository
 import ru.campus.feature_news.data.repository.NewsRepository
+import ru.campus.feature_news.data.repository.StatusRepository
 import ru.campus.feature_news.domain.BaseErrorMessageHandler
 import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
@@ -83,6 +85,9 @@ interface FeedAbstractModule {
     fun bindCashDataSource(baseCashDataSource: BaseCashDataSource): CashDataSource
 
     @Binds
+    fun bindUserStatusRepository(baseStatusRepository: BaseStatusRepository): StatusRepository
+
+    @Binds
     @IntoMap
     @ViewModelKey(FeedViewModel::class)
     fun onBoardViewModel(viewModel: FeedViewModel): ViewModel
@@ -91,4 +96,5 @@ interface FeedAbstractModule {
     @IntoMap
     @ViewModelKey(CreateMessageViewModel::class)
     fun createMessageViewModel(viewModel: CreateMessageViewModel): ViewModel
+
 }
