@@ -5,4 +5,5 @@
     <string name="send">Отправить</string>
     <string name="new_comment">Новый</string>
     <string name="answer">Ответ</string>
+    <string name="update">Обновление</string>
 </resources>

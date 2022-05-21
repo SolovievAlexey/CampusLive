@@ -71,6 +71,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     }
 
     private fun initToolbar() {
+        binding.toolbar.title = getString(R.string.update)
         binding.toolbar.inflateMenu(R.menu.refresh)
         binding.toolbar.setNavigationIcon(R.drawable.outline_close_black_24)
         binding.toolbar.setNavigationOnClickListener {
@@ -88,6 +89,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     }
 
     private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
+        binding.toolbar.title = "10 Комментариев"
         binding.progressBar.isVisible = false
         if(!binding.toolbar.menu.hasVisibleItems())
             binding.toolbar.inflateMenu(R.menu.refresh)

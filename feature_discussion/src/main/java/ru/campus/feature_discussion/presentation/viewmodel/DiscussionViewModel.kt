@@ -33,12 +33,7 @@ class DiscussionViewModel @Inject constructor(
 
     fun get(publicationId: Int) {
         viewModelScope.launch(dispatchers.io) {
-
-            val shimmer = interactor.shimmer()
-            withContext(dispatchers.main) {
-                mutableListLiveData.value = shimmer
-            }
-
+            showShimmerLayout()
             when (val result = interactor.get(publicationId = publicationId)) {
                 is ResponseObject.Success -> {
                     val raw = interactor.map(model = result.data)
@@ -67,6 +62,15 @@ class DiscussionViewModel @Inject constructor(
             interactor.avatar(model = preparation)
             withContext(dispatchers.main) {
                 mutableListLiveData.value = preparation
+            }
+        }
+    }
+
+    private suspend fun showShimmerLayout() {
+        if(listLiveData.value == null) {
+            val shimmer = interactor.shimmer()
+            withContext(dispatchers.main) {
+                mutableListLiveData.value = shimmer
             }
         }
     }
