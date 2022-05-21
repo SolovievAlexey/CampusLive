@@ -2,12 +2,14 @@ package ru.campus.feature_discussion.data.repository
 
 import okhttp3.ResponseBody
 import ru.campus.core.data.CloudDataSource
+import ru.campus.core.data.ResourceManager
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
 import ru.campus.feature_discussion.data.APIService
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionPostModel
 import ru.campus.feature_discussion.data.model.DiscussionViewType
+import ru.campus.feaure_discussion.R
 import javax.inject.Inject
 
 /**
@@ -20,7 +22,8 @@ private const val OBJECT_TYPE = 2
 
 class BaseDiscussionRepository @Inject constructor(
     private val apiService: APIService,
-    private val userDataStore: UserDataStore
+    private val userDataStore: UserDataStore,
+    private val resourceManager: ResourceManager
 ) : DiscussionRepository {
 
     override fun shimmer(): ArrayList<DiscussionModel> {
@@ -55,8 +58,7 @@ class BaseDiscussionRepository @Inject constructor(
             attachmentId = params.attachment,
             parent = params.parent,
             answered = params.answered,
-            publicationId = params.publication
-        )
+            publicationId = params.publication)
         return CloudDataSource<DiscussionModel>().execute(call)
     }
 
@@ -68,6 +70,30 @@ class BaseDiscussionRepository @Inject constructor(
     override fun complaint(id: Int) {
         val call = apiService.complaint(objectType = OBJECT_TYPE, objectId = id)
         CloudDataSource<ResponseBody>().execute(call)
+    }
+
+    override fun title(count: Int): String {
+        val decline = arrayOf(
+            resourceManager.get(R.string.s_comment_one),
+            resourceManager.get(R.string.s_comments_two),
+            resourceManager.get(R.string.s_comments_3),
+            resourceManager.get(R.string.s_comments_4),
+            resourceManager.get(R.string.s_comments_5))
+
+        val commentsCount = count % 10
+        return if (commentsCount > 4) {
+            "$count " + resourceManager.get(R.string.s_comment_one)
+        } else {
+            if (count in 12..19) {
+                "$count " + resourceManager.get(R.string.s_comment_one)
+            } else {
+                if (count == 0) {
+                    resourceManager.get(R.string.none_comments)
+                } else {
+                    "$count " + decline[commentsCount]
+                }
+            }
+        }
     }
 
 }

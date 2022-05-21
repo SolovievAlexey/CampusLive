@@ -54,6 +54,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
         viewModel.listLiveData.observe(viewLifecycleOwner, listLiveData())
         viewModel.failureLiveData.observe(viewLifecycleOwner, failureLiveData())
+        viewModel.titleLiveData.observe(viewLifecycleOwner, titleLiveData())
 
         binding.fab.isVisible = true
         binding.fab.setOnClickListener {
@@ -88,7 +89,6 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     }
 
     private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
-        binding.toolbar.title = "10 Комментариев"
         binding.progressBar.isVisible = false
         if(!binding.toolbar.menu.hasVisibleItems())
             binding.toolbar.inflateMenu(R.menu.refresh)
@@ -98,6 +98,10 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private fun failureLiveData() = Observer<String> { error ->
         Log.d("MyLog", "Произошла ошибка! Расшифровка = $error")
+    }
+
+    private fun titleLiveData() = Observer<String> { title ->
+        binding.toolbar.title = title
     }
 
     private fun RecyclerView.scrollEvent() {

@@ -73,4 +73,8 @@ class DiscussionInteractor @Inject constructor(
         userAvatarStore.execute(model = model)
     }
 
+    fun title(count: Int): String {
+        return repository.title(count = count)
+    }
+
 }

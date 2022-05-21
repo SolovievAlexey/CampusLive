@@ -31,6 +31,10 @@ class DiscussionViewModel @Inject constructor(
     val failureLiveData: LiveData<String>
         get() = mutableFailureLiveData
 
+    private val mutableTitleLiveData = MutableLiveData<String>()
+    val titleLiveData: LiveData<String>
+        get() = mutableTitleLiveData
+
     fun get(publicationId: Int) {
         viewModelScope.launch(dispatchers.io) {
             showShimmerLayout()
@@ -42,7 +46,10 @@ class DiscussionViewModel @Inject constructor(
                     withContext(dispatchers.main) {
                         mutableListLiveData.value = preparation
                     }
+
+                    title()
                 }
+
                 is ResponseObject.Failure -> {
                     interactor.avatar(null)
                     withContext(dispatchers.main) {
@@ -72,6 +79,14 @@ class DiscussionViewModel @Inject constructor(
             withContext(dispatchers.main) {
                 mutableListLiveData.value = shimmer
             }
+        }
+    }
+
+    private suspend fun title() {
+        val count = listLiveData.value?.size ?: 0
+        val title = interactor.title(count = count)
+        withContext(dispatchers.main) {
+            mutableTitleLiveData.value = title
         }
     }
 

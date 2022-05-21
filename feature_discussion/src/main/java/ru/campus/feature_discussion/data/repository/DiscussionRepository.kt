@@ -16,4 +16,5 @@ interface DiscussionRepository {
     fun post(params: DiscussionPostModel): ResponseObject<DiscussionModel>
     fun vote(commentId: Int, vote: Int)
     fun complaint(id: Int)
+    fun title(count: Int): String
 }
