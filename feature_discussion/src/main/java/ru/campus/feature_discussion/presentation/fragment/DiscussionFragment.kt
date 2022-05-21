@@ -1,4 +1,4 @@
-package ru.campus.feature_discussion.presentation
+package ru.campus.feature_discussion.presentation.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -15,13 +15,14 @@ import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.di.DaggerDiscussionComponent
 import ru.campus.feature_discussion.di.DiscussionComponent
 import ru.campus.feature_discussion.presentation.adapter.DiscussionAdapter
+import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModel
 import ru.campus.feaure_discussion.R
 import ru.campus.feaure_discussion.databinding.FragmentDiscussionBinding
 
 
 class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
-    private val publicationId by lazy { arguments?.getInt("id") }
+    private val publicationId by lazy { arguments?.getInt("id") ?: 0 }
     private val component: DiscussionComponent by lazy {
         DaggerDiscussionComponent.builder()
             .deps(AppDepsProvider.deps)
@@ -57,7 +58,10 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
         binding.fab.isVisible = true
         binding.fab.setOnClickListener {
-            findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment)
+
+            val bundle = Bundle()
+            bundle.putInt("publication", publicationId)
+            findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment, bundle)
         }
     }
 

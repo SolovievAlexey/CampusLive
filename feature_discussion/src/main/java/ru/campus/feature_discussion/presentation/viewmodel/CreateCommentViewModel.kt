@@ -1,5 +1,6 @@
-package ru.campus.feature_discussion.presentation
+package ru.campus.feature_discussion.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -41,8 +42,11 @@ class CreateCommentViewModel @Inject constructor(
                     }
                 }
                 is ResponseObject.Failure -> {
-                    mutableFailureLiveData.value =
-                        "Произошла какая-то ошибка! Необходимо повторить попытку ещё раз"
+                    Log.d("MyLog", "Код ошибки = "+result.code)
+                    withContext(dispatchers.main) {
+                        mutableFailureLiveData.value =
+                            "Произошла какая-то ошибка! Необходимо повторить попытку ещё раз"
+                    }
                 }
             }
         }

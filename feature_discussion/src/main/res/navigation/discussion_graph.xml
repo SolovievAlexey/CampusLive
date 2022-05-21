@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/discussionFragment"
-        android:name="ru.campus.feature_discussion.presentation.DiscussionFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.DiscussionFragment"
         android:label="fragment_discussion"
         tools:layout="@layout/fragment_discussion" >
 
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/createCommentFragment"
-        android:name="ru.campus.feature_discussion.presentation.CreateCommentFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.CreateCommentFragment"
         android:label="fragment_create_comment"
         tools:layout="@layout/fragment_create_comment" />
 
