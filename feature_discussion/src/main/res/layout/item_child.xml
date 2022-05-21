@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    tools:ignore="UnusedAttribute">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userPhoto"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="7dp" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/userPhoto"
+        android:text="1 час и 5 минут назад"
+        android:textColor="#53646e"
+        android:textSize="10sp"
+        tools:ignore="RtlHardcoded,SmallSp" />
+
+    <LinearLayout
+        android:id="@+id/likeRoot"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+12"
+            android:textColor="#2e703c"
+            android:textSize="10sp"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/likeStatus"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="1dp"
+            android:contentDescription="@null"
+            android:src="@drawable/like" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/date"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@id/userPhoto"
+        android:orientation="vertical"
+        android:paddingEnd="16dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Тут может распологаться текст комментария и он может быть достаточно длинным"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/photo"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_marginTop="6dp"
+            android:background="#f5f5f5"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop" />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

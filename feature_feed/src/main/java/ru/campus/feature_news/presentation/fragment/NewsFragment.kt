@@ -10,6 +10,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -158,9 +159,9 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         snack.show()
     }
 
-    private fun discussionLiveData() = Observer<FeedModel> {
+    private fun discussionLiveData() = Observer<FeedModel> { item ->
         val request = NavDeepLinkRequest.Builder
-            .fromUri("android-app://ru.campus.live/discussionFragment".toUri())
+            .fromUri("android-app://ru.campus.live/discussionFragment/?id=${item.id}".toUri())
             .build()
         findNavController().navigate(request)
     }
