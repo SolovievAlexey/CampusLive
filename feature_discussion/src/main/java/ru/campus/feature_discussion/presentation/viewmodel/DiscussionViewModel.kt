@@ -1,5 +1,6 @@
 package ru.campus.feature_discussion.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,17 +47,19 @@ class DiscussionViewModel @Inject constructor(
                     withContext(dispatchers.main) {
                         mutableListLiveData.value = preparation
                     }
-
-                    title()
                 }
 
                 is ResponseObject.Failure -> {
                     interactor.avatar(null)
+                    val error = interactor.error(statusCode = result.code)
                     withContext(dispatchers.main) {
-                        mutableFailureLiveData.value = "Произошла какая-то ошибка"
+                        mutableListLiveData.value?.clear()
+                        mutableFailureLiveData.value = error
                     }
+
                 }
             }
+            title()
         }
     }
 
@@ -70,6 +73,7 @@ class DiscussionViewModel @Inject constructor(
             withContext(dispatchers.main) {
                 mutableListLiveData.value = preparation
             }
+            title()
         }
     }
 
@@ -83,7 +87,8 @@ class DiscussionViewModel @Inject constructor(
     }
 
     private suspend fun title() {
-        val count = listLiveData.value?.size ?: 0
+        val count = mutableListLiveData.value?.size ?: 0
+        Log.d("MyLog", "count = $count")
         val title = interactor.title(count = count)
         withContext(dispatchers.main) {
             mutableTitleLiveData.value = title

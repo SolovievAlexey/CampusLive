@@ -60,7 +60,8 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.fab.setOnClickListener {
             val bundle = Bundle()
             bundle.putInt("publication", publicationId)
-            findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment, bundle)
+            findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment,
+                bundle)
         }
 
         requireActivity().supportFragmentManager
@@ -79,9 +80,8 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         }
 
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
-            if(menuItem.itemId == R.id.refresh) {
-                binding.toolbar.menu.clear()
-                binding.progressBar.isVisible = true
+            if (menuItem.itemId == R.id.refresh) {
+                isVisibleProgressBar(visible = true)
                 viewModel.get(publicationId)
             }
             return@setOnMenuItemClickListener false
@@ -90,14 +90,18 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
         binding.progressBar.isVisible = false
-        if(!binding.toolbar.menu.hasVisibleItems())
-            binding.toolbar.inflateMenu(R.menu.refresh)
+        if (!binding.toolbar.menu.hasVisibleItems()) binding.toolbar.inflateMenu(R.menu.refresh)
+        if (binding.error.isVisible) binding.error.isVisible = false
+        if (!binding.recyclerView.isVisible) binding.recyclerView.isVisible = true
         adapter.setData(model)
         binding.fab.show()
     }
 
     private fun failureLiveData() = Observer<String> { error ->
-        Log.d("MyLog", "Произошла ошибка! Расшифровка = $error")
+        binding.error.text = error
+        if (binding.recyclerView.isVisible) binding.recyclerView.isVisible = false
+        if (!binding.error.isVisible) binding.error.isVisible = true
+        isVisibleProgressBar(visible = false)
     }
 
     private fun titleLiveData() = Observer<String> { title ->
@@ -114,6 +118,14 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private fun isVisibleFab(dy: Int): Boolean {
         return dy <= 0
+    }
+
+    private fun isVisibleProgressBar(visible: Boolean) {
+        binding.progressBar.isVisible = visible
+        if(visible)
+            binding.toolbar.menu.clear()
+        else
+            if(!binding.toolbar.menu.hasVisibleItems()) binding.toolbar.inflateMenu(R.menu.refresh)
     }
 
 }

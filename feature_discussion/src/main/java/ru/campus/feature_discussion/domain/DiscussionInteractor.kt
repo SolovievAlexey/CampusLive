@@ -1,9 +1,6 @@
 package ru.campus.feature_discussion.domain
 
-import ru.campus.core.data.DisplayMetrics
-import ru.campus.core.data.DomainDataStore
-import ru.campus.core.data.ResourceManager
-import ru.campus.core.data.ResponseObject
+import ru.campus.core.data.*
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionViewType
 import ru.campus.feature_discussion.data.repository.DiscussionRepository
@@ -22,7 +19,8 @@ class DiscussionInteractor @Inject constructor(
     private val domainDataStore: DomainDataStore,
     private val displayMetrics: DisplayMetrics,
     private val resourceManager: ResourceManager,
-    private val userAvatarStore: UserAvatarStore
+    private val userAvatarStore: UserAvatarStore,
+    private val errorMessageHandler: ErrorMessageHandler
 ) {
 
     fun shimmer(): ArrayList<DiscussionModel> {
@@ -75,6 +73,10 @@ class DiscussionInteractor @Inject constructor(
 
     fun title(count: Int): String {
         return repository.title(count = count)
+    }
+
+    fun error(statusCode: Int): String {
+        return errorMessageHandler.get(statusCode = statusCode)
     }
 
 }

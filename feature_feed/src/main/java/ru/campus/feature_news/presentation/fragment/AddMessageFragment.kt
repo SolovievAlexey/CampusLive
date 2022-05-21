@@ -11,7 +11,6 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.campus.core.data.AlertMessageModel
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.UploadMediaModel
 import ru.campus.core.di.AppDepsProvider

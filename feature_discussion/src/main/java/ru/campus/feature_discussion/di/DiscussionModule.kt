@@ -6,12 +6,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 import retrofit2.Retrofit
+import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.di.ViewModelKey
 import ru.campus.feature_discussion.data.APIService
-import ru.campus.feature_discussion.data.repository.BaseDataAvatarStore
-import ru.campus.feature_discussion.data.repository.BaseDiscussionRepository
-import ru.campus.feature_discussion.data.repository.DiscussionRepository
-import ru.campus.feature_discussion.data.repository.UserAvatarStore
+import ru.campus.feature_discussion.data.repository.*
 import ru.campus.feature_discussion.presentation.viewmodel.CreateCommentViewModel
 import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModel
 import ru.campus.file_upload.data.BaseUploadMediaRepository
@@ -59,6 +57,9 @@ interface DiscussionAbstractModule {
 
     @Binds
     fun bindUserAvatarStore(baseDataAvatarStore: BaseDataAvatarStore): UserAvatarStore
+
+    @Binds
+    fun bindErrorMessageHandler(errorDataSource: ErrorDataSource): ErrorMessageHandler
 
     @Binds
     @IntoMap
