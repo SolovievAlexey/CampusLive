@@ -69,6 +69,7 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
         binding.toolBar.setOnClickListener {
             findNavController().popBackStack()
         }
+
         binding.toolBar.setOnMenuItemClickListener { menuItem ->
             if(menuItem.itemId == R.id.send) sentCommentDataOnServer()
             return@setOnMenuItemClickListener false
