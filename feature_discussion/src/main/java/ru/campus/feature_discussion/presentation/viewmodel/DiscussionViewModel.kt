@@ -43,6 +43,7 @@ class DiscussionViewModel @Inject constructor(
                     }
                 }
                 is ResponseObject.Failure -> {
+                    interactor.avatar(null)
                     withContext(dispatchers.main) {
                         mutableFailureLiveData.value = "Произошла какая-то ошибка"
                     }

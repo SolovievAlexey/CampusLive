@@ -2,6 +2,7 @@ package ru.campus.core.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import javax.inject.Inject
 
 /**
@@ -50,11 +51,14 @@ class BaseUserDataStore @Inject constructor(context: Context) : UserDataStore {
     }
 
     override fun avatarSave(id: Int) {
+        Log.d("MyLog", "Сохраняем аватар = "+id)
         sPref.edit().putInt("AVATAR", id).apply()
     }
 
     override fun avatar(): Int {
-        return sPref.getInt("AVATAR", 0)
+        val avatar = sPref.getInt("AVATAR", 0)
+        Log.d("MyLog", "Отдаем аватар = "+avatar)
+        return avatar
     }
 
 }

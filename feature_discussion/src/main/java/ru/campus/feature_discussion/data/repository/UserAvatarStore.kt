@@ -9,5 +9,5 @@ import ru.campus.feature_discussion.data.model.DiscussionModel
  */
 
 interface UserAvatarStore {
-    fun execute(model: ArrayList<DiscussionModel>)
+    fun execute(model: ArrayList<DiscussionModel>?)
 }

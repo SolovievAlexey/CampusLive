@@ -22,7 +22,7 @@ class AppModule {
     @Provides
     fun provideAPIService(domainDataStore: DomainDataStore): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(domainDataStore.get())
+            .baseUrl(domainDataStore.get()+"/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

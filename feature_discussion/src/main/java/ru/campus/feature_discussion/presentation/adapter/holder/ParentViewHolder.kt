@@ -1,6 +1,7 @@
 package ru.campus.feature_discussion.presentation.adapter.holder
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.ViewGroup
 import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
@@ -20,7 +21,7 @@ import ru.campus.feaure_discussion.databinding.ItemParentBinding
 
 class ParentViewHolder(
     private val itemBinding: ItemParentBinding,
-    private val myOnClick: MyOnClick<DiscussionModel>,
+    private val myOnClick: MyOnClick<DiscussionModel>
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
     private val context = itemBinding.root.context

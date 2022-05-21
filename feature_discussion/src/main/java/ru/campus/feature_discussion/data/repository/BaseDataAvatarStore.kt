@@ -14,15 +14,15 @@ class BaseDataAvatarStore @Inject constructor(
     private val userDataStore: UserDataStore
 ) : UserAvatarStore {
 
-    override fun execute(model: ArrayList<DiscussionModel>) {
+    override fun execute(model: ArrayList<DiscussionModel>?) {
         var avatar = search(model)
         if (avatar == 0) avatar = generate(model)
         userDataStore.avatarSave(avatar)
     }
 
-    private fun search(model: ArrayList<DiscussionModel>): Int {
+    private fun search(model: ArrayList<DiscussionModel>?): Int {
         val uid = userDataStore.uid()
-        model.forEach { item -> if (item.author == uid) return item.icon_id }
+        model?.forEach { item -> if (item.author == uid) return item.icon_id }
         return 0
     }
 

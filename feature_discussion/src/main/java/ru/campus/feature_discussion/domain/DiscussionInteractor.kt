@@ -48,9 +48,9 @@ class DiscussionInteractor @Inject constructor(
 
     fun preparation(model: ArrayList<DiscussionModel>): ArrayList<DiscussionModel> {
         model.forEachIndexed { index, item ->
-            var pathUserIcon = domainDataStore.get() + "media/icon/" + item.icon_id + ".png"
+            var pathUserIcon = domainDataStore.get() + "/media/icon/" + item.icon_id + ".png"
             if (item.icon_id < 10) pathUserIcon =
-                domainDataStore.get() + "media/icon/" + item.icon_id + ".png"
+                domainDataStore.get() + "/media/icon/" + item.icon_id + ".png"
             model[index].userAvatar = pathUserIcon
 
             if (item.attachment != null) {
@@ -65,7 +65,7 @@ class DiscussionInteractor @Inject constructor(
         return model
     }
 
-    fun avatar(model: ArrayList<DiscussionModel>) {
+    fun avatar(model: ArrayList<DiscussionModel>?) {
         userAvatarStore.execute(model = model)
     }
 
