@@ -5,7 +5,7 @@
     <string name="send">Отправить</string>
     <string name="new_comment">Новый</string>
     <string name="answer">Ответ</string>
-    <string name="update">Обновление</string>
+    <string name="update">Обновление…</string>
 
     <string name="none_comments">Нет комментариев</string>
     <string name="s_comment_one">Комментариев</string>
