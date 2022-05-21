@@ -25,6 +25,10 @@ class DiscussionInteractor @Inject constructor(
     private val userAvatarStore: UserAvatarStore
 ) {
 
+    fun shimmer(): ArrayList<DiscussionModel> {
+        return repository.shimmer()
+    }
+
     fun get(publicationId: Int): ResponseObject<ArrayList<DiscussionModel>> {
         return repository.get(publicationId = publicationId)
     }

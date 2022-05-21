@@ -11,6 +11,7 @@ import ru.campus.feature_discussion.data.model.DiscussionPostModel
  */
 
 interface DiscussionRepository {
+    fun shimmer(): ArrayList<DiscussionModel>
     fun get(publicationId: Int): ResponseObject<ArrayList<DiscussionModel>>
     fun post(params: DiscussionPostModel): ResponseObject<DiscussionModel>
     fun vote(commentId: Int, vote: Int)

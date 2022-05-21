@@ -7,6 +7,7 @@ import ru.campus.core.data.UserDataStore
 import ru.campus.feature_discussion.data.APIService
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionPostModel
+import ru.campus.feature_discussion.data.model.DiscussionViewType
 import javax.inject.Inject
 
 /**
@@ -21,6 +22,25 @@ class BaseDiscussionRepository @Inject constructor(
     private val apiService: APIService,
     private val userDataStore: UserDataStore
 ) : DiscussionRepository {
+
+    override fun shimmer(): ArrayList<DiscussionModel> {
+        val model = ArrayList<DiscussionModel>()
+        model.add(DiscussionModel(type = DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.PARENT_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.CHILD_SHIMMER))
+        model.add(DiscussionModel(type = DiscussionViewType.PARENT_SHIMMER))
+        return model
+    }
 
     override fun get(publicationId: Int): ResponseObject<ArrayList<DiscussionModel>> {
         val call = apiService.get(token = userDataStore.token(), publicationId = publicationId)
@@ -41,19 +61,12 @@ class BaseDiscussionRepository @Inject constructor(
     }
 
     override fun vote(commentId: Int, vote: Int) {
-        val call = apiService.vote(
-            token = userDataStore.token(),
-            vote = vote,
-            objectId = commentId
-        )
+        val call = apiService.vote(token = userDataStore.token(), vote = vote, objectId = commentId)
         CloudDataSource<ResponseBody>().execute(call)
     }
 
     override fun complaint(id: Int) {
-        val call = apiService.complaint(
-            objectType = OBJECT_TYPE,
-            objectId = id
-        )
+        val call = apiService.complaint(objectType = OBJECT_TYPE, objectId = id)
         CloudDataSource<ResponseBody>().execute(call)
     }
 

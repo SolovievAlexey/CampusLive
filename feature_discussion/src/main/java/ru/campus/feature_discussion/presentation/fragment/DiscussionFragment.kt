@@ -76,9 +76,21 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            if(menuItem.itemId == R.id.refresh) {
+                binding.toolbar.menu.clear()
+                binding.progressBar.isVisible = true
+                viewModel.get(publicationId)
+            }
+            return@setOnMenuItemClickListener false
+        }
     }
 
     private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
+        binding.progressBar.isVisible = false
+        if(!binding.toolbar.menu.hasVisibleItems())
+            binding.toolbar.inflateMenu(R.menu.refresh)
         adapter.setData(model)
         binding.fab.show()
     }
