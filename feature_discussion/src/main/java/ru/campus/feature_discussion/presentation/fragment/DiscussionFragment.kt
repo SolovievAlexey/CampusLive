@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
@@ -29,10 +30,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
             .build()
     }
 
-    private val viewModel by viewModels<DiscussionViewModel> {
-        component.viewModelsFactory()
-    }
-
+    private val viewModel by viewModels<DiscussionViewModel> { component.viewModelsFactory() }
     private val myOnClick = object : MyOnClick<DiscussionModel> {
         override fun item(view: View, item: DiscussionModel) {
             Log.d("MyLog", "Призошел клик на элемент!")
@@ -40,18 +38,19 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     }
 
     private val adapter = DiscussionAdapter(myOnClick)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.get(publicationId = publicationId!!)
+        viewModel.get(publicationId = publicationId)
     }
 
     override fun getViewBinding() = FragmentDiscussionBinding.inflate(layoutInflater)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initToolbar()
+
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.scrollEvent()
 
         viewModel.listLiveData.observe(viewLifecycleOwner, listLiveData())
         viewModel.failureLiveData.observe(viewLifecycleOwner, failureLiveData())
@@ -99,6 +98,18 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private fun failureLiveData() = Observer<String> { error ->
         Log.d("MyLog", "Произошла ошибка! Расшифровка = $error")
+    }
+
+    private fun RecyclerView.scrollEvent() {
+        this.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                binding.fab.apply { if (isVisibleFab(dy)) show() else hide() }
+            }
+        })
+    }
+
+    private fun isVisibleFab(dy: Int): Boolean {
+        return dy <= 0
     }
 
 }
