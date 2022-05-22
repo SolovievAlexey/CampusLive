@@ -84,7 +84,11 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
     }
 
     private fun initToolbar() {
-        binding.toolBar.title = getString(R.string.new_comment)
+        binding.toolBar.title = if(parent == 0)
+            getString(R.string.new_comment)
+        else
+            getString(R.string.comment_reply)
+
         binding.toolBar.inflateMenu(R.menu.send)
         binding.toolBar.setNavigationIcon(R.drawable.ic_action_close)
         binding.toolBar.setOnClickListener {

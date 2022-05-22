@@ -4,6 +4,7 @@
     <string name="comment_create_hint">Ваш комментарий</string>
     <string name="send">Отправить</string>
     <string name="new_comment">Новый</string>
+    <string name="comment_reply">Ответ</string>
     <string name="answer">Ответ</string>
     <string name="update">Обновление…</string>
 
@@ -22,4 +23,12 @@
     <string name="error_wall_405">У вас слишком плохая карма, для публикации новых записей</string>
     <string name="error_wall_407">Новым пользователям не доступна публикация новых записей</string>
     <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
+
+    <string name="complaint">Пожаловаться</string>
+    <string name="complaint_description">В случае если пользователь нарушил правила, он будет заблокирован</string>
+    <string name="reply">Ответить</string>
+    <string name="reply_description">Ваш комментарий будет расположен под комментарием на который вы ответили</string>
+
+    <string name="complaint_response">Жалоба отправлена</string>
+    <string name="close">Закрыть</string>
 </resources>

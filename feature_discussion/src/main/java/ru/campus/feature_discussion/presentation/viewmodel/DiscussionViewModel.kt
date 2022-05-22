@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
+import ru.campus.core.presentation.SingleLiveEvent
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.domain.DiscussionInteractor
 import javax.inject.Inject
@@ -32,6 +34,14 @@ class DiscussionViewModel(
     private val mutableTitleLiveData = MutableLiveData<String>()
     val titleLiveData: LiveData<String>
         get() = mutableTitleLiveData
+
+    private val mutableComplaintLiveData = SingleLiveEvent<DiscussionModel>()
+    val complaintLiveData: LiveData<DiscussionModel>
+        get() = mutableComplaintLiveData
+
+    private val mutableReplyEvent = SingleLiveEvent<DiscussionModel>()
+    val replyEvent: LiveData<DiscussionModel>
+        get() = mutableReplyEvent
 
     fun get(publicationId: Int) {
         viewModelScope.launch(dispatchers.io) {
@@ -66,12 +76,39 @@ class DiscussionViewModel(
             val raw = interactor.map(model = model)
             val preparation = interactor.preparation(model = raw)
             interactor.avatar(model = preparation)
-            val response = interactor.insertPublication(preparation, publication)
             withContext(dispatchers.main) {
-                mutableListLiveData.value = response
+                mutableListLiveData.value = preparation
             }
             title()
         }
+    }
+
+    fun complaint(item: DiscussionModel) {
+        mutableComplaintLiveData.value = item
+    }
+
+    fun sendComplaintDataOnServer(id: Int) {
+        viewModelScope.launch(dispatchers.io) {
+            interactor.complaint(id = id)
+        }
+    }
+
+    fun vote(item: DiscussionModel, vote: Int) {
+        viewModelScope.launch(dispatchers.io) {
+            async { interactor.vote(id = item.id, vote = vote) }
+            val model = ArrayList<DiscussionModel>().apply {
+                listLiveData.value?.let { addAll(it) }
+            }
+
+            val response = interactor.renderVoteView(model, item, vote)
+            withContext(dispatchers.main) {
+                mutableListLiveData.value = response
+            }
+        }
+    }
+
+    fun reply(item: DiscussionModel) {
+        mutableReplyEvent.value = item
     }
 
     private suspend fun showShimmerLayout() {

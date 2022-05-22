@@ -1,14 +1,17 @@
 package ru.campus.feature_discussion.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.TextView
+import androidx.core.graphics.toColorInt
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
@@ -23,6 +26,7 @@ import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModel
 import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModelFactory
 import ru.campus.feaure_discussion.R
 import ru.campus.feaure_discussion.databinding.FragmentDiscussionBinding
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
@@ -38,13 +42,19 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     @Inject
     lateinit var factory: DiscussionViewModelFactory.Factory
-    private val viewModel: DiscussionViewModel by viewModels() {
+    private val viewModel: DiscussionViewModel by navGraphViewModels(R.id.discussionFragment) {
         factory.create(publication)
     }
 
     private val myOnClick = object : MyOnClick<DiscussionModel> {
         override fun item(view: View, item: DiscussionModel) {
-            Log.d("MyLog", "Призошел клик на элемент!")
+            if (item.hidden == 0) {
+                DiscussionBottomSheetFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable("item", item)
+                    }
+                }.show((requireActivity().supportFragmentManager), "DiscussionBottomSheetFragment")
+            }
         }
     }
 
@@ -78,6 +88,8 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
         viewModel.listLiveData.observe(viewLifecycleOwner, listLiveData())
         viewModel.titleLiveData.observe(viewLifecycleOwner, titleLiveData())
+        viewModel.complaintLiveData.observe(viewLifecycleOwner, complaintLiveData())
+        viewModel.replyEvent.observe(viewLifecycleOwner, replyEvent())
 
         binding.fab.isVisible = true
         binding.fab.setOnClickListener {
@@ -121,6 +133,38 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private fun titleLiveData() = Observer<String> { title ->
         binding.toolbar.title = title
+    }
+
+    private fun complaintLiveData() = Observer<DiscussionModel> { item ->
+        val isCancel = AtomicBoolean(false)
+        val snack = Snackbar.make(
+            binding.root, getString(R.string.complaint_response),
+            Snackbar.LENGTH_LONG
+        )
+        val snackView = snack.view
+        val tv = snackView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        tv.setTextColor("#f44336".toColorInt())
+        snack.setAction(R.string.close) { isCancel.set(true) }
+        snack.addCallback(object : Snackbar.Callback() {
+
+            override fun onDismissed(snackbar: Snackbar, event: Int) {
+                if (!isCancel.get()) {
+                    viewModel.sendComplaintDataOnServer(id = item.id)
+                }
+            }
+
+        })
+        snack.show()
+    }
+
+    private fun replyEvent() = Observer<DiscussionModel> { item ->
+        val parent = if (item.parent == 0) item.id else item.parent
+        val bundle = Bundle()
+        bundle.putInt("publication", publication.id)
+        bundle.putInt("parent", parent)
+        bundle.putInt("answered", item.id)
+        findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment,
+            bundle)
     }
 
     private fun RecyclerView.scrollEvent() {

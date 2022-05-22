@@ -27,5 +27,9 @@
         android:name="ru.campus.feature_discussion.presentation.fragment.CreateCommentFragment"
         android:label="fragment_create_comment"
         tools:layout="@layout/fragment_create_comment" />
+    <dialog
+        android:id="@+id/discussionBottomSheetFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.DiscussionBottomSheetFragment"
+        android:label="DiscussionBottomSheetFragment" />
 
 </navigation>
