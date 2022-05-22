@@ -109,7 +109,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     private fun initToolbar() {
         binding.toolbar.title = getString(R.string.update)
         binding.toolbar.inflateMenu(R.menu.refresh)
-        binding.toolbar.setNavigationIcon(R.drawable.outline_close_black_24)
+        binding.toolbar.setNavigationIcon(R.drawable.outline_arrow_back_black_24)
         binding.toolbar.setNavigationOnClickListener {
             findNavController().popBackStack()
         }
