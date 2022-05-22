@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="support">Поддержка</string>
+    <string name="complaint">Пожаловаться</string>
+    <string name="complaint_description">В случае если пользователь нарушил правила, он будет заблокирован</string>
+
+    <string name="write">Напиши нам</string>
+    <string name="write_description">Задай вопрос, расскажи о проблемах или предложи идеи для улучшения приложения</string>
+
+    <string name="regulations">Правила сообщества</string>
+    <string name="regulations_description">Прочитай правила и принципы сообщества,
+        чтобы избежать блокировок и понять как устроено наше сообщество</string>
+
+</resources>

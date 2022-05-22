@@ -83,6 +83,7 @@ dependencies {
     implementation project(":feature_gallery")
     implementation project(":feature_dialog")
     implementation project(':feature_discussion')
+    implementation project(":feature_support")
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'

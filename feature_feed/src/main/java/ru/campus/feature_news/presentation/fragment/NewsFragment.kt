@@ -87,6 +87,14 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
                 .build()
             findNavController().navigate(request)
         }
+
+        binding.menu.setOnClickListener {
+            val request = NavDeepLinkRequest.Builder
+                .fromUri("android-app://ru.campus.live/supportBottomSheetFragment".toUri())
+                .build()
+            findNavController().navigate(request)
+        }
+
     }
 
     private fun initRecyclerView() {
