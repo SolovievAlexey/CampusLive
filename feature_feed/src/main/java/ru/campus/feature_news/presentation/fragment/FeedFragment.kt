@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
-class NewsFragment : BaseFragment<FragmentFeedBinding>() {
+class FeedFragment : BaseFragment<FragmentFeedBinding>() {
 
     private val component: FeedComponent by lazy {
         DaggerFeedComponent.builder()
@@ -94,7 +94,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
                 .build()
             findNavController().navigate(request)
         }
-        
+
         binding.notification.setOnClickListener {
             val request = NavDeepLinkRequest.Builder
                 .fromUri("android-app://ru.campus.live/notificationFragment".toUri())

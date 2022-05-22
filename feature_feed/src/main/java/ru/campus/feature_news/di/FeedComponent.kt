@@ -3,7 +3,7 @@ package ru.campus.feature_news.di
 import dagger.Component
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
-import ru.campus.feature_news.presentation.fragment.NewsFragment
+import ru.campus.feature_news.presentation.fragment.FeedFragment
 
 /**
  * @author Soloviev Alexey
@@ -15,7 +15,7 @@ import ru.campus.feature_news.presentation.fragment.NewsFragment
 interface FeedComponent {
 
     fun viewModelsFactory(): ViewModelFactory
-    fun inject(fragment: NewsFragment)
+    fun inject(fragment: FeedFragment)
 
     @Component.Builder
     interface Builder {

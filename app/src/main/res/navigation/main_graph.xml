@@ -14,7 +14,7 @@
         app:startDestination="@id/feedFragment">
         <fragment
             android:id="@+id/feedFragment"
-            android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
+            android:name="ru.campus.feature_news.presentation.fragment.FeedFragment"
             android:label="FeedFragment">
 
             <action
