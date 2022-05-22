@@ -95,6 +95,10 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
             findNavController().navigate(request)
         }
 
+        binding.notification.setOnClickListener {
+
+        }
+
     }
 
     private fun initRecyclerView() {
