@@ -29,10 +29,6 @@ class DiscussionViewModel(
     val listLiveData: LiveData<ArrayList<DiscussionModel>>
         get() = mutableListLiveData
 
-    private val mutableFailureLiveData = MutableLiveData<String>()
-    val failureLiveData: LiveData<String>
-        get() = mutableFailureLiveData
-
     private val mutableTitleLiveData = MutableLiveData<String>()
     val titleLiveData: LiveData<String>
         get() = mutableTitleLiveData
@@ -45,19 +41,18 @@ class DiscussionViewModel(
                     val raw = interactor.map(model = result.data)
                     val preparation = interactor.preparation(model = raw)
                     interactor.avatar(model = preparation)
+                    val response = interactor.insertPublication(preparation, publication)
                     withContext(dispatchers.main) {
-                        mutableListLiveData.value = preparation
+                        mutableListLiveData.value = response
                     }
                 }
 
                 is ResponseObject.Failure -> {
                     interactor.avatar(null)
-                    val error = interactor.error(statusCode = result.code)
+                    val response = interactor.insertPublication(model = ArrayList(), publication = publication)
                     withContext(dispatchers.main) {
-                        mutableListLiveData.value?.clear()
-                        mutableFailureLiveData.value = error
+                        mutableListLiveData.value = response
                     }
-
                 }
             }
             title()
@@ -71,8 +66,9 @@ class DiscussionViewModel(
             val raw = interactor.map(model = model)
             val preparation = interactor.preparation(model = raw)
             interactor.avatar(model = preparation)
+            val response = interactor.insertPublication(preparation, publication)
             withContext(dispatchers.main) {
-                mutableListLiveData.value = preparation
+                mutableListLiveData.value = response
             }
             title()
         }
@@ -81,15 +77,15 @@ class DiscussionViewModel(
     private suspend fun showShimmerLayout() {
         if(listLiveData.value == null) {
             val shimmer = interactor.shimmer()
+            val response = interactor.insertPublication(model = shimmer, publication = publication)
             withContext(dispatchers.main) {
-                mutableListLiveData.value = shimmer
+                mutableListLiveData.value = response
             }
         }
     }
 
     private suspend fun title() {
-        val count = mutableListLiveData.value?.size ?: 0
-        Log.d("MyLog", "count = $count")
+        val count = (mutableListLiveData.value?.size ?: 0) - 1
         val title = interactor.title(count = count)
         withContext(dispatchers.main) {
             mutableTitleLiveData.value = title

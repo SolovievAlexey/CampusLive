@@ -1,5 +1,6 @@
 package ru.campus.feature_discussion.domain
 
+import android.util.Log
 import ru.campus.core.data.*
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionViewType
@@ -20,7 +21,7 @@ class DiscussionInteractor @Inject constructor(
     private val displayMetrics: DisplayMetrics,
     private val resourceManager: ResourceManager,
     private val userAvatarStore: UserAvatarStore,
-    private val errorMessageHandler: ErrorMessageHandler
+    private val errorMessageHandler: ErrorMessageHandler,
 ) {
 
     fun shimmer(): ArrayList<DiscussionModel> {
@@ -29,6 +30,21 @@ class DiscussionInteractor @Inject constructor(
 
     fun get(publicationId: Int): ResponseObject<ArrayList<DiscussionModel>> {
         return repository.get(publicationId = publicationId)
+    }
+
+    fun insertPublication(
+        model: ArrayList<DiscussionModel>,
+        publication: DiscussionModel,
+    ): ArrayList<DiscussionModel> {
+        try {
+            if(model[0].type != DiscussionViewType.PUBLICATION)
+                model.add(0, publication)
+            return model
+        } catch (e: Exception) {
+            val response = ArrayList<DiscussionModel>()
+            response.add(publication)
+            return response
+        }
     }
 
     fun map(model: ArrayList<DiscussionModel>): ArrayList<DiscussionModel> {

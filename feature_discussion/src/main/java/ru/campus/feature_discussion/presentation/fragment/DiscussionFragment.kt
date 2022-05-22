@@ -39,7 +39,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     @Inject
     lateinit var factory: DiscussionViewModelFactory.Factory
     private val viewModel: DiscussionViewModel by viewModels() {
-        factory.create(DiscussionModel())
+        factory.create(publication)
     }
 
     private val myOnClick = object : MyOnClick<DiscussionModel> {
@@ -77,7 +77,6 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.recyclerView.scrollEvent()
 
         viewModel.listLiveData.observe(viewLifecycleOwner, listLiveData())
-        viewModel.failureLiveData.observe(viewLifecycleOwner, failureLiveData())
         viewModel.titleLiveData.observe(viewLifecycleOwner, titleLiveData())
 
         binding.fab.isVisible = true
@@ -115,17 +114,9 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     private fun listLiveData() = Observer<ArrayList<DiscussionModel>> { model ->
         binding.progressBar.isVisible = false
         if (!binding.toolbar.menu.hasVisibleItems()) binding.toolbar.inflateMenu(R.menu.refresh)
-        if (binding.error.isVisible) binding.error.isVisible = false
         if (!binding.recyclerView.isVisible) binding.recyclerView.isVisible = true
         adapter.setData(model)
         binding.fab.show()
-    }
-
-    private fun failureLiveData() = Observer<String> { error ->
-        binding.error.text = error
-        if (binding.recyclerView.isVisible) binding.recyclerView.isVisible = false
-        if (!binding.error.isVisible) binding.error.isVisible = true
-        isVisibleProgressBar(visible = false)
     }
 
     private fun titleLiveData() = Observer<String> { title ->
