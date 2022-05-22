@@ -7,5 +7,5 @@ package ru.campus.feature_discussion.data.model
  */
 
 enum class DiscussionViewType {
-    UNKNOWN, PARENT, CHILD, PARENT_SHIMMER, CHILD_SHIMMER
+    UNKNOWN, PARENT, CHILD, PARENT_SHIMMER, CHILD_SHIMMER, PUBLICATION
 }

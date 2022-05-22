@@ -9,28 +9,39 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_discussion.data.model.DiscussionModel
+import ru.campus.feature_discussion.data.model.DiscussionViewType
+import ru.campus.feature_discussion.data.model.FeedModel
 import ru.campus.feature_discussion.di.DaggerDiscussionComponent
 import ru.campus.feature_discussion.di.DiscussionComponent
 import ru.campus.feature_discussion.presentation.adapter.DiscussionAdapter
 import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModel
+import ru.campus.feature_discussion.presentation.viewmodel.DiscussionViewModelFactory
 import ru.campus.feaure_discussion.R
 import ru.campus.feaure_discussion.databinding.FragmentDiscussionBinding
+import javax.inject.Inject
 
 
 class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
-    private val publicationId by lazy { arguments?.getInt("id") ?: 0 }
+    private lateinit var publication: DiscussionModel
     private val component: DiscussionComponent by lazy {
         DaggerDiscussionComponent.builder()
             .deps(AppDepsProvider.deps)
             .build()
+
     }
 
-    private val viewModel by viewModels<DiscussionViewModel> { component.viewModelsFactory() }
+    @Inject
+    lateinit var factory: DiscussionViewModelFactory.Factory
+    private val viewModel: DiscussionViewModel by viewModels() {
+        factory.create(DiscussionModel())
+    }
+
     private val myOnClick = object : MyOnClick<DiscussionModel> {
         override fun item(view: View, item: DiscussionModel) {
             Log.d("MyLog", "Призошел клик на элемент!")
@@ -40,7 +51,20 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
     private val adapter = DiscussionAdapter(myOnClick)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.get(publicationId = publicationId)
+        val json = arguments?.getString("publication")
+        val feedModel = Gson().fromJson(json, FeedModel::class.java)
+        publication = DiscussionModel(
+            type = DiscussionViewType.PUBLICATION,
+            id = feedModel.id,
+            mediaWidth = feedModel.mediaWidth,
+            mediaHeight = feedModel.mediaHeight,
+            message = feedModel.message,
+            attachment = feedModel.attachment,
+            rating = feedModel.rating,
+            vote = feedModel.vote,
+            relativeTime = feedModel.relativeTime)
+        component.inject(this)
+        viewModel.get(publicationId = publication.id)
     }
 
     override fun getViewBinding() = FragmentDiscussionBinding.inflate(layoutInflater)
@@ -59,7 +83,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.fab.isVisible = true
         binding.fab.setOnClickListener {
             val bundle = Bundle()
-            bundle.putInt("publication", publicationId)
+            bundle.putInt("publication", publication.id)
             findNavController().navigate(R.id.action_discussionFragment_to_createCommentFragment,
                 bundle)
         }
@@ -82,7 +106,7 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             if (menuItem.itemId == R.id.refresh) {
                 isVisibleProgressBar(visible = true)
-                viewModel.get(publicationId)
+                viewModel.get(publicationId = publication.id)
             }
             return@setOnMenuItemClickListener false
         }

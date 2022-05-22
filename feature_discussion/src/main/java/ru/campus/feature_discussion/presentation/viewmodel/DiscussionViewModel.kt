@@ -19,9 +19,10 @@ import javax.inject.Inject
  * @date 21.05.2022 16:27
  */
 
-class DiscussionViewModel @Inject constructor(
+class DiscussionViewModel(
     private val interactor: DiscussionInteractor,
-    private val dispatchers: CoroutineDispatchers
+    private val dispatchers: CoroutineDispatchers,
+    private val publication: DiscussionModel
 ) : ViewModel() {
 
     private val mutableListLiveData = MutableLiveData<ArrayList<DiscussionModel>>()

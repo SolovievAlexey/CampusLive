@@ -61,10 +61,13 @@ interface DiscussionAbstractModule {
     @Binds
     fun bindErrorMessageHandler(errorDataSource: ErrorDataSource): ErrorMessageHandler
 
+    /*
     @Binds
     @IntoMap
     @ViewModelKey(DiscussionViewModel::class)
     fun discussionViewModel(viewModel: DiscussionViewModel): ViewModel
+
+     */
 
     @Binds
     @IntoMap

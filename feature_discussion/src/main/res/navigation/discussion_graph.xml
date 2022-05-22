@@ -9,12 +9,14 @@
         android:id="@+id/discussionFragment"
         android:name="ru.campus.feature_discussion.presentation.fragment.DiscussionFragment"
         android:label="fragment_discussion"
-        tools:layout="@layout/fragment_discussion" >
+        tools:layout="@layout/fragment_discussion">
 
-        <deepLink
-            app:uri="android-app://ru.campus.live/discussionFragment/?id={id}" />
+        <argument
+            android:name="publication"
+            app:argType="string" />
 
-        <argument android:name="id" app:argType="integer"/>
+        <deepLink app:uri="android-app://ru.campus.live/discussionFragment/?publication={publication}" />
+
         <action
             android:id="@+id/action_discussionFragment_to_createCommentFragment"
             app:destination="@id/createCommentFragment" />

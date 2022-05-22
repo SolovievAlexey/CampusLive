@@ -10,13 +10,12 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
-import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
@@ -81,16 +80,7 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         viewModel.discussionLiveData.observe(viewLifecycleOwner, discussionLiveData())
         viewModel.statusLiveData.observe(viewLifecycleOwner, statusLiveData())
 
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerView.scrollEvent()
-
-        binding.swipeRefreshLayout.setColorSchemeColors("#517fba".toColorInt())
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.get()
-        }
-
+        initRecyclerView()
         binding.fab.setOnClickListener {
             val request = NavDeepLinkRequest.Builder
                 .fromUri("android-app://ru.campus.live/addMessageFragment".toUri())
@@ -99,16 +89,15 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
         }
     }
 
+    private fun initRecyclerView() {
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.scrollEvent()
+    }
+
     private fun listLiveData() = Observer<ArrayList<FeedModel>> { newModel ->
         binding.errorMessage.isVisible = false
-        if (binding.swipeRefreshLayout.isRefreshing)
-            binding.swipeRefreshLayout.isRefreshing = false
         adapter.setData(newModel)
-        val params: AppBarLayout.LayoutParams =
-            binding.collapsingToolbarLayout.layoutParams as AppBarLayout.LayoutParams
-        params.scrollFlags = 0
-        params.scrollFlags = (AppBarLayout.LayoutParams.SCROLL_FLAG_SCROLL
-                or AppBarLayout.LayoutParams.SCROLL_FLAG_EXIT_UNTIL_COLLAPSED)
     }
 
     private fun scrollOnPositionEvent() = Observer<Int> { position ->
@@ -116,13 +105,8 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun failure() = Observer<String> { error ->
-        if (binding.swipeRefreshLayout.isRefreshing)
-            binding.swipeRefreshLayout.isRefreshing = false
         binding.errorMessage.isVisible = true
         binding.errorMessage.text = error
-        val params: AppBarLayout.LayoutParams =
-            binding.collapsingToolbarLayout.layoutParams as AppBarLayout.LayoutParams
-        params.scrollFlags = (AppBarLayout.LayoutParams.SCROLL_FLAG_SNAP)
     }
 
     @SuppressLint("SetTextI18n")
@@ -160,8 +144,9 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
     }
 
     private fun discussionLiveData() = Observer<FeedModel> { item ->
+        val json = Gson().toJson(item)
         val request = NavDeepLinkRequest.Builder
-            .fromUri("android-app://ru.campus.live/discussionFragment/?id=${item.id}".toUri())
+            .fromUri("android-app://ru.campus.live/discussionFragment/?publication=${json}".toUri())
             .build()
         findNavController().navigate(request)
     }
