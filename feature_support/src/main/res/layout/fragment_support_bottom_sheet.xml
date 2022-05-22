@@ -60,8 +60,8 @@
                 android:id="@+id/sheetDiscussionMessage_complaintIcon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/complaint"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/email"
                 android:contentDescription="@null" />
 
             <TextView
@@ -116,8 +116,8 @@
                 android:id="@+id/regulations_icon"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginTop="6dp"
-                android:src="@drawable/complaint"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/rules"
                 android:contentDescription="@null" />
 
             <TextView
