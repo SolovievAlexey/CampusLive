@@ -94,9 +94,12 @@ class NewsFragment : BaseFragment<FragmentFeedBinding>() {
                 .build()
             findNavController().navigate(request)
         }
-
+        
         binding.notification.setOnClickListener {
-
+            val request = NavDeepLinkRequest.Builder
+                .fromUri("android-app://ru.campus.live/notificationFragment".toUri())
+                .build()
+            findNavController().navigate(request)
         }
 
     }

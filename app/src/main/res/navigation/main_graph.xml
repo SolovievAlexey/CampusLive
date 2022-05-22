@@ -35,6 +35,7 @@
         android:label="NewsMenuSheetFragment" />
     <include app:graph="@navigation/discussion_graph" />
     <include app:graph="@navigation/support_graph" />
+    <include app:graph="@navigation/notification_graph" />
 
 
 </navigation>
