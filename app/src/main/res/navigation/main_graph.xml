@@ -28,14 +28,11 @@
     </navigation>
     <include app:graph="@navigation/dialog_graph" />
 
-
     <dialog
         android:id="@+id/newsFeedBottomSheetFragment"
         android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
         android:label="NewsMenuSheetFragment" />
     <include app:graph="@navigation/discussion_graph" />
     <include app:graph="@navigation/support_graph" />
-    <include app:graph="@navigation/notification_graph" />
-
 
 </navigation>

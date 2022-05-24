@@ -7,14 +7,12 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.NavDeepLinkBuilder
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
-import ru.campus.feature_start.R
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
 import ru.campus.feature_start.databinding.FragmentStartBinding
@@ -58,10 +56,16 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
     }
 
     private fun success() = Observer<LoginModel> {
+        val navGraphResourceId = resources.getIdentifier(
+            "main_navigation", "id", requireContext().packageName)
+
+        val options = NavOptions.Builder().setPopUpTo(
+            destinationId = navGraphResourceId, inclusive = true).build()
+
         val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://ru.campus.live/locationFragment".toUri())
             .build()
-        findNavController().navigate(request)
+        findNavController().navigate(request, options)
     }
 
     private fun failure() = Observer<Int> {
