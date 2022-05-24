@@ -94,14 +94,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
                 .build()
             findNavController().navigate(request)
         }
-
-        binding.notification.setOnClickListener {
-            val request = NavDeepLinkRequest.Builder
-                .fromUri("android-app://ru.campus.live/notificationFragment".toUri())
-                .build()
-            findNavController().navigate(request)
-        }
-
     }
 
     private fun initRecyclerView() {
@@ -128,8 +120,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
     private fun statusLiveData() = Observer<StatusModel> { model ->
         binding.location.text = model.location
         binding.status.text = "${model.views} views • karma ${model.karma}"
-        binding.notificationCount.text = model.notification.toString()
-        binding.notificationCount.isVisible = model.notification != 0
     }
 
     private fun complaintLiveData() = Observer<FeedModel> { item ->
