@@ -7,6 +7,7 @@ import ru.campus.core.data.UserDataStore
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionPostModel
 import ru.campus.feature_discussion.data.repository.DiscussionRepository
+import ru.campus.feature_discussion.data.repository.ErrorDataSource
 import ru.campus.file_upload.data.UploadMediaRepository
 import ru.campus.file_upload.data.UploadResultModel
 import javax.inject.Inject
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class CreateCommentInteractor @Inject constructor(
     private val repository: DiscussionRepository,
     private val uploadMediaRepository: UploadMediaRepository,
-    private val userDataStore: UserDataStore
+    private val userDataStore: UserDataStore,
+    private val errorDataSource: ErrorDataSource
 ) {
 
     fun post(params: DiscussionPostModel): ResponseObject<DiscussionModel> {
@@ -72,6 +74,10 @@ class CreateCommentInteractor @Inject constructor(
         val response = ArrayList<UploadMediaModel>()
         response.add(item)
         return response
+    }
+
+    fun error(statusCode: Int): String {
+        return errorDataSource.get(statusCode = statusCode)
     }
 
 }

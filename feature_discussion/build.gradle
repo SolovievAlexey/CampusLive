@@ -58,6 +58,7 @@ dependencies {
 
     implementation project(":core")
     implementation project(":file_upload")
+    implementation project(":feature_dialog")
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

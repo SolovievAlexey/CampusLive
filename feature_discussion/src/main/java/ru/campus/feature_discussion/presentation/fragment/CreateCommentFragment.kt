@@ -16,6 +16,7 @@ import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.Keyboard
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_dialog.CustomDialogFragment
 import ru.campus.feature_discussion.data.model.DiscussionModel
 import ru.campus.feature_discussion.data.model.DiscussionPostModel
 import ru.campus.feature_discussion.di.DaggerDiscussionComponent
@@ -118,6 +119,11 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
 
     private fun failureLiveData() = Observer<String> { error ->
         isProgressBarVisible(visible = false)
+        val dialog = CustomDialogFragment()
+        val bundle = Bundle()
+        bundle.putString("message", error)
+        dialog.arguments = bundle
+        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun mediaListLiveData() = Observer<ArrayList<UploadMediaModel>> { model ->

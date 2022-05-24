@@ -50,10 +50,11 @@ class CreateCommentViewModel @Inject constructor(
                         mutableSuccessLiveData.value = result.data
                     }
                 }
+
                 is ResponseObject.Failure -> {
+                    val error = interactor.error(statusCode = result.code)
                     withContext(dispatchers.main) {
-                        mutableFailureLiveData.value =
-                            "Произошла какая-то ошибка! Необходимо повторить попытку ещё раз"
+                        mutableFailureLiveData.value = error
                     }
                 }
             }
