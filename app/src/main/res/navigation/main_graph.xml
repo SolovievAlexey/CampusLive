@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/navigation">
+
+    <include app:graph="@navigation/location_graph" />
+    <include app:graph="@navigation/navigation_start_graph" />
+    <include app:graph="@navigation/feed_graph" />
+    <include app:graph="@navigation/gallery_graph" />
+
+
+    <navigation android:id="@+id/navigation"
+        app:startDestination="@id/feedFragment">
+        <fragment
+            android:id="@+id/feedFragment"
+            android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
+            android:label="FeedFragment">
+
+            <action
+                android:id="@+id/action_feedFragment_to_navigation_start_graph"
+                app:destination="@id/navigation_start_graph" />
+            <action
+                android:id="@+id/action_feedFragment_to_feed_graph"
+                app:destination="@id/feed_graph" />
+
+        </fragment>
+    </navigation>
+
+
+</navigation>

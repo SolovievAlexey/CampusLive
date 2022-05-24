@@ -69,6 +69,19 @@ dependencies {
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
+    def emoji2_version = "1.2.0-alpha04"
+    implementation "androidx.emoji2:emoji2:$emoji2_version"
+    implementation "androidx.emoji2:emoji2-views:$emoji2_version"
+    implementation "androidx.emoji2:emoji2-views-helper:$emoji2_version"
+
+    implementation project(":core")
+    implementation project(":feature_start")
+    implementation project(":feature_location")
+    implementation project(":feature_feed")
+    implementation project(":feature_notification")
+    implementation project(":feature_menu")
+    implementation project(":feature_gallery")
+
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'

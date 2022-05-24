@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_start">16dp</dimen>
+    <dimen name="padding_end">16dp</dimen>
+    <dimen name="padding_top">12dp</dimen>
+    <dimen name="padding_bottom">12dp</dimen>
+    <dimen name="big_padding">20dp</dimen>
+    <dimen name="textSizeMini">14sp</dimen>
+    <dimen name="textSizeMedium">18sp</dimen>
+    <dimen name="progressBarMini">26dp</dimen>
+    <dimen name="elevation">0dp</dimen>
+</resources>

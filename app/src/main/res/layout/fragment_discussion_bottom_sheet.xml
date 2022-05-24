@@ -27,7 +27,7 @@
             android:layout_marginLeft="16dp"
             android:textSize="12sp"
             android:textColor="#53646e"
-            android:background="@drawable/bg_publication"
+            android:background="@drawable/bg_message"
             android:text="id524"
             android:fontFamily="@font/montserrat"
             app:fontFamily="@font/montserrat"/>

@@ -14,3 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "CampusLive"
 include ':app'
+include ':feature_start'
+include ':core'
+include ':feature_location'
+include ':feature_feed'
+include ':feature_notification'
+include ':feature_menu'
+include ':feature_gallery'
+include ':file_upload'

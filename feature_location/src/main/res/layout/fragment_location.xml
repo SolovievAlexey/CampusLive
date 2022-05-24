@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="ru.campus.feature_location.presentation.LocationFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="@dimen/elevation">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="56dp"
+                android:background="@drawable/bg_editor"
+                android:fontFamily="@font/roboto_regular"
+                android:hint="@string/location_hint"
+                android:importantForAutofill="no"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingStart="@dimen/padding_start"
+                android:paddingTop="@dimen/padding_top"
+                android:paddingEnd="@dimen/padding_end"
+                android:paddingBottom="@dimen/padding_bottom"
+                app:fontFamily="@font/roboto_regular"
+                tools:ignore="LabelFor" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="@dimen/progressBarMini"
+                android:layout_height="@dimen/progressBarMini"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginEnd="@dimen/padding_end"
+                tools:ignore="RtlHardcoded" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

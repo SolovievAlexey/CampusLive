@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gallery">Фотографии</string>
+    <string name="permission_data">Разрешите доступ к памяти\nтелефона, для отображение ваших\nфотографий и загрузки\nих на сервер</string>
+    <string name="request_permission">Запросить разрешение</string>
+</resources>

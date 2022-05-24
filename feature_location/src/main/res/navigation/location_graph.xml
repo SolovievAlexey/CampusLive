@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/location_graph"
+    app:startDestination="@id/locationFragment">
+
+    <fragment
+        android:id="@+id/locationFragment"
+        android:name="ru.campus.feature_location.presentation.LocationFragment"
+        android:label="fragment_location"
+        tools:layout="@layout/fragment_location" >
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/locationFragment" />
+
+    </fragment>
+
+</navigation>

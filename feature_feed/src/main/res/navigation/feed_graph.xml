@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feed_graph"
+    app:startDestination="@id/feedFragment">
+
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" >
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/feedFragment" />
+
+        <action
+            android:id="@+id/action_feedFragment_to_addMessageFragment"
+            app:destination="@id/addMessageFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addMessageFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.AddMessageFragment"
+        android:label="fragment_add_message"
+        tools:layout="@layout/fragment_add_message">
+
+        <deepLink
+            app:uri="android-app://ru.campus.live/addMessageFragment" />
+
+    </fragment>
+
+</navigation>

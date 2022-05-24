@@ -1,0 +1,23 @@
+<resources>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="none_comments">Нет комментариев</string>
+    <string name="s_comment_one">Комментариев</string>
+    <string name="s_comments_two">Комментарий</string>
+    <string name="s_comments_3">Комментария</string>
+    <string name="s_comments_4">Комментария</string>
+    <string name="s_comments_5">Комментария</string>
+    <string name="ribbon_none">Будь первым, кто опубликуе запись\nна странице данного учебного\nзаведения</string>
+
+    <string name="complaint">Пожаловаться</string>
+    <string name="complaint_description">В случае если пользователь нарушил правила, он будет заблокирован</string>
+    <string name="comments_description">Вступите в дискуссию с другими пользователями сообщества</string>
+    <string name="reply">Ответить</string>
+    <string name="reply_description">Ваш комментарий будет расположен под комментарием на который вы ответили</string>
+    <string name="create_publication_hint">Что у Вас нового?</string>
+
+    <string name="new_publication">Новая запись</string>
+    <string name="send">Отправить</string>
+
+</resources>
