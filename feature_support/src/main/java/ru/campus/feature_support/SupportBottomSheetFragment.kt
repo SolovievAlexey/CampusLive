@@ -14,7 +14,8 @@ import ru.campus.feature_support.databinding.FragmentSupportBottomSheetBinding
  * @date 22.05.2022 20:18
  */
 
-class SupportBottomSheetFragment: BaseBottomSheetDialogFragment<FragmentSupportBottomSheetBinding>() {
+class SupportBottomSheetFragment :
+    BaseBottomSheetDialogFragment<FragmentSupportBottomSheetBinding>() {
 
     override fun getViewBinding() = FragmentSupportBottomSheetBinding.inflate(layoutInflater)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -22,15 +23,9 @@ class SupportBottomSheetFragment: BaseBottomSheetDialogFragment<FragmentSupportB
         binding.email.setOnClickListener {
             val testIntent = Intent(Intent.ACTION_VIEW)
             val data =
-                Uri.parse("mailto:?subject=" + "Support message"+ "&to=" + "soloviev@internet.ru")
+                Uri.parse("mailto:?subject=" + "Support message" + "&to=" + "soloviev@internet.ru")
             testIntent.data = data
             startActivity(testIntent)
-            dismiss()
-        }
-
-        binding.regulations.setOnClickListener {
-            val intent = Intent(requireContext(), RulesActivity::class.java)
-            startActivity(intent)
             dismiss()
         }
     }

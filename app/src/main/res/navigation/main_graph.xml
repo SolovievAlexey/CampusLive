@@ -8,7 +8,9 @@
     <include app:graph="@navigation/navigation_start_graph" />
     <include app:graph="@navigation/feed_graph" />
     <include app:graph="@navigation/gallery_graph" />
-
+    <include app:graph="@navigation/dialog_graph" />
+    <include app:graph="@navigation/discussion_graph" />
+    <include app:graph="@navigation/support_graph" />
 
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/feedFragment">
@@ -19,20 +21,21 @@
 
             <action
                 android:id="@+id/action_feedFragment_to_navigation_start_graph"
-                app:destination="@id/navigation_start_graph" />
+                app:destination="@id/navigation_start_graph"
+                app:popUpTo="@id/main_navigation"
+                app:popUpToInclusive="true"/>
+
             <action
                 android:id="@+id/action_feedFragment_to_feed_graph"
                 app:destination="@id/feed_graph" />
 
         </fragment>
+
     </navigation>
-    <include app:graph="@navigation/dialog_graph" />
 
     <dialog
         android:id="@+id/newsFeedBottomSheetFragment"
         android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
         android:label="NewsMenuSheetFragment" />
-    <include app:graph="@navigation/discussion_graph" />
-    <include app:graph="@navigation/support_graph" />
 
 </navigation>

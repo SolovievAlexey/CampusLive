@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDepsProvider
-import ru.campus.core.presentation.Keyboard
 import ru.campus.live.R
 import ru.campus.live.databinding.ActivityMainBinding
 import ru.campus.live.di.DaggerMainComponent
