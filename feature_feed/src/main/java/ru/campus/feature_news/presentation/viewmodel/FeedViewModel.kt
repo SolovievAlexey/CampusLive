@@ -155,6 +155,7 @@ class FeedViewModel @Inject constructor(
                 withContext(dispatchers.main) {
                     listLiveData.value = response
                 }
+                get()
             }
         }
     }
