@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
+import ru.campus.feature_dialog.CustomDialogFragment
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
 import ru.campus.feature_start.databinding.FragmentStartBinding
@@ -68,9 +69,13 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         findNavController().navigate(request, options)
     }
 
-    private fun failure() = Observer<Int> {
+    private fun failure() = Observer<String> { error ->
         isVisibleProgressBar(false)
-        Log.d("MyLog", "Произошла ошибка!")
+        val dialog = CustomDialogFragment()
+        val bundle = Bundle()
+        bundle.putString("message", error)
+        dialog.arguments = bundle
+        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun isVisibleProgressBar(visible: Boolean) {

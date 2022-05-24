@@ -9,6 +9,6 @@
     <string name="start_title_four">Вступай в анонимные дискуссии с другими студентами</string>
     <string name="start_message_four">Делись анонимно своим мнением с другими студентами учебного заведения</string>
     <string name="start">Выбрать учебное заведение</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="start_error_connection">Не удалось подключиться к серверу, проверьте подключение к интернету</string>
+    <string name="start_error_unknown">Произошла неизвестная ошибка, повторите попытку ещё раз</string>
 </resources>

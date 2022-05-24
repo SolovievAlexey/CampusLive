@@ -1,6 +1,5 @@
 package ru.campus.feature_start.presentation
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -22,7 +21,7 @@ import javax.inject.Inject
  */
 
 class StartViewModel @Inject constructor(
-    private val interactor: StartInteractor,
+    private val interactor: StartInteractor
 ) : ViewModel() {
 
     private val listLiveData = MutableLiveData<ArrayList<StartModel>>()
@@ -33,8 +32,8 @@ class StartViewModel @Inject constructor(
     val success: LiveData<LoginModel>
         get() = successLiveData
 
-    private val failureLiveData = SingleLiveEvent<Int>()
-    val failure: LiveData<Int>
+    private val failureLiveData = SingleLiveEvent<String>()
+    val failure: LiveData<String>
         get() = failureLiveData
 
     fun start() {
@@ -46,7 +45,6 @@ class StartViewModel @Inject constructor(
         }
     }
 
-    @SuppressLint("NullSafeMutableLiveData")
     fun login() {
         viewModelScope.launch(Dispatchers.IO) {
             when (val result = interactor.login()) {
@@ -55,9 +53,11 @@ class StartViewModel @Inject constructor(
                         successLiveData.value = result.data
                     }
                 }
+
                 is ResponseObject.Failure -> {
+                    val error = interactor.error(statusCode = result.code)
                     withContext(Dispatchers.Main) {
-                        failureLiveData.value = result.code
+                        failureLiveData.value = error
                     }
                 }
             }
