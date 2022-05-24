@@ -1,7 +1,6 @@
 package ru.campus.feature_discussion.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -45,7 +44,7 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
 
     private val uploadMediaAdapterCallback = object : MyOnClick<UploadMediaModel> {
         override fun item(view: View, item: UploadMediaModel) {
-            Log.d("MyLog", "Необходимо удалить изображение!")
+            viewModel.uploadListClear()
         }
     }
 
@@ -84,13 +83,10 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
     }
 
     private fun initToolbar() {
-        binding.toolBar.title = if(parent == 0)
-            getString(R.string.new_comment)
-        else
-            getString(R.string.comment_reply)
-
+        binding.toolBar.title =
+            if (parent == 0) getString(R.string.new_comment) else getString(R.string.comment_reply)
         binding.toolBar.inflateMenu(R.menu.send)
-        binding.toolBar.setNavigationIcon(R.drawable.ic_action_close)
+        binding.toolBar.setNavigationIcon(R.drawable.outline_arrow_back_black_24)
         binding.toolBar.setOnClickListener {
             Keyboard(activity = requireActivity()).hide()
             findNavController().popBackStack()
@@ -125,10 +121,12 @@ class CreateCommentFragment : BaseFragment<FragmentCreateCommentBinding>() {
     }
 
     private fun mediaListLiveData() = Observer<ArrayList<UploadMediaModel>> { model ->
-        if (model[0].upload)
-            binding.toolBar.menu.clear()
-        else
-            binding.toolBar.inflateMenu(R.menu.send)
+        try {
+            if (model[0].upload)
+                binding.toolBar.menu.clear()
+            else
+                binding.toolBar.inflateMenu(R.menu.send)
+        } catch (e: Exception) { }
         uploadMediaAdapter.setData(model)
     }
 

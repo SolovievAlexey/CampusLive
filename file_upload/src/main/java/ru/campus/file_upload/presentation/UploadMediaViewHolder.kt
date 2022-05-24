@@ -1,5 +1,6 @@
 package ru.campus.file_upload.presentation
 
+import android.graphics.Color
 import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -34,6 +35,8 @@ class UploadMediaViewHolder(
             val animShake: Animation = AnimationUtils.loadAnimation(context, R.anim.shaking)
             itemBinding.imageView.startAnimation(animShake)
         }
+
+        itemBinding.close.setColorFilter(Color.WHITE)
         itemBinding.close.setOnClickListener {
             myOnClick.item(itemBinding.close, model)
         }

@@ -1,6 +1,5 @@
 package ru.campus.feature_discussion.presentation.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -25,7 +24,7 @@ import javax.inject.Inject
 
 class CreateCommentViewModel @Inject constructor(
     private val interactor: CreateCommentInteractor,
-    private val dispatchers: CoroutineDispatchers,
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     private val mutableSuccessLiveData = SingleLiveEvent<DiscussionModel>()
@@ -78,6 +77,10 @@ class CreateCommentViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun uploadListClear() {
+        mutableMediaListLiveData.value = ArrayList()
     }
 
 }
