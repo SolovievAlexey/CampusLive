@@ -24,9 +24,6 @@ private const val CHANNEL_ID = 8473943.toString()
 
 class MessageService : FirebaseMessagingService() {
 
-    private val sPref: SharedPreferences =
-        applicationContext.getSharedPreferences("AppDB", Context.MODE_PRIVATE)
-
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -42,7 +39,7 @@ class MessageService : FirebaseMessagingService() {
             .setSmallIcon(R.mipmap.ic_launcher_round)
             .setContentTitle(message.data["title"])
             .setContentText(message.data["body"])
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
 
@@ -53,11 +50,15 @@ class MessageService : FirebaseMessagingService() {
 
     override fun onNewToken(token: String) {
         super.onNewToken(token)
+        val sPref: SharedPreferences =
+            getSharedPreferences("AppDB", Context.MODE_PRIVATE)
         sPref.edit().putString("firebase_token", token).apply()
     }
 
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val sPref: SharedPreferences =
+                getSharedPreferences("AppDB", Context.MODE_PRIVATE)
             val createNotificationChannel = sPref.getBoolean("createNotificationChannel", false)
             if (createNotificationChannel) return
             sPref.edit().putBoolean("createNotificationChannel", true).apply()
