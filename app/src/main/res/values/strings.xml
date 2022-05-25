@@ -60,4 +60,7 @@
     <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
     <string name="error_500">Произошла неизвестная ошибка, повторите попытку ещё раз</string>
 
+    <string name="channel_name">Важные уведомления</string>
+    <string name="channel_description">Важные уведомления, чтобы быть в курсе последних событий в учебном заведение</string>
+
 </resources>
