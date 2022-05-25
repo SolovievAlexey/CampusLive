@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation">
+    app:startDestination="@id/startFragment2">
 
     <include app:graph="@navigation/location_graph" />
     <include app:graph="@navigation/navigation_start_graph" />
@@ -37,5 +37,9 @@
         android:id="@+id/newsFeedBottomSheetFragment"
         android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
         android:label="NewsMenuSheetFragment" />
+    <fragment
+        android:id="@+id/startFragment2"
+        android:name="ru.campus.feature_start.presentation.StartFragment"
+        android:label="StartFragment" />
 
 </navigation>

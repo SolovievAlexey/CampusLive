@@ -2,6 +2,7 @@ package ru.campus.feature_news.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import ru.campus.core.data.CloudDataSource
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
@@ -17,7 +18,7 @@ import javax.inject.Inject
  */
 
 class StatusDataSource @Inject constructor(
-    private val context: Context,
+    context: Context,
     private val userDataStore: UserDataStore,
     private val apiService: APIService
 ) {
@@ -48,12 +49,13 @@ class StatusDataSource @Inject constructor(
             apiService.status(token = userDataStore.token(), location = userDataStore.location())
         val result = CloudDataSource<UserStatusModel>().execute(call = call)
         if (result is ResponseObject.Success) {
+            Log.d("MyLog", "Карма пользователя = "+result.data.karma)
             val karmaEmoji = if (result.data.karma > 0.7) {
                 "\uD83D\uDD25"
             } else if (result.data.karma > 0.5) {
                 "\uD83D\uDC4D"
-            } else if (result.data.karma > 0.3) {
-                "\uD83D\uDC4D"
+            } else if (result.data.karma > 0.2) {
+                "\uD83D\uDC4E"
             } else {
                 "\uD83D\uDCA9"
             }
@@ -64,7 +66,6 @@ class StatusDataSource @Inject constructor(
                 views = result.data.views,
                 karma = karmaEmoji
             )
-
         }
 
         return read()
