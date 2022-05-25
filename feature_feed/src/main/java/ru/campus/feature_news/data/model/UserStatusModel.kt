@@ -5,11 +5,10 @@ import com.google.gson.annotations.SerializedName
 /**
  * @author Soloviev Alexey
  * @contacts soloviev@internet.ru
- * @date 21.05.2022 1:48
+ * @date 25.05.2022 20:02
  */
 
-data class StatusModel(
-    val location: String? = null,
-    val views: Int,
-    val karma: String
+data class UserStatusModel(
+    @SerializedName("views") val views: Int,
+    @SerializedName("karma") val karma: Float
 )

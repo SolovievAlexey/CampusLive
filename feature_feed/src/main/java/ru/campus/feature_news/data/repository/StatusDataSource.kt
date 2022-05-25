@@ -2,8 +2,12 @@ package ru.campus.feature_news.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
+import ru.campus.core.data.CloudDataSource
+import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
+import ru.campus.feature_news.data.APIService
 import ru.campus.feature_news.data.model.StatusModel
+import ru.campus.feature_news.data.model.UserStatusModel
 import javax.inject.Inject
 
 /**
@@ -14,7 +18,8 @@ import javax.inject.Inject
 
 class StatusDataSource @Inject constructor(
     private val context: Context,
-    private val userDataStore: UserDataStore
+    private val userDataStore: UserDataStore,
+    private val apiService: APIService
 ) {
 
     private val sPref: SharedPreferences =
@@ -23,12 +28,10 @@ class StatusDataSource @Inject constructor(
     fun read(): StatusModel {
         val views = sPref.getInt("LOCATION_VIEWS", 0)
         val karmaEmoji = sPref.getString("KARMA_EMOJI", "\uD83D\uDD25") ?: "\uD83D\uDD25"
-        val notification = sPref.getInt("NOTIFICATION_COUNT", 0)
         return StatusModel(
             location = userDataStore.locationName(),
             views = views,
-            karma = karmaEmoji,
-            notification = notification
+            karma = karmaEmoji
         )
     }
 
@@ -36,21 +39,35 @@ class StatusDataSource @Inject constructor(
         with(sPref.edit()) {
             putInt("LOCATION_VIEWS", params.views)
             putString("KARMA_EMOJI", params.karma)
-            putInt("NOTIFICATION_COUNT", params.notification)
             apply()
         }
     }
 
     fun refresh(): StatusModel {
-        val location = userDataStore.locationName()
-        val karmaEmoji = "\uD83D\uDD25"
-        val notification = 26
-        return StatusModel(
-            location = location,
-            views = 4548,
-            karma = karmaEmoji,
-            notification = notification
-        )
+        val call =
+            apiService.status(token = userDataStore.token(), location = userDataStore.location())
+        val result = CloudDataSource<UserStatusModel>().execute(call = call)
+        if (result is ResponseObject.Success) {
+            val karmaEmoji = if (result.data.karma > 0.7) {
+                "\uD83D\uDD25"
+            } else if (result.data.karma > 0.5) {
+                "\uD83D\uDC4D"
+            } else if (result.data.karma > 0.3) {
+                "\uD83D\uDC4D"
+            } else {
+                "\uD83D\uDCA9"
+            }
+
+            val location = userDataStore.locationName()
+            return StatusModel(
+                location = location,
+                views = result.data.views,
+                karma = karmaEmoji
+            )
+
+        }
+
+        return read()
     }
 
 }
