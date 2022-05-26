@@ -12,6 +12,7 @@ import ru.campus.core.presentation.ViewModelFactory
 
 
 @Component(modules = [StartModule::class], dependencies = [AppDeps::class])
+@StartScope
 interface StartComponent {
 
     fun viewModelsFactory(): ViewModelFactory
