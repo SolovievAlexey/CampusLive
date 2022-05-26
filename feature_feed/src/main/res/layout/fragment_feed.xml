@@ -118,6 +118,7 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="16dp"
             android:contentDescription="@null"
+            android:backgroundTint="#017bac"
             android:src="@drawable/outline_add_white_24"
             app:tint="@android:color/white"
             tools:ignore="RtlHardcoded" />
