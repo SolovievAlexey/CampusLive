@@ -5,6 +5,7 @@ import ru.campus.core.data.UserDataStore
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
 import ru.campus.live.presentation.MainActivity
+import javax.inject.Singleton
 
 /**
  * @author Soloviev Alexey
@@ -13,10 +14,9 @@ import ru.campus.live.presentation.MainActivity
  */
 
 @Component(modules = [MainModule::class], dependencies = [AppDeps::class])
+@Singleton
 interface MainComponent {
 
-    fun viewModelsFactory(): ViewModelFactory
-    fun userDataStore(): UserDataStore
     fun inject(activity: MainActivity)
 
     @Component.Builder

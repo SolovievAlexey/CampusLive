@@ -27,16 +27,19 @@ import ru.campus.file_upload.domain.PreparationMediaUseCase
 class DiscussionModule {
 
     @Provides
+    @DiscussionScope
     fun provideAPIService(retrofit: Retrofit): APIService {
         return retrofit.create(APIService::class.java)
     }
 
     @Provides
+    @DiscussionScope
     fun provideUploadMediaServices(retrofit: Retrofit): UploadMediaService {
         return retrofit.create(UploadMediaService::class.java)
     }
 
     @Provides
+    @DiscussionScope
     fun provideUploadMediaRepository(
         uploadMediaService: UploadMediaService,
         preparationMediaUseCase: PreparationMediaUseCase
@@ -50,24 +53,20 @@ class DiscussionModule {
 interface DiscussionAbstractModule {
 
     @Binds
+    @DiscussionScope
     fun bindDiscussionRepository(baseDiscussionRepository: BaseDiscussionRepository): DiscussionRepository
 
     @Binds
+    @DiscussionScope
     fun bindUploadMediaRepository(baseUploadMediaRepository: BaseUploadMediaRepository): UploadMediaRepository
 
     @Binds
+    @DiscussionScope
     fun bindUserAvatarStore(baseDataAvatarStore: BaseDataAvatarStore): UserAvatarStore
 
     @Binds
+    @DiscussionScope
     fun bindErrorMessageHandler(errorDataSource: ErrorDataSource): ErrorMessageHandler
-
-    /*
-    @Binds
-    @IntoMap
-    @ViewModelKey(DiscussionViewModel::class)
-    fun discussionViewModel(viewModel: DiscussionViewModel): ViewModel
-
-     */
 
     @Binds
     @IntoMap

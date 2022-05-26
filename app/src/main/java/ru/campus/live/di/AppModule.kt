@@ -20,6 +20,7 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
+    @Singleton
     fun provideAPIService(domainDataStore: DomainDataStore): Retrofit {
         return Retrofit.Builder()
             .baseUrl(domainDataStore.get()+"/")
@@ -27,8 +28,8 @@ class AppModule {
             .build()
     }
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideCoroutineDispatchers(): BaseCoroutineDispatchers {
         return BaseCoroutineDispatchers()
     }
@@ -39,15 +40,19 @@ class AppModule {
 interface AppBindModule {
 
     @Binds
+    @Singleton
     fun bindDispatchers(dispatchers: BaseCoroutineDispatchers): CoroutineDispatchers
 
     @Binds
+    @Singleton
     fun bindUserDataStore(baseUserDataStore: BaseUserDataStore): UserDataStore
 
     @Binds
+    @Singleton
     fun bindDomainDataStore(domainDataStore: BaseDomainDataStore): DomainDataStore
 
     @Binds
+    @Singleton
     fun bindResourceManager(baseResourceManager: BaseResourceManager): ResourceManager
 
 }

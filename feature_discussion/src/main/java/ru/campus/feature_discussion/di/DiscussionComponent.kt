@@ -13,6 +13,7 @@ import ru.campus.feature_discussion.presentation.fragment.DiscussionFragment
  */
 
 @Component(modules = [DiscussionModule::class], dependencies = [AppDeps::class])
+@DiscussionScope
 interface DiscussionComponent {
 
     fun viewModelsFactory(): ViewModelFactory
@@ -26,3 +27,4 @@ interface DiscussionComponent {
     }
 
 }
+
