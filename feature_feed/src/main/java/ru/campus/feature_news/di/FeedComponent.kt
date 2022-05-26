@@ -4,6 +4,7 @@ import dagger.Component
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
 import ru.campus.feature_news.presentation.fragment.FeedFragment
+import javax.inject.Scope
 
 /**
  * @author Soloviev Alexey
@@ -12,6 +13,7 @@ import ru.campus.feature_news.presentation.fragment.FeedFragment
  */
 
 @Component(modules = [FeedModule::class], dependencies = [AppDeps::class])
+@FeedScope
 interface FeedComponent {
 
     fun viewModelsFactory(): ViewModelFactory

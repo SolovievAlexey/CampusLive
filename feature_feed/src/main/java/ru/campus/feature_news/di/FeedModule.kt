@@ -36,16 +36,19 @@ import ru.campus.file_upload.domain.PreparationMediaUseCase
 class FeedModule {
 
     @Provides
+    @FeedScope
     fun provideAPIService(retrofit: Retrofit): APIService {
         return retrofit.create(APIService::class.java)
     }
 
     @Provides
+    @FeedScope
     fun provideUploadMediaServices(retrofit: Retrofit): UploadMediaService {
         return retrofit.create(UploadMediaService::class.java)
     }
 
     @Provides
+    @FeedScope
     fun provideBaseUploadMediaRepository(
         uploadMediaService: UploadMediaService,
         preparationMediaUseCase: PreparationMediaUseCase,
@@ -54,11 +57,13 @@ class FeedModule {
     }
 
     @Provides
+    @FeedScope
     fun providePreparationMediaUseCase(context: Context): PreparationMediaUseCase {
         return PreparationMediaUseCase(context)
     }
 
     @Provides
+    @FeedScope
     fun provideAppDatabase(context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
@@ -73,18 +78,23 @@ class FeedModule {
 interface FeedAbstractModule {
 
     @Binds
+    @FeedScope
     fun bindNewsRepository(baseNewsRepository: BaseNewsRepository): NewsRepository
 
     @Binds
+    @FeedScope
     fun bindUploadMediaRepository(baseUploadMediaRepository: BaseUploadMediaRepository): UploadMediaRepository
 
     @Binds
+    @FeedScope
     fun bindErrorHandler(baseErrorMessageHandler: BaseErrorMessageHandler): ErrorMessageHandler
 
     @Binds
+    @FeedScope
     fun bindCashDataSource(baseCashDataSource: BaseCashDataSource): CashDataSource
 
     @Binds
+    @FeedScope
     fun bindUserStatusRepository(baseStatusRepository: BaseStatusRepository): StatusRepository
 
     @Binds
