@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import ru.campus.core.data.DomainDataStore
@@ -32,7 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment<FragmentFeedBinding>() {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetChangedListener {
 
     private val component: FeedComponent by lazy {
         DaggerFeedComponent.builder()
@@ -89,6 +90,10 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>() {
                 .build()
             findNavController().navigate(request)
         }
+    }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+        binding.swipeRefreshLayout.isEnabled = verticalOffset == 0
     }
 
     private fun initRecyclerView() {
