@@ -2,6 +2,7 @@ package ru.campus.feature_news.presentation.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -33,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetChangedListener {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetChangedListener {
 
     private val component: FeedComponent by lazy {
         DaggerFeedComponent.builder()
@@ -90,6 +91,21 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetC
                 .build()
             findNavController().navigate(request)
         }
+
+        binding.swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#017bac"))
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            viewModel.get()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.appBarLayout.addOnOffsetChangedListener(this)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.appBarLayout.removeOnOffsetChangedListener(this)
     }
 
     override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
@@ -103,6 +119,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetC
     }
 
     private fun listLiveData() = Observer<ArrayList<FeedModel>> { newModel ->
+        binding.swipeRefreshLayout.isRefreshing = false
         binding.errorMessage.isVisible = false
         adapter.setData(newModel)
     }
