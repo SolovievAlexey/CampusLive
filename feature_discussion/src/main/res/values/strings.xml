@@ -1,0 +1,34 @@
+<resources>
+    <string name="refresh">Обновить</string>
+    <string name="comment_hidden">Комментарий скрыт по решению сообщества</string>
+    <string name="comment_create_hint">Ваш комментарий</string>
+    <string name="send">Отправить</string>
+    <string name="new_comment">Новый комментарий</string>
+    <string name="comment_reply">Ответ</string>
+    <string name="answer">Ответ</string>
+    <string name="update">Обновление…</string>
+
+    <string name="none_comments">Нет комментариев</string>
+    <string name="s_comment_one">Комментариев</string>
+    <string name="s_comments_two">Комментарий</string>
+    <string name="s_comments_3">Комментария</string>
+    <string name="s_comments_4">Комментария</string>
+    <string name="s_comments_5">Комментария</string>
+
+    <string name="error_network_connection">Не удалось установить\nподключение к серверу\nпроверьте подключени\nк сети интернет</string>
+    <string name="error_unknown">Произошла неизвестная ошибка\nповторите попытку еще раз\nили обратитесь к администратору</string>
+    <string name="error_discussion_404">Ещё никто не оставил\nкомментариев к данной\nпубликации</string>
+    <string name="error_401">Токен пользователя устарел, вам необходимо переустановить приложение</string>
+    <string name="error_403">Вы были заблокированны администратором за нарушения правил сообщества</string>
+    <string name="error_wall_405">У вас слишком плохая карма, для публикации новых записей</string>
+    <string name="error_wall_407">Новым пользователям не доступна публикация новых записей</string>
+    <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
+
+    <string name="complaint">Пожаловаться</string>
+    <string name="complaint_description">В случае если пользователь нарушил правила, он будет заблокирован</string>
+    <string name="reply">Ответить</string>
+    <string name="reply_description">Ваш комментарий будет расположен под комментарием на который вы ответили</string>
+
+    <string name="complaint_response">Жалоба отправлена</string>
+    <string name="close">Закрыть</string>
+</resources>

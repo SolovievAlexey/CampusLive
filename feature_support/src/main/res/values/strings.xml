@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu">Меню</string>
+    <string name="complaint">Пожаловаться</string>
+    <string name="complaint_description">В случае если пользователь нарушил правила, он будет заблокирован</string>
+
+    <string name="write">Напиши нам</string>
+    <string name="write_description">Задай вопрос, расскажи о проблемах или предложи идеи для улучшения приложения</string>
+
+</resources>

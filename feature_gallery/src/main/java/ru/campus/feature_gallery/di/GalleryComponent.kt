@@ -3,6 +3,7 @@ package ru.campus.feature_gallery.di
 import dagger.Component
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
+import javax.inject.Scope
 
 /**
  * @author Soloviev Alexey
@@ -11,6 +12,7 @@ import ru.campus.core.presentation.ViewModelFactory
  */
 
 @Component(modules = [GalleryModule::class], dependencies = [AppDeps::class])
+@GalleryScope
 interface GalleryComponent {
 
     fun viewModelsFactory(): ViewModelFactory

@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import ru.campus.core.data.DomainDataStore
 import ru.campus.core.presentation.MyOnClick
 import ru.campus.feature_news.R
-import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.databinding.ItemMessageBinding
 
 /**

@@ -1,11 +1,12 @@
 package ru.campus.feature_news.domain
 
+import ru.campus.core.data.ErrorMessageHandler
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UploadMediaModel
-import ru.campus.feature_news.data.FeedModel
-import ru.campus.feature_news.data.FeedPostModel
-import ru.campus.feature_news.data.NewsRepository
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.FeedPostModel
+import ru.campus.feature_news.data.repository.NewsRepository
 import ru.campus.file_upload.data.UploadMediaRepository
 import ru.campus.file_upload.data.UploadResultModel
 import javax.inject.Inject
@@ -19,6 +20,7 @@ import javax.inject.Inject
 class CreateMessageInteractor @Inject constructor(
     private val repository: NewsRepository,
     private val uploadRepository: UploadMediaRepository,
+    private val errorMessageHandler: ErrorMessageHandler
 ) {
 
     fun post(params: FeedPostModel): ResponseObject<FeedModel> {
@@ -62,6 +64,10 @@ class CreateMessageInteractor @Inject constructor(
         val response = ArrayList<UploadMediaModel>()
         response.add(item)
         return response
+    }
+
+    fun error(statusCode: Int): String {
+        return errorMessageHandler.get(statusCode)
     }
 
 }

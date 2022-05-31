@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="26dp"
+        android:paddingEnd="26dp"
+        android:layout_marginTop="32dp"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:fontFamily="@font/montserrat"
+        app:fontFamily="@font/montserrat"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:layout_marginBottom="6dp"/>
+
+    <Button
+        android:id="@+id/close"
+        style="@style/DialogButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:paddingStart="@dimen/padding_start"
+        android:paddingTop="@dimen/padding_top"
+        android:paddingEnd="@dimen/padding_end"
+        android:paddingBottom="@dimen/padding_bottom"
+        android:text="@string/close"
+        app:fontFamily="@font/roboto_regular"
+        android:layout_marginBottom="32dp"/>
+
+</LinearLayout>

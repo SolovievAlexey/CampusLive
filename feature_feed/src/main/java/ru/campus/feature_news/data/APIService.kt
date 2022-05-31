@@ -4,6 +4,10 @@ import okhttp3.MultipartBody
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+import ru.campus.feature_news.data.model.FeedModel
+import ru.campus.feature_news.data.model.StatusModel
+import ru.campus.feature_news.data.model.UploadResultModel
+import ru.campus.feature_news.data.model.UserStatusModel
 
 /**
  * @author Soloviev Alexey
@@ -37,7 +41,7 @@ interface APIService {
     fun vote(
         @Query("token") token: String,
         @Query("object_id") id: Int,
-        @Query("vote") vote: Int,
+        @Query("vote") vote: Int
     ): Call<ResponseBody>
 
     @GET("api/2.0/complaint")
@@ -45,5 +49,11 @@ interface APIService {
         @Query("object_type") type: Int = 1,
         @Query("object_id") id: Int
     ): Call<ResponseBody>
+
+    @GET("api/2.0/user.status")
+    fun status(
+        @Query("token") token: String,
+        @Query("location") location: Int
+    ): Call<UserStatusModel>
 
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="padding_start">16dp</dimen>
+    <dimen name="padding_end">16dp</dimen>
+    <dimen name="padding_top">12dp</dimen>
+    <dimen name="padding_bottom">12dp</dimen>
+    <dimen name="big_padding">20dp</dimen>
+    <dimen name="start_bottom_navigation_height">90dp</dimen>
+    <dimen name="start_bottom_navigation_margin">40dp</dimen>
+    <dimen name="tabIndicatorHeight">0dp</dimen>
+    <dimen name="progressBar">36dp</dimen>
+    <dimen name="progressBarMini">26dp</dimen>
+    <dimen name="size_presentation_icon">140dp</dimen>
+    <dimen name="textSizeMini">14sp</dimen>
+    <dimen name="textSize">15sp</dimen>
+    <dimen name="textSizeMedium">18sp</dimen>
+    <dimen name="bigTextSize">22sp</dimen>
+    <dimen name="elevation">0dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+</resources>

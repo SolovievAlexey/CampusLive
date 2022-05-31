@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 android {
@@ -74,14 +76,22 @@ dependencies {
     implementation "androidx.emoji2:emoji2-views:$emoji2_version"
     implementation "androidx.emoji2:emoji2-views-helper:$emoji2_version"
 
+    implementation platform('com.google.firebase:firebase-bom:30.0.2')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation "com.google.firebase:firebase-messaging-ktx"
+    implementation 'com.google.firebase:firebase-crashlytics'
+
     implementation project(":core")
     implementation project(":feature_start")
     implementation project(":feature_location")
     implementation project(":feature_feed")
-    implementation project(":feature_notification")
     implementation project(":feature_menu")
     implementation project(":feature_gallery")
+    implementation project(":feature_dialog")
+    implementation project(':feature_discussion')
+    implementation project(":feature_support")
 
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.9.1'
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-core:4.0.0'
     testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'

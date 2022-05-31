@@ -11,13 +11,10 @@
     <string name="start_message_four">Делись анонимно своим мнением с другими студентами учебного заведения</string>
     <string name="start">Выбрать учебное заведение</string>
 
-
     <string name="feed">Новости</string>
     <string name="notification">Уведомления</string>
     <string name="menu">Меню</string>
 
-
-    <string name="error_unknown">Произошла неизвестная ошибка, повторите попытку ещё раз или обратитесь в службу поддержки</string>
     <string name="error_network">Не удалось установить подключение к серверу\nпроверьте подключение к интернету</string>
     <string name="close">Закрыть</string>
     <string name="location_hint">Название или аббревиатура</string>
@@ -43,24 +40,27 @@
 
     <string name="talk">Расскажи о наше приложение своим одногруппникам и сделай соощество более интересным</string>
     <string name="complaint_response">Жалоба отправлена</string>
-    <string name="new_comment">Новый комментарий</string>
     <string name="comment_hidden">Комментарий скрыт по решению сообщества</string>
     <string name="comment_create_hint">Ваш комментарий</string>
     <string name="discussion_none">Комментарии остутсвуют\nоставьте свой комментарий к данной публикации</string>
     <string name="not_publication">Публикации для данного учебного заведения отсутствуют, будте первым, напишите о чем нибудь интересном на странице данного учебного заведения</string>
     <string name="ribbon_none">Будь первым, кто опубликуе запись\nна странице данного учебного\nзаведения</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="falovers">falovers</string>
     <string name="karma">karma</string>
     <string name="title_activity_login">LoginActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="error_network_connection">Не удалось установить\nподключение к серверу\nпроверьте подключени\nк сети интернет</string>
+    <string name="error_unknown">Произошла неизвестная ошибка\nповторите попытку еще раз\nили обратитесь к администратору</string>
+    <string name="error_404">Ещё никто не оставил\nсообщения на странице\nданного учебного заведения</string>
+    <string name="error_401">Токен пользователя устарел, вам необходимо переустановить приложение</string>
+    <string name="error_403">Вы были заблокированны администратором за нарушения правил сообщества</string>
+    <string name="error_wall_405">У вас слишком плохая карма, для публикации новых записей</string>
+    <string name="error_wall_407">Новым пользователям не доступна публикация новых записей</string>
+    <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
+    <string name="error_500">Произошла неизвестная ошибка, повторите попытку ещё раз</string>
+
+    <string name="channel_name">Важные уведомления</string>
+    <string name="channel_description">Важные уведомления, чтобы быть в курсе последних событий в учебном заведение</string>
 
 </resources>

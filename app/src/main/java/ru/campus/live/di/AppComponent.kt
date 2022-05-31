@@ -17,9 +17,8 @@ import javax.inject.Singleton
  * @date 12.05.2022 21:42
  */
 
-
-@Singleton
 @Component(modules = [AppModule::class])
+@Singleton
 interface AppComponent : AppDeps {
 
     override var context: Context

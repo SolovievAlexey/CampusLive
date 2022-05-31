@@ -3,6 +3,7 @@ package ru.campus.feature_start.domain
 import ru.campus.core.data.ResponseObject
 import ru.campus.feature_start.data.model.LoginModel
 import ru.campus.feature_start.data.model.StartModel
+import ru.campus.feature_start.data.repository.ErrorDataSource
 import ru.campus.feature_start.data.repository.StartRepository
 import ru.campus.feature_start.data.repository.UserRepository
 import javax.inject.Inject
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 class BaseStartInteractor @Inject constructor(
     private val startRepository: StartRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val errorDataSource: ErrorDataSource
 ) : StartInteractor {
 
     override fun start(): List<StartModel> {
@@ -27,6 +29,10 @@ class BaseStartInteractor @Inject constructor(
         if (result is ResponseObject.Success)
             userRepository.login(result.data)
         return result
+    }
+
+    override fun error(statusCode: Int): String {
+        return errorDataSource.get(statusCode = statusCode)
     }
 
 }

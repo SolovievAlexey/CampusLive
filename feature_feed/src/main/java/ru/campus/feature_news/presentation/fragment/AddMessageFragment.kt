@@ -1,27 +1,25 @@
 package ru.campus.feature_news.presentation.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ru.campus.core.data.AlertMessageModel
 import ru.campus.core.data.GalleryDataModel
 import ru.campus.core.data.UploadMediaModel
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.Keyboard
 import ru.campus.core.presentation.MyOnClick
+import ru.campus.feature_dialog.CustomDialogFragment
 import ru.campus.feature_news.R
-import ru.campus.feature_news.data.FeedModel
+import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.databinding.FragmentAddMessageBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.presentation.viewmodel.CreateMessageViewModel
@@ -89,27 +87,34 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
 
         binding.toolBar.setNavigationIcon(R.drawable.arrow_back)
         binding.toolBar.setNavigationOnClickListener {
-            Keyboard().hide(requireActivity())
+            Keyboard(activity).hide()
             findNavController().popBackStack()
         }
     }
 
     private fun sendMessageOnServer() {
-        Keyboard().hide(requireActivity())
+        Keyboard(activity).hide()
         val message = binding.editText.text.toString()
         if (message.isEmpty()) return
         isVisibleProgressBar(visible = true)
         viewModel.post(message = message)
     }
 
-    private fun success() = Observer<FeedModel> {
-        Keyboard().hide(requireActivity())
+    private fun success() = Observer<FeedModel> { model ->
+        Keyboard(activity).hide()
+        val bundle = Bundle()
+        bundle.putParcelable("publication", model)
+        requireActivity().supportFragmentManager.setFragmentResult("publication", bundle)
         findNavController().popBackStack()
     }
 
-    private fun failure() = Observer<AlertMessageModel> {
+    private fun failure() = Observer<String> { error ->
         isVisibleProgressBar(visible = false)
-        Log.d("MyLog", "Произошла ошибка! Повторите попытку ещё раз")
+        val dialog = CustomDialogFragment()
+        val bundle = Bundle()
+        bundle.putString("message", error)
+        dialog.arguments = bundle
+        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->

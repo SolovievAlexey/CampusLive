@@ -19,5 +19,18 @@
 
     <string name="new_publication">Новая запись</string>
     <string name="send">Отправить</string>
+    <string name="old_messages_not_available">Доступ к более поздним\nпубликациям на данный\nмомент ограничен</string>
+
+    <string name="complaint_response">Жалоба отправлена</string>
+    <string name="close">Закрыть</string>
+
+    <string name="error_network_connection">Не удалось установить\nподключение к серверу\nпроверьте подключени\nк сети интернет</string>
+    <string name="error_unknown">Произошла неизвестная ошибка\nповторите попытку еще раз\nили обратитесь к администратору</string>
+    <string name="error_404">Ещё никто не оставил\nсообщения на странице\nданного учебного заведения</string>
+    <string name="error_401">Токен пользователя устарел, вам необходимо переустановить приложение</string>
+    <string name="error_403">Вы были заблокированны администратором за нарушения правил сообщества</string>
+    <string name="error_wall_405">У вас слишком плохая карма, для публикации новых записей</string>
+    <string name="error_wall_407">Новым пользователям не доступна публикация новых записей</string>
+    <string name="error_408">Нельзя слишком часто публиковать записи на странице учебного заведения</string>
 
 </resources>

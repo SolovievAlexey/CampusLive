@@ -3,6 +3,7 @@ package ru.campus.feature_location.di
 import dagger.Component
 import ru.campus.core.di.AppDeps
 import ru.campus.core.presentation.ViewModelFactory
+import javax.inject.Scope
 
 /**
  * @author Soloviev Alexey
@@ -11,6 +12,7 @@ import ru.campus.core.presentation.ViewModelFactory
  */
 
 @Component(modules = [LocationModule::class], dependencies = [AppDeps::class])
+@LocationScope
 interface LocationComponent {
 
     fun viewModelsFactory(): ViewModelFactory

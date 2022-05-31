@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.FeedFragment"
         android:label="fragment_feed"
         tools:layout="@layout/fragment_feed" >
 
@@ -19,6 +19,7 @@
             app:destination="@id/addMessageFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/addMessageFragment"
         android:name="ru.campus.feature_news.presentation.fragment.AddMessageFragment"
@@ -29,5 +30,10 @@
             app:uri="android-app://ru.campus.live/addMessageFragment" />
 
     </fragment>
+
+    <dialog
+        android:id="@+id/newsFeedBottomSheetFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
+        android:label="NewsMenuSheetFragment" />
 
 </navigation>

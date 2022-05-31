@@ -8,5 +8,5 @@ import dagger.Module
  * @date 13.05.2022 22:31
  */
 
-@Module(includes = [MainVModule::class])
+@Module
 class MainModule

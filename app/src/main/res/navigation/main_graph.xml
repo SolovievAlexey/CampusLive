@@ -2,30 +2,44 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/navigation">
+    app:startDestination="@id/startFragment2">
 
     <include app:graph="@navigation/location_graph" />
     <include app:graph="@navigation/navigation_start_graph" />
     <include app:graph="@navigation/feed_graph" />
     <include app:graph="@navigation/gallery_graph" />
-
+    <include app:graph="@navigation/dialog_graph" />
+    <include app:graph="@navigation/discussion_graph" />
+    <include app:graph="@navigation/support_graph" />
 
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/feedFragment">
         <fragment
             android:id="@+id/feedFragment"
-            android:name="ru.campus.feature_news.presentation.fragment.NewsFragment"
+            android:name="ru.campus.feature_news.presentation.fragment.FeedFragment"
             android:label="FeedFragment">
 
             <action
                 android:id="@+id/action_feedFragment_to_navigation_start_graph"
-                app:destination="@id/navigation_start_graph" />
+                app:destination="@id/navigation_start_graph"
+                app:popUpTo="@id/main_navigation"
+                app:popUpToInclusive="true"/>
+
             <action
                 android:id="@+id/action_feedFragment_to_feed_graph"
                 app:destination="@id/feed_graph" />
 
         </fragment>
+
     </navigation>
 
+    <dialog
+        android:id="@+id/newsFeedBottomSheetFragment"
+        android:name="ru.campus.feature_news.presentation.fragment.NewsMenuSheetFragment"
+        android:label="NewsMenuSheetFragment" />
+    <fragment
+        android:id="@+id/startFragment2"
+        android:name="ru.campus.feature_start.presentation.StartFragment"
+        android:label="StartFragment" />
 
 </navigation>

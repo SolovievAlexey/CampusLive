@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760788591439",
+    "project_id": "campuslive-75534",
+    "storage_bucket": "campuslive-75534.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760788591439:android:971ee8a210715a1b791b3a",
+        "android_client_info": {
+          "package_name": "ru.campus.live"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760788591439-fv2ic8mo928n1i74f187davs99dm5j7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACbUQk0TW47X1ZQFdcqjhYKb48NsQArd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760788591439-fv2ic8mo928n1i74f187davs99dm5j7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

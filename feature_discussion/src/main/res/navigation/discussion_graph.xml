@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/discussion_graph"
+    app:startDestination="@id/discussionFragment">
+
+    <fragment
+        android:id="@+id/discussionFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.DiscussionFragment"
+        android:label="fragment_discussion"
+        tools:layout="@layout/fragment_discussion">
+
+        <argument
+            android:name="publication"
+            app:argType="string" />
+
+        <deepLink app:uri="android-app://ru.campus.live/discussionFragment/?publication={publication}" />
+
+        <action
+            android:id="@+id/action_discussionFragment_to_createCommentFragment"
+            app:destination="@id/createCommentFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/createCommentFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.CreateCommentFragment"
+        android:label="fragment_create_comment"
+        tools:layout="@layout/fragment_create_comment" />
+    <dialog
+        android:id="@+id/discussionBottomSheetFragment"
+        android:name="ru.campus.feature_discussion.presentation.fragment.DiscussionBottomSheetFragment"
+        android:label="DiscussionBottomSheetFragment" />
+
+</navigation>
