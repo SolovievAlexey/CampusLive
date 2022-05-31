@@ -94,7 +94,7 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetCh
 
         binding.swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#017bac"))
         binding.swipeRefreshLayout.setOnRefreshListener {
-            viewModel.get()
+            viewModel.get(refresh = true)
         }
     }
 

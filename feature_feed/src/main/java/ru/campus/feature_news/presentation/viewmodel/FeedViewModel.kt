@@ -55,7 +55,8 @@ class FeedViewModel @Inject constructor(
         getCash()
     }
 
-    fun get() {
+    fun get(refresh: Boolean = false) {
+        if(refresh) status()
         viewModelScope.launch(dispatchers.io) {
             when (val result = interactor.get(offset = 0)) {
                 is ResponseObject.Success -> {
