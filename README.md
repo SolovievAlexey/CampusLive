@@ -9,5 +9,6 @@
 4. Navigation component
 5. Coroutines
 6. Room
-7. Firebase messaging/crashlytics
-8. Junit/Mockito
+7. Glide
+8. Firebase messaging/crashlytics
+9. Junit/Mockito
