@@ -1,8 +1,8 @@
 Сообщество студентов в пределах одного учебного заведения.
 
-Архитектура: MVVM (Multi-module architecture)
+<b>Архитектура:</b> MVVM (Multi-module architecture)
 
-Технологии:
+<b>Технологии:</b>
 1. Kotlin
 2. Okhttp/Retrofit/GSON
 3. Dagger 2
