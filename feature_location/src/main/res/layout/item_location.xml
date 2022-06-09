@@ -17,7 +17,7 @@
         android:paddingStart="@dimen/padding_start"
         android:paddingTop="@dimen/padding_top"
         android:paddingEnd="@dimen/padding_end"
-        android:paddingBottom="2dp"
+        android:paddingBottom="@dimen/padding_bottom_name"
         android:textColor="@color/black"
         android:textSize="@dimen/textSizeMedium"
         app:fontFamily="@font/roboto_regular" />
@@ -34,8 +34,9 @@
         app:fontFamily="@font/montserrat" />
 
     <View
+        android:id="@+id/separator"
         android:layout_width="match_parent"
-        android:layout_height="0.3dp"
+        android:layout_height="@dimen/separator_height"
         android:background="@color/gray" />
 
 </LinearLayout>
