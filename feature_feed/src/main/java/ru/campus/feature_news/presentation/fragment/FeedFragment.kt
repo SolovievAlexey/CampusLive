@@ -129,6 +129,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetCh
     }
 
     private fun failure() = Observer<String> { error ->
+        if(binding.swipeRefreshLayout.isRefreshing)
+            binding.swipeRefreshLayout.isRefreshing = false
         binding.errorMessage.isVisible = true
         binding.errorMessage.text = error
     }
