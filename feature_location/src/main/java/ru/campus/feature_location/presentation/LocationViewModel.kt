@@ -21,7 +21,7 @@ import javax.inject.Inject
 
 class LocationViewModel @Inject constructor(
     private val interactor: LocationInteractor,
-    private val dispatchers: CoroutineDispatchers,
+    private val dispatchers: CoroutineDispatchers
 ) : ViewModel() {
 
     private val liveData = MutableLiveData<ArrayList<LocationModel>>()

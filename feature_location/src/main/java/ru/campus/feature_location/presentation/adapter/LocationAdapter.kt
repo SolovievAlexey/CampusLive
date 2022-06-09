@@ -15,7 +15,7 @@ import ru.campus.feature_location.databinding.ItemLocationBinding
  */
 
 internal class LocationAdapter(
-    private val myOnClick: MyOnClick<LocationModel>,
+    private val myOnClick: MyOnClick<LocationModel>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val model = ArrayList<LocationModel>()

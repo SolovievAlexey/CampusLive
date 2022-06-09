@@ -11,7 +11,7 @@ import ru.campus.feature_location.data.LocationModel
 
 class LocationDiffUtilCallBack(
     private val oldData: ArrayList<LocationModel>,
-    private val newData: ArrayList<LocationModel>,
+    private val newData: ArrayList<LocationModel>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {

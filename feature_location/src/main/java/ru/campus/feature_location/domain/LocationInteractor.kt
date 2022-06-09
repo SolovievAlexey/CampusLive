@@ -11,12 +11,10 @@ import javax.inject.Inject
  * @date 14.05.2022 17:04
  */
 
-class LocationInteractor @Inject constructor(
-    private val repository: LocationRepository,
-) {
+class LocationInteractor @Inject constructor(private val repository: LocationRepository) {
 
     fun get(name: String?): ResponseObject<ArrayList<LocationModel>> {
-        return repository.get(name)
+        return repository.get(name = name)
     }
 
     fun save(locationModel: LocationModel) {
