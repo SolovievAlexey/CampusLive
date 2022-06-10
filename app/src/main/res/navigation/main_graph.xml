@@ -41,5 +41,6 @@
         android:id="@+id/startFragment2"
         android:name="ru.campus.feature_start.presentation.StartFragment"
         android:label="StartFragment" />
+    <include app:graph="@navigation/media_view_graph" />
 
 </navigation>
