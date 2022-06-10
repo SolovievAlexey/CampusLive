@@ -9,7 +9,7 @@ import ru.campus.feature_location.data.LocationModel
  * @date 14.05.2022 17:45
  */
 
-class LocationDiffUtilCallBack(
+internal class LocationDiffUtilCallBack(
     private val oldData: ArrayList<LocationModel>,
     private val newData: ArrayList<LocationModel>
 ) : DiffUtil.Callback() {

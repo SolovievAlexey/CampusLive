@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#017bac</color>
     <color name="snack_text">#f44336</color>
+
+    <color name="gray">#eeeeee</color>
+    <color name="green">#2e703c</color>
+    <color name="brick">#8a0c0c</color>2e703c
 </resources>

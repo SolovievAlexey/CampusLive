@@ -15,7 +15,7 @@ import ru.campus.feature_start.presentation.adapter.holder.StartViewHolder
  * @date 13.05.2022 20:00
  */
 
-class StartAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class StartAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val model = ArrayList<StartModel>()
 

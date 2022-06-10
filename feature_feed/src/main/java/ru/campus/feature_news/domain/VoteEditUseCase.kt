@@ -1,6 +1,5 @@
 package ru.campus.feature_news.domain
 
-import android.util.Log
 import ru.campus.feature_news.data.model.FeedModel
 import ru.campus.feature_news.data.model.VoteTypeModel
 
@@ -15,9 +14,9 @@ class VoteEditUseCase {
     fun execute(item: FeedModel, vote: Int): FeedModel {
         val rating = item.rating
         val newItem = item.copy()
-        when(VoteTypeModel.values()[item.vote]) {
+        when (VoteTypeModel.values()[item.vote]) {
             VoteTypeModel.UNKNOWN -> {
-                if(VoteTypeModel.values()[vote] == VoteTypeModel.LIKE) {
+                if (VoteTypeModel.values()[vote] == VoteTypeModel.LIKE) {
                     newItem.rating = rating + 1
                     newItem.vote = VoteTypeModel.LIKE.ordinal
                 } else {
@@ -27,7 +26,7 @@ class VoteEditUseCase {
             }
 
             VoteTypeModel.LIKE -> {
-                if(VoteTypeModel.values()[vote] == VoteTypeModel.LIKE) {
+                if (VoteTypeModel.values()[vote] == VoteTypeModel.LIKE) {
                     newItem.rating = rating - 1
                     newItem.vote = VoteTypeModel.UNKNOWN.ordinal
                 } else {
@@ -37,7 +36,7 @@ class VoteEditUseCase {
             }
 
             VoteTypeModel.DISLIKE -> {
-                if(VoteTypeModel.values()[vote] == VoteTypeModel.DISLIKE) {
+                if (VoteTypeModel.values()[vote] == VoteTypeModel.DISLIKE) {
                     newItem.rating = rating + 1
                     newItem.vote = VoteTypeModel.UNKNOWN.ordinal
                 } else {

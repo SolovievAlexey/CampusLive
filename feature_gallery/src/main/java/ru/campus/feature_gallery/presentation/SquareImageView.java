@@ -6,12 +6,6 @@ import android.util.AttributeSet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
 
-/**
- * @author Soloviev Alexey
- * @contacts soloviev@internet.ru
- * @date 15.05.2022 23:18
- */
-
 public class SquareImageView extends AppCompatImageView {
 
     public SquareImageView(@NonNull Context context) {

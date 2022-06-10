@@ -15,7 +15,6 @@ import ru.campus.feature_news.data.model.VoteTypeModel
 import ru.campus.feature_news.databinding.FragmentMenuBottomSheetBinding
 import ru.campus.feature_news.di.DaggerFeedComponent
 import ru.campus.feature_news.di.FeedComponent
-import ru.campus.feature_news.domain.TitleCommentsUseCase
 import ru.campus.feature_news.presentation.viewmodel.FeedViewModel
 
 /**

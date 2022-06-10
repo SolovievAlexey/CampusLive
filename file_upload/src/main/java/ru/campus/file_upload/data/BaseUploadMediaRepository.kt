@@ -22,13 +22,13 @@ class BaseUploadMediaRepository(
 
     override fun upload(params: GalleryDataModel): ResponseObject<UploadResultModel> {
         val myFileUpload: File? = preparation.execute(params.fullPath, params.realOrientation)
-        return if (myFileUpload != null) {
+        if (myFileUpload != null) {
             val reqFile: RequestBody = RequestBody.create(MediaType.parse("image/*"), myFileUpload)
             val body = MultipartBody.Part.createFormData("media", myFileUpload.name, reqFile)
             val call = uploadMediaService.upload(body)
-            CloudDataSource<UploadResultModel>().execute(call)
+            return CloudDataSource<UploadResultModel>().execute(call)
         } else {
-            ResponseObject.Failure(0)
+            return ResponseObject.Failure(0)
         }
     }
 
