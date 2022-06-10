@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.core.graphics.toColorInt
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,12 +50,21 @@ class DiscussionFragment : BaseFragment<FragmentDiscussionBinding>() {
 
     private val myOnClick = object : MyOnClick<DiscussionModel> {
         override fun item(view: View, item: DiscussionModel) {
-            if (item.hidden == 0) {
-                DiscussionBottomSheetFragment().apply {
-                    arguments = Bundle().apply {
-                        putParcelable("item", item)
-                    }
-                }.show((requireActivity().supportFragmentManager), "DiscussionBottomSheetFragment")
+            if(view.id == R.id.container) {
+                if (item.hidden == 0) {
+                    DiscussionBottomSheetFragment().apply {
+                        arguments = Bundle().apply {
+                            putParcelable("item", item)
+                        }
+                    }.show((requireActivity().supportFragmentManager), "DiscussionBottomSheetFragment")
+                }
+
+            } else {
+
+                val request = NavDeepLinkRequest.Builder
+                    .fromUri("android-app://ru.campus.live/mediaViewFragment/?url=${item.attachment?.path}".toUri())
+                    .build()
+                findNavController().navigate(request)
             }
         }
     }
