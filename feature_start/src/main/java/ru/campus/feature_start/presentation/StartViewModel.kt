@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 
 class StartViewModel @Inject constructor(
-    private val interactor: StartInteractor
+    private val interactor: StartInteractor,
 ) : ViewModel() {
 
     private val listLiveData = MutableLiveData<ArrayList<StartModel>>()
