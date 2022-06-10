@@ -34,7 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 
 
-class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetChangedListener {
+class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetChangedListener {
 
     private val component: FeedComponent by lazy {
         DaggerFeedComponent.builder()
@@ -50,8 +50,16 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetCh
 
     private val myOnClick = object : MyOnClick<FeedModel> {
         override fun item(view: View, item: FeedModel) {
-            val bundle = Bundle(1).apply { putParcelable("item", item) }
-            findNavController().navigate(R.id.newsFeedBottomSheetFragment, bundle)
+            if (view.id == R.id.container) {
+                val bundle = Bundle(1).apply { putParcelable("item", item) }
+                findNavController().navigate(R.id.newsFeedBottomSheetFragment, bundle)
+
+            } else {
+                val request = NavDeepLinkRequest.Builder
+                    .fromUri("android-app://ru.campus.live/mediaViewFragment/?url=${item.attachment?.path}".toUri())
+                    .build()
+                findNavController().navigate(request)
+            }
         }
     }
 
@@ -129,6 +137,8 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(),AppBarLayout.OnOffsetCh
     }
 
     private fun failure() = Observer<String> { error ->
+        if (binding.swipeRefreshLayout.isRefreshing)
+            binding.swipeRefreshLayout.isRefreshing = false
         binding.errorMessage.isVisible = true
         binding.errorMessage.text = error
     }

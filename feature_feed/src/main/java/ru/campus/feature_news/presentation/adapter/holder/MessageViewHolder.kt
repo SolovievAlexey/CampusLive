@@ -34,8 +34,13 @@ class MessageViewHolder(
         renderMediaView(model)
         renderVoteView(model)
         renderRatingView(model)
+
         binding.container.setOnClickListener {
             myOnClick.item(binding.container, model)
+        }
+
+        binding.media.setOnClickListener {
+            myOnClick.item(binding.media, model)
         }
     }
 

@@ -39,6 +39,10 @@ class ChildViewHolder(
         itemBinding.container.setOnClickListener {
             myOnClick.item(itemBinding.container, model)
         }
+
+        itemBinding.photo.setOnClickListener {
+            myOnClick.item(itemBinding.photo, model)
+        }
     }
 
     private fun renderMediaView(model: DiscussionModel) {

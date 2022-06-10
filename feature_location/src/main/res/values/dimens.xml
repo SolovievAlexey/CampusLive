@@ -9,4 +9,6 @@
     <dimen name="textSizeMedium">18sp</dimen>
     <dimen name="progressBarMini">26dp</dimen>
     <dimen name="elevation">0dp</dimen>
+    <dimen name="separator_height">0.3dp</dimen>
+    <dimen name="padding_bottom_name">2dp</dimen>
 </resources>

@@ -13,7 +13,7 @@ import ru.campus.feature_location.databinding.ItemLocationBinding
 
 internal class LocationViewHolder(
     private val itemBinding: ItemLocationBinding,
-    private val myOnClick: MyOnClick<LocationModel>,
+    private val myOnClick: MyOnClick<LocationModel>
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
     fun bind(item: LocationModel) {
