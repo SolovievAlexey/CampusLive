@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import com.bumptech.glide.Glide
 import ru.campus.core.data.BaseDomainDataStore
 import ru.campus.core.presentation.BaseFragment
@@ -20,7 +21,7 @@ class MediaViewFragment : BaseFragment<FragmentMediaViewBinding>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        requireActivity().setTheme(R.style.Theme_CampusLiveBlack)
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -31,8 +32,8 @@ class MediaViewFragment : BaseFragment<FragmentMediaViewBinding>() {
     }
 
     override fun onDestroy() {
+        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         super.onDestroy()
-        requireActivity().setTheme(R.style.Theme_CampusLive)
     }
 
 }
