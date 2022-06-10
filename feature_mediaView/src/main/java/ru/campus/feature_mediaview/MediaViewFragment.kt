@@ -1,20 +1,22 @@
 package ru.campus.feature_mediaview
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import com.bumptech.glide.Glide
+import ru.campus.core.data.BaseDomainDataStore
+import ru.campus.core.presentation.BaseFragment
+import ru.campus.feature_mediaview.databinding.FragmentMediaViewBinding
 
 
-class MediaViewFragment : Fragment() {
+class MediaViewFragment : BaseFragment<FragmentMediaViewBinding>() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_media_view, container, false)
+    private val url by lazy { arguments?.getString("url") }
+
+    override fun getViewBinding() = FragmentMediaViewBinding.inflate(layoutInflater)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val domain = BaseDomainDataStore(context = requireContext()).get()
+        Glide.with(requireContext()).load(domain + url).into(binding.image)
     }
 
 }
