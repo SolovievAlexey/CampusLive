@@ -118,21 +118,17 @@ class AddMessageFragment : BaseFragment<FragmentAddMessageBinding>() {
     }
 
     private fun mediaList() = Observer<ArrayList<UploadMediaModel>> { model ->
-        if(model.size != 0) {
-            if(model[0].upload)
-                binding.toolBar.menu.clear()
-            else
-                binding.toolBar.inflateMenu(R.menu.send_menu)
+        if (model.size != 0) {
+            if (model[0].upload) binding.toolBar.menu.clear()
+            else binding.toolBar.inflateMenu(R.menu.send_menu)
         }
         uploadMediaAdapter.setData(model)
     }
 
     private fun isVisibleProgressBar(visible: Boolean) {
         binding.progressBar.isVisible = visible
-        if(visible)
-            binding.toolBar.menu.clear()
-        else
-            binding.toolBar.inflateMenu(R.menu.send_menu)
+        if (visible) binding.toolBar.menu.clear()
+        else binding.toolBar.inflateMenu(R.menu.send_menu)
     }
 
 }

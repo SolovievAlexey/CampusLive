@@ -1,6 +1,5 @@
 package ru.campus.feature_news.presentation.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -24,7 +23,7 @@ import ru.campus.feature_news.presentation.adapter.holder.NotAvailableViewHolder
 class FeedAdapter(
     private val domainDataStore: DomainDataStore,
     private val myOnClick: MyOnClick<FeedModel>
-    ): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val model = ArrayList<FeedModel>()
 
@@ -33,7 +32,7 @@ class FeedAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if(viewType == FeedViewType.PUBLICATION.ordinal) {
+        return if (viewType == FeedViewType.PUBLICATION.ordinal) {
             val itemBinding =
                 ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             MessageViewHolder(itemBinding, myOnClick, domainDataStore)
@@ -45,7 +44,7 @@ class FeedAdapter(
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if(model[position].viewType == FeedViewType.PUBLICATION) {
+        if (model[position].viewType == FeedViewType.PUBLICATION) {
             (holder as MessageViewHolder).bind(model[position])
         } else {
             (holder as NotAvailableViewHolder).bind()
