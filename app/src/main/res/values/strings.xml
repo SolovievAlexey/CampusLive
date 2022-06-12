@@ -63,4 +63,7 @@
     <string name="channel_name">Важные уведомления</string>
     <string name="channel_description">Важные уведомления, чтобы быть в курсе последних событий в учебном заведение</string>
 
+    <string name="notification_title">Новая публикация!</string>
+    <string name="notification_body">На странице вашего учебного заведения была опубликована новая запись.</string>
+
 </resources>
