@@ -31,12 +31,10 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     }
 
     private val viewModel by viewModels<LocationViewModel> { component.viewModelsFactory() }
-
     private val myOnClick = object : MyOnClick<LocationModel> {
         override fun item(view: View, item: LocationModel) {
             binding.progressBar.isVisible = true
-            val topics = "location_"+item.id
-            FirebaseMessaging.getInstance().subscribeToTopic(topics)
+            FirebaseMessaging.getInstance().subscribeToTopic("location_" + item.id)
                 .addOnSuccessListener { viewModel.registration(locationModel = item) }
                 .addOnFailureListener { viewModel.registration(locationModel = item) }
         }
