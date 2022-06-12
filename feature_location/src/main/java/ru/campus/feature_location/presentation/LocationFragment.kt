@@ -1,6 +1,7 @@
 package ru.campus.feature_location.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
