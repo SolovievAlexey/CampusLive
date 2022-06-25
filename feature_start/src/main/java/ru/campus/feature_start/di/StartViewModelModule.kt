@@ -20,6 +20,6 @@ abstract class StartViewModelModule : BaseViewModelModule() {
     @Binds
     @IntoMap
     @ViewModelKey(StartViewModel::class)
-    abstract fun onBoardViewModel(viewModel: StartViewModel): ViewModel
+    abstract fun bindStartViewModel(viewModel: StartViewModel): ViewModel
 
 }
