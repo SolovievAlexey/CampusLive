@@ -9,5 +9,5 @@ import ru.campus.feature_start.data.model.StartModel
  */
 
 interface StartRepository {
-    fun start(): List<StartModel>
+    suspend fun start(): List<StartModel>
 }
