@@ -71,11 +71,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
 
     private fun failure() = Observer<String> { error ->
         isVisibleProgressBar(false)
-        val dialog = CustomDialogFragment()
-        val bundle = Bundle()
-        bundle.putString("message", error)
-        dialog.arguments = bundle
-        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
+        CustomDialogFragment().apply {
+            arguments = Bundle(1).apply {
+                putString("message", error)
+            }
+        }.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun isVisibleProgressBar(visible: Boolean) {
