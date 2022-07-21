@@ -6,4 +6,9 @@
         <item name="android:fontFamily">@font/roboto_medium</item>
     </style>
 
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
 </resources>

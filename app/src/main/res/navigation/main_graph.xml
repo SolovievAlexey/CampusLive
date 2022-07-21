@@ -10,7 +10,6 @@
     <include app:graph="@navigation/gallery_graph" />
     <include app:graph="@navigation/dialog_graph" />
     <include app:graph="@navigation/discussion_graph" />
-    <include app:graph="@navigation/support_graph" />
 
     <navigation android:id="@+id/navigation"
         app:startDestination="@id/feedFragment">

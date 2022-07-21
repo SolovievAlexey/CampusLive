@@ -44,14 +44,14 @@
 
     </LinearLayout>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/media"
         android:layout_width="120dp"
         android:layout_height="160dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="16dp"
-        android:contentDescription="@null" />
+        app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
 
     <TextView
         android:id="@+id/date"
