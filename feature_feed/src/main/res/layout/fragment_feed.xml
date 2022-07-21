@@ -55,33 +55,6 @@
                         android:textSize="13sp"
                         app:fontFamily="@font/montserrat" />
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_marginTop="12dp"
-                        android:orientation="horizontal">
-
-                        <FrameLayout
-                            android:id="@+id/menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="?selectableItemBackgroundBorderless"
-                            tools:ignore="UselessParent">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_round_button"
-                                android:contentDescription="@null"
-                                android:padding="8dp"
-                                android:src="@drawable/ic_action_menu"
-                                tools:ignore="UnusedAttribute" />
-
-                        </FrameLayout>
-
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/errorMessage"
                         android:layout_width="match_parent"

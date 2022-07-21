@@ -93,13 +93,6 @@ class FeedFragment : BaseFragment<FragmentFeedBinding>(), AppBarLayout.OnOffsetC
             findNavController().navigate(request)
         }
 
-        binding.menu.setOnClickListener {
-            val request = NavDeepLinkRequest.Builder
-                .fromUri("android-app://ru.campus.live/supportBottomSheetFragment".toUri())
-                .build()
-            findNavController().navigate(request)
-        }
-
         binding.swipeRefreshLayout.setColorSchemeColors(Color.parseColor("#017bac"))
         binding.swipeRefreshLayout.setOnRefreshListener {
             viewModel.get(refresh = true)
