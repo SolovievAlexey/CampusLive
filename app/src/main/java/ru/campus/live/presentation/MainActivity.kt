@@ -34,12 +34,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
         component.inject(this)
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.mainNavigationHost) as NavHostFragment
         val navController = navHostFragment.navController
 
-        if (userDataSource.token().isNotEmpty() || userDataSource.location() != 0) {
+        if (userDataSource.token().isNotEmpty() && userDataSource.location() != 0) {
             val navGraphResourceId = resources.getIdentifier(
                 "main_navigation", "id", packageName)
             val options = NavOptions.Builder().setPopUpTo(

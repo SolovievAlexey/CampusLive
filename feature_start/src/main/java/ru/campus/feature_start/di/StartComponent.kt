@@ -10,9 +10,8 @@ import ru.campus.core.presentation.ViewModelFactory
  * @date 12.05.2022 21:32
  */
 
-
-@Component(modules = [StartModule::class], dependencies = [AppDeps::class])
 @StartScope
+@Component(modules = [StartModule::class], dependencies = [AppDeps::class])
 interface StartComponent {
 
     fun viewModelsFactory(): ViewModelFactory

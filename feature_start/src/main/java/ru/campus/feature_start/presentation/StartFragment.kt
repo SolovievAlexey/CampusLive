@@ -1,7 +1,6 @@
 package ru.campus.feature_start.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -43,9 +42,9 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { _, _ -> }.attach()
-        viewModel.success.observe(viewLifecycleOwner, success())
-        viewModel.failure.observe(viewLifecycleOwner, failure())
-        viewModel.list.observe(viewLifecycleOwner, list())
+        viewModel.successLiveData.observe(viewLifecycleOwner, success())
+        viewModel.failureLiveData.observe(viewLifecycleOwner, failure())
+        viewModel.listLiveData.observe(viewLifecycleOwner, list())
         binding.start.setOnClickListener {
             isVisibleProgressBar(true)
             viewModel.login()
@@ -71,11 +70,11 @@ class StartFragment : BaseFragment<FragmentStartBinding>() {
 
     private fun failure() = Observer<String> { error ->
         isVisibleProgressBar(false)
-        val dialog = CustomDialogFragment()
-        val bundle = Bundle()
-        bundle.putString("message", error)
-        dialog.arguments = bundle
-        dialog.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
+        CustomDialogFragment().apply {
+            arguments = Bundle(1).apply {
+                putString("message", error)
+            }
+        }.show(requireActivity().supportFragmentManager, "CustomDialogFragment")
     }
 
     private fun isVisibleProgressBar(visible: Boolean) {

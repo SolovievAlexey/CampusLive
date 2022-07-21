@@ -1,6 +1,7 @@
 package ru.campus.feature_location.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -11,6 +12,7 @@ import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.messaging.FirebaseMessaging
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
@@ -30,11 +32,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
     }
 
     private val viewModel by viewModels<LocationViewModel> { component.viewModelsFactory() }
-
     private val myOnClick = object : MyOnClick<LocationModel> {
         override fun item(view: View, item: LocationModel) {
             binding.progressBar.isVisible = true
-            viewModel.registration(locationModel = item)
+            FirebaseMessaging.getInstance().subscribeToTopic("location_" + item.id)
+                .addOnSuccessListener { viewModel.registration(locationModel = item) }
+                .addOnFailureListener { viewModel.registration(locationModel = item) }
         }
     }
 

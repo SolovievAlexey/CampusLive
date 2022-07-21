@@ -8,6 +8,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -27,6 +28,13 @@ class MessageService : FirebaseMessagingService() {
     @SuppressLint("UnspecifiedImmutableFlag")
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
+        if((message.data["type"]?.toInt() ?: 0) != 2) return
+
+        val sPref: SharedPreferences =
+            applicationContext.getSharedPreferences("AppDB", Context.MODE_PRIVATE)
+        val uid = sPref.getInt("UID", 0)
+        if(uid == (message.data["author"]?.toInt() ?: 0)) return
+
         createNotificationChannel()
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -36,9 +44,11 @@ class MessageService : FirebaseMessagingService() {
             PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.mipmap.ic_launcher_round)
-            .setContentTitle(message.data["title"])
-            .setContentText(message.data["body"])
+            .setSmallIcon(R.drawable.ic_notification)
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(getString(R.string.notification_body))
+            .setStyle(NotificationCompat.BigTextStyle()
+                .bigText(getString(R.string.notification_body)))
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)

@@ -10,5 +10,6 @@ data class StartModel(
     val id: Int,
     val title: String,
     val message: String,
-    val icon: Int
+    val icon: Int,
+    var animation: Boolean = false
 )

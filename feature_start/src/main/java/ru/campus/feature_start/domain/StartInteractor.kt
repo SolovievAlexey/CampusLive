@@ -11,7 +11,7 @@ import ru.campus.feature_start.data.model.StartModel
  */
 
 interface StartInteractor {
-    fun start(): List<StartModel>
-    fun login(): ResponseObject<LoginModel>
+    suspend fun start(): List<StartModel>
+    suspend fun login(): ResponseObject<LoginModel>
     fun error(statusCode: Int): String
 }

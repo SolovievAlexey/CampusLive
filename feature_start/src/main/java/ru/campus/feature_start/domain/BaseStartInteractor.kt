@@ -20,11 +20,11 @@ class BaseStartInteractor @Inject constructor(
     private val errorDataSource: ErrorDataSource
 ) : StartInteractor {
 
-    override fun start(): List<StartModel> {
+    override suspend fun start(): List<StartModel> {
         return startRepository.start()
     }
 
-    override fun login(): ResponseObject<LoginModel> {
+    override suspend fun login(): ResponseObject<LoginModel> {
         val result = userRepository.registration()
         if (result is ResponseObject.Success)
             userRepository.login(result.data)
