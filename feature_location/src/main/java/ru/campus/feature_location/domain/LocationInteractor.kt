@@ -1,8 +1,8 @@
 package ru.campus.feature_location.domain
 
 import ru.campus.core.data.ResponseObject
-import ru.campus.feature_location.data.LocationModel
-import ru.campus.feature_location.data.LocationRepository
+import ru.campus.feature_location.data.model.LocationModel
+import ru.campus.feature_location.data.repository.LocationRepository
 import javax.inject.Inject
 
 /**

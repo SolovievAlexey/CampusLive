@@ -2,7 +2,7 @@ package ru.campus.feature_location.presentation.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_location.data.LocationModel
+import ru.campus.feature_location.data.model.LocationModel
 import ru.campus.feature_location.databinding.ItemLocationBinding
 
 /**

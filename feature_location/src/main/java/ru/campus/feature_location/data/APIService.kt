@@ -4,6 +4,7 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
+import ru.campus.feature_location.data.model.LocationModel
 
 /**
  * @author Soloviev Alexey
@@ -24,5 +25,12 @@ interface APIService {
         @Query("token") token: String,
         @Query("location_id") id: Int
     ): Call<ResponseBody>
+
+    @GET("api/1.0/location.nearbyGet")
+    fun locationNearby(
+        @Query("token") token: String,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
+    ): Call<ArrayList<LocationModel>>
 
 }

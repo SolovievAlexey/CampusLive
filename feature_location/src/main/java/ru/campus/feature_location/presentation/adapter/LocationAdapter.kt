@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_location.data.LocationModel
+import ru.campus.feature_location.data.model.LocationModel
 import ru.campus.feature_location.databinding.ItemLocationBinding
 
 /**

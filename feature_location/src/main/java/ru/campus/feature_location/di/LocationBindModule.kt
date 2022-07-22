@@ -2,8 +2,8 @@ package ru.campus.feature_location.di
 
 import dagger.Binds
 import dagger.Module
-import ru.campus.feature_location.data.BaseLocationRepository
-import ru.campus.feature_location.data.LocationRepository
+import ru.campus.feature_location.data.repository.BaseLocationRepository
+import ru.campus.feature_location.data.repository.LocationRepository
 
 /**
  * @author Soloviev Alexey

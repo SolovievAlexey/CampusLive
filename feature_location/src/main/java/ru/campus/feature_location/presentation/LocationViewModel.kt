@@ -9,7 +9,7 @@ import kotlinx.coroutines.withContext
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.di.CoroutineDispatchers
 import ru.campus.core.presentation.SingleLiveEvent
-import ru.campus.feature_location.data.LocationModel
+import ru.campus.feature_location.data.model.LocationModel
 import ru.campus.feature_location.domain.LocationInteractor
 import javax.inject.Inject
 

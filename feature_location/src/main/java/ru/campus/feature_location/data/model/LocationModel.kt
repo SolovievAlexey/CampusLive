@@ -1,4 +1,4 @@
-package ru.campus.feature_location.data
+package ru.campus.feature_location.data.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

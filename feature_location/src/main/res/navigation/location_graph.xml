@@ -13,7 +13,15 @@
 
         <deepLink
             app:uri="android-app://ru.campus.live/locationFragment" />
+        <action
+            android:id="@+id/action_locationFragment_to_besideFragment"
+            app:destination="@id/besideFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/besideFragment"
+        android:name="ru.campus.feature_location.presentation.BesideFragment"
+        android:label="fragment_beside"
+        tools:layout="@layout/fragment_beside" />
 
 </navigation>

@@ -1,3 +1,4 @@
 <resources>
     <string name="location_hint">Название или аббревиатура</string>
+    <string name="gps">Рядом</string>
 </resources>

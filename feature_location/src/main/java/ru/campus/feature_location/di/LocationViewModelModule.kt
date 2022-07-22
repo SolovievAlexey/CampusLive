@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import ru.campus.core.di.BaseViewModelModule
 import ru.campus.core.di.ViewModelKey
+import ru.campus.feature_location.presentation.BesideViewModel
 import ru.campus.feature_location.presentation.LocationViewModel
 
 /**
@@ -21,5 +22,10 @@ abstract class LocationViewModelModule : BaseViewModelModule() {
     @IntoMap
     @ViewModelKey(LocationViewModel::class)
     abstract fun onBoardViewModel(viewModel: LocationViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(BesideViewModel::class)
+    abstract fun besideViewModel(viewModel: BesideViewModel): ViewModel
 
 }

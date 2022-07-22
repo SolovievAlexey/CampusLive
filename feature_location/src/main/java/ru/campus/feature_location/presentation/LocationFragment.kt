@@ -1,7 +1,6 @@
 package ru.campus.feature_location.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
@@ -16,7 +15,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 import ru.campus.core.di.AppDepsProvider
 import ru.campus.core.presentation.BaseFragment
 import ru.campus.core.presentation.MyOnClick
-import ru.campus.feature_location.data.LocationModel
+import ru.campus.feature_location.R
+import ru.campus.feature_location.data.model.LocationModel
 import ru.campus.feature_location.databinding.FragmentLocationBinding
 import ru.campus.feature_location.di.DaggerLocationComponent
 import ru.campus.feature_location.di.LocationComponent
@@ -51,6 +51,7 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initToolBar()
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
@@ -58,13 +59,23 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         viewModel.success.observe(viewLifecycleOwner, success())
 
         binding.editText.doAfterTextChanged {
+            binding.toolbar.menu.getItem(0).isVisible = false
             binding.progressBar.isVisible = true
             viewModel.location(it.toString())
         }
     }
 
+    private fun initToolBar() {
+        binding.toolbar.inflateMenu(R.menu.menu_location)
+        binding.toolbar.setOnMenuItemClickListener {
+            findNavController().navigate(R.id.action_locationFragment_to_besideFragment)
+            return@setOnMenuItemClickListener false
+        }
+    }
+
     private fun list() = Observer<ArrayList<LocationModel>> { newModel ->
         binding.progressBar.isVisible = false
+        binding.toolbar.menu.getItem(0).isVisible = true
         adapter.setData(newModel)
     }
 
@@ -72,10 +83,12 @@ class LocationFragment : BaseFragment<FragmentLocationBinding>() {
         binding.progressBar.isVisible = false
 
         val navGraphResourceId = resources.getIdentifier(
-            "main_navigation", "id", requireContext().packageName)
+            "main_navigation", "id", requireContext().packageName
+        )
 
         val options = NavOptions.Builder().setPopUpTo(
-            destinationId = navGraphResourceId, inclusive = true).build()
+            destinationId = navGraphResourceId, inclusive = true
+        ).build()
 
         val request = NavDeepLinkRequest.Builder
             .fromUri("android-app://ru.campus.live/feedFragment".toUri())

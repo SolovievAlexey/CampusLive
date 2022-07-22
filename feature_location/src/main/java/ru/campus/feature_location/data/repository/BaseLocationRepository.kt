@@ -1,9 +1,11 @@
-package ru.campus.feature_location.data
+package ru.campus.feature_location.data.repository
 
 import okhttp3.ResponseBody
 import ru.campus.core.data.CloudDataSource
 import ru.campus.core.data.ResponseObject
 import ru.campus.core.data.UserDataStore
+import ru.campus.feature_location.data.APIService
+import ru.campus.feature_location.data.model.LocationModel
 import javax.inject.Inject
 
 /**
@@ -19,6 +21,18 @@ class BaseLocationRepository @Inject constructor(
 
     override fun get(name: String?): ResponseObject<ArrayList<LocationModel>> {
         val call = apiService.location(token = userDataStore.token(), name = name)
+        return CloudDataSource<ArrayList<LocationModel>>().execute(call = call)
+    }
+
+    override fun beside(
+        latitude: Double,
+        longitude: Double
+    ): ResponseObject<ArrayList<LocationModel>> {
+        val call = apiService.locationNearby(
+            token = userDataStore.token(),
+            latitude = latitude,
+            longitude = longitude
+        )
         return CloudDataSource<ArrayList<LocationModel>>().execute(call = call)
     }
 
